@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet} from "react-native";
 
-const SignupScreen = () => {
+const CreateFloorplanScreen = () => {
   return (
     <View>
-      <Text>Signup Screen</Text>
+      <Text>Create-Floorplan Screen</Text>
     </View>
   );
 };
@@ -12,4 +12,4 @@ const SignupScreen = () => {
 const styles = StyleSheet.create({
 });
 
-export default SignupScreen;
+export default CreateFloorplanScreen;
