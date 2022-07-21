@@ -11,9 +11,9 @@ const Logo = () => {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
+    margin: 20,
   },
   pinkY: {
     color: "#ff005de6",
