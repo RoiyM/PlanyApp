@@ -1,27 +1,37 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Logo from "../components/Logo";
 import ImageSwapper from "../components/ImageSwapper";
 
 const HomeScreen = ({ navigation }) => {
   return (
     <View>
-      <Logo />
+      <Text style={styles.title}>
+        <Logo />
+      </Text>
       <Text style={styles.text}>
         New <Text style={styles.pinkText}>floor plans options</Text>{" "}
         <Text>in a few steps</Text>
       </Text>
       <TouchableOpacity style={styles.button}>
-        <Text style={styles.pinkText} fontSize="30">
-          GET STARTED
-        </Text>
+        <Text style={styles.pinkText}>GET STARTED</Text>
       </TouchableOpacity>
       <ImageSwapper />
+      <Text style={styles.bold_text}>
+        <Logo />
+        ourself - architecture platform
+      </Text>
+      <Text style={styles.text}>
+        Get architectural services at a click of a button!
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 30,
+  },
   text: {
     textAlign: "center",
     fontSize: 20,
@@ -35,7 +45,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     borderWidth: 1,
     margin: 20,
-    width: 170,
+    width: 150,
     alignSelf: "center",
     alignItems: "center",
   },
@@ -44,6 +54,12 @@ const styles = StyleSheet.create({
     height: 350,
     alignSelf: "center",
     margin: 50,
+  },
+  bold_text: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    margin: 10,
   },
 });
 
