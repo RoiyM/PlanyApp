@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import ImageDetail from "../components/ImagaDetail";
 import { employees } from "../constans/employees";
+import Logo from "../components/Logo";
 
 const AboutScreen = () => {
   const list = () => {
@@ -20,9 +21,11 @@ const AboutScreen = () => {
   };
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.centerContentStyle}>
-        <Text style={styles.titleText}>About planY</Text>
-        <Text>
+      <ScrollView>
+        <Text style={styles.titleText}>
+          About <Logo />
+        </Text>
+        <Text style={styles.text}>
           PlanY provides architecture products and services. The founding team
           include experienced architect and 2 entrepreneurs with a vision to
           provide a property potential based on existing floor plans in a click
@@ -42,18 +45,19 @@ const AboutScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    padding: 20,
-  },
-  centerContentStyle: {
-    centerContent: true,
   },
   titleText: {
     fontSize: 20,
     fontWeight: "bold",
+    paddingBottom: 30,
+    paddingTop: 10,
+    textAlign: "center",
+  },
+  text: {
+    textAlign: "center",
     paddingBottom: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 });
 
