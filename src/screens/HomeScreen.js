@@ -1,11 +1,19 @@
 import React from "react";
+
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useAuthentication } from "../../utils/hooks/useAuthentication";
+import { Button } from "react-native-elements";
+import { getAuth, signOut } from "firebase/auth";
 import Logo from "../components/Logo";
 import ImageSwapper from "../components/ImageSwapper";
 
+const auth = getAuth();
+
 const HomeScreen = ({ navigation }) => {
+  const { user } = useAuthentication();
+
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.title}>
         <Logo />
       </Text>
@@ -24,11 +32,23 @@ const HomeScreen = ({ navigation }) => {
       <Text style={styles.text}>
         Get architectural services at a click of a button!
       </Text>
+       <Text>Welcome {user?.email}!</Text>
+      <Button
+        title="Sign Out"
+        style={{ marginTop: 10 }}
+        onPress={() => signOut(auth)}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   title: {
     fontSize: 30,
   },
@@ -60,6 +80,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     margin: 10,
+
   },
 });
 
