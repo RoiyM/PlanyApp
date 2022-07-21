@@ -20,13 +20,13 @@ export default function App() {
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Demo" component={DemoScreen} />
-        <Drawer.Screen name="HowItWorks" component={HowItWorksScreen} />
+        <Drawer.Screen name="How It Works" component={HowItWorksScreen} />
         <Drawer.Screen
-          name="CreateFloorplan"
+          name="Create Floor plan"
           component={CreateFloorplanScreen}
         />
         <Drawer.Screen name="About" component={AboutScreen} />
-        <Drawer.Screen name="ContactUs" component={ContactUsScreen} />
+        <Drawer.Screen name="Contact Us" component={ContactUsScreen} />
         <Drawer.Screen name="Signin" component={SigninScreen} />
         <Drawer.Screen name="Signup" component={SignupScreen} />
       </Drawer.Navigator>
