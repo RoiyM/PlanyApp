@@ -1,43 +1,30 @@
 import React from "react";
-
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { useAuthentication } from "../../utils/hooks/useAuthentication";
-import { Button } from "react-native-elements";
-import { getAuth, signOut } from "firebase/auth";
 import Logo from "../components/Logo";
 import ImageSwapper from "../components/ImageSwapper";
 
-const auth = getAuth();
-
 const HomeScreen = ({ navigation }) => {
-  const { user } = useAuthentication();
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        <Logo />
-      </Text>
+      <Logo />
       <Text style={styles.text}>
         New <Text style={styles.pinkText}>floor plans options</Text>{" "}
         <Text>in a few steps</Text>
       </Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("Sign In")}
+      >
         <Text style={styles.pinkText}>GET STARTED</Text>
       </TouchableOpacity>
       <ImageSwapper />
       <Text style={styles.bold_text}>
-        <Logo />
+        <Logo fontSize={20} />
         ourself - architecture platform
       </Text>
       <Text style={styles.text}>
         Get architectural services at a click of a button!
       </Text>
-       <Text>Welcome {user?.email}!</Text>
-      <Button
-        title="Sign Out"
-        style={{ marginTop: 10 }}
-        onPress={() => signOut(auth)}
-      />
     </View>
   );
 };
@@ -80,7 +67,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     margin: 10,
-
   },
 });
 

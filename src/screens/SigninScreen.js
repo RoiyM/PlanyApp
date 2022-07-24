@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Input, Button } from "react-native-elements";
 import Logo from "../components/Logo";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const auth = getAuth();
+const planYpink = "#ff005de6";
 
 const SigninScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -47,39 +48,38 @@ const SigninScreen = ({ navigation }) => {
           leftIcon={<Icon name="key" size={16} />}
         />
         {<Text style={styles.error}>{validationMessage}</Text>}
-        <Button
-          title="Sign in"
-          buttonStyle={{ marginTop: 10 }}
-          onPress={login}
-        />
+        <TouchableOpacity style={styles.button} onPress={login}>
+          <Text style={styles.textButton}>Sign In</Text>
+        </TouchableOpacity>
         <Text style={{ marginTop: 5, fontSize: 17 }}>
           {" "}
           Don't have an account yet ?
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Signup")}
-            style={{ color: "blue", marginLeft: 10 }}
-          >
-            <Text>Sign up here</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+            <Text style={styles.textButton2}> Sign up here</Text>
           </TouchableOpacity>
         </Text>
+        <Button
+          title="Sign Out"
+          style={{ marginTop: 10 }}
+          onPress={() => signOut(auth)}
+        />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    bottom: 50,
+  },
   input: {
     height: 40,
     margin: 12,
     borderWidth: 1,
     padding: 10,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    bottom: 50,
   },
   containerInput: {
     marginTop: 10,
@@ -93,6 +93,29 @@ const styles = StyleSheet.create({
   error: {
     marginTop: 10,
     color: "red",
+  },
+  text: {
+    textAlign: "center",
+    fontSize: 30,
+  },
+  button: {
+    borderColor: planYpink,
+    borderRadius: 2,
+    borderWidth: 1,
+    marginTop: 10,
+    padding: 5,
+    alignSelf: "center",
+    alignItems: "center",
+  },
+  textButton: {
+    color: planYpink,
+    fontSize: 20,
+    textAlign: "center",
+  },
+  textButton2: {
+    color: planYpink,
+    marginTop: 30,
+    textDecorationLine: "underline",
   },
 });
 
