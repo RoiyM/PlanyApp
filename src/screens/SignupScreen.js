@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Input, Button } from "react-native-elements";
+import { Input } from "react-native-elements";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import Logo from "../components/Logo";
 
 const auth = getAuth();
+const planYpink = "#ff005de6";
+
 const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +28,7 @@ const SignUpScreen = ({ navigation }) => {
       : "";
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigation.navigate("Signin");
+      navigation.navigate("Sign In");
     } catch (error) {
       setValidationMessage(error.message);
     }
@@ -63,19 +65,14 @@ const SignUpScreen = ({ navigation }) => {
           onBlur={() => checkPassword(password, confirmPassword)}
         />
         {<Text style={styles.error}>{validationMessage}</Text>}
-        <Button
-          title="Sign up"
-          buttonStyle={{ marginTop: 10 }}
-          onPress={createAccount}
-        />
+        <TouchableOpacity style={styles.button} onPress={createAccount}>
+          <Text style={styles.textButton}> Sign up</Text>
+        </TouchableOpacity>
         <View>
           <Text style={{ marginTop: 5, fontSize: 17 }}>
             Already have an account?
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Signin")}
-              style={{ color: "blue", marginLeft: 10 }}
-            >
-              <Text>Login here </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+              <Text style={styles.textButton2}> Login here</Text>
             </TouchableOpacity>
           </Text>
         </View>
@@ -85,17 +82,16 @@ const SignUpScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    bottom: 50,
+  },
   input: {
     height: 40,
     margin: 12,
     padding: 10,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    bottom: 50,
   },
   containerInput: {
     marginTop: 10,
@@ -104,6 +100,26 @@ const styles = StyleSheet.create({
   error: {
     marginTop: 10,
     color: "red",
+    textAlign: "center",
+  },
+  button: {
+    borderColor: planYpink,
+    borderRadius: 2,
+    borderWidth: 1,
+    marginTop: 10,
+    padding: 5,
+    alignSelf: "center",
+    alignItems: "center",
+  },
+  textButton: {
+    color: planYpink,
+    fontSize: 20,
+    textAlign: "center",
+  },
+  textButton2: {
+    color: planYpink,
+    marginTop: 30,
+    textDecorationLine: "underline",
   },
 });
 

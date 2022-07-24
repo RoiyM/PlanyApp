@@ -4,7 +4,6 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 
 import HomeScreen from "../src/screens/HomeScreen";
-import SignupScreen from "../src/screens/SignupScreen";
 import AboutScreen from "../src/screens/AboutScreen";
 import SigninScreen from "../src/screens/SigninScreen";
 import HowItWorksScreen from "../src/screens/HowItWorksScreen";
@@ -20,22 +19,15 @@ export default function UserStack() {
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Demo" component={DemoScreen} />
-        <Drawer.Screen name="HowItWorks" component={HowItWorksScreen} />
+        <Drawer.Screen name="How It Works" component={HowItWorksScreen} />
         <Drawer.Screen
-          name="CreateFloorplan"
+          name="Create Floor Plan"
           component={CreateFloorplanScreen}
         />
         <Drawer.Screen name="About" component={AboutScreen} />
-        <Drawer.Screen name="ContactUs" component={ContactUsScreen} />
-        <Drawer.Screen name="Signin" component={SigninScreen} />
-        <Drawer.Screen name="Signup" component={SignupScreen} />
+        <Drawer.Screen name="Contact Us" component={ContactUsScreen} />
+        <Drawer.Screen name="Sign In" component={SigninScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 }
-
-// export default function App() {
-//   return (
-
-//   );
-// }
