@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { Input, Button } from "react-native-elements";
 import Logo from "../components/Logo";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import PlanYButton from "../components/PlanYButton";
 
 const auth = getAuth();
 const planYpink = "#ff005de6";
@@ -48,14 +49,12 @@ const SigninScreen = ({ navigation }) => {
           leftIcon={<Icon name="key" size={16} />}
         />
         {<Text style={styles.error}>{validationMessage}</Text>}
-        <TouchableOpacity style={styles.button} onPress={login}>
-          <Text style={styles.textButton}>Sign In</Text>
-        </TouchableOpacity>
+        <PlanYButton buttonText={"Sign In"} onPress={login} />
         <Text style={{ marginTop: 5, fontSize: 17 }}>
           {" "}
           Don't have an account yet ?
-          <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-            <Text style={styles.textButton2}> Sign up here</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>
+            <Text style={styles.textButton}> Sign up here</Text>
           </TouchableOpacity>
         </Text>
         <Button
@@ -94,10 +93,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: "red",
   },
-  text: {
-    textAlign: "center",
-    fontSize: 30,
-  },
   button: {
     borderColor: planYpink,
     borderRadius: 2,
@@ -108,11 +103,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textButton: {
-    color: planYpink,
-    fontSize: 20,
-    textAlign: "center",
-  },
-  textButton2: {
     color: planYpink,
     marginTop: 30,
     textDecorationLine: "underline",
