@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import img1 from "../../assets/home_slide_show_img1.jpg";
 import img2 from "../../assets/home_slide_show_img2.jpg";
 import img3 from "../../assets/home_slide_show_img3.jpg";

@@ -1,7 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import Logo from "../components/Logo";
 import ImageSwapper from "../components/ImageSwapper";
+import PlanYButton from "../components/PlanYButton";
+const planYpink = "#ff005de6";
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -11,12 +13,10 @@ const HomeScreen = ({ navigation }) => {
         New <Text style={styles.pinkText}>floor plans options</Text>{" "}
         <Text>in a few steps</Text>
       </Text>
-      <TouchableOpacity
-        style={styles.button}
+      <PlanYButton
+        buttonText={"GET STARTED"}
         onPress={() => navigation.navigate("Sign In")}
-      >
-        <Text style={styles.pinkText}>GET STARTED</Text>
-      </TouchableOpacity>
+      />
       <ImageSwapper />
       <Text style={styles.bold_text}>
         <Logo fontSize={20} />
@@ -36,31 +36,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  title: {
-    fontSize: 30,
-  },
   text: {
     textAlign: "center",
     fontSize: 20,
   },
   pinkText: {
-    color: "#ff005de6",
+    color: planYpink,
     fontSize: 20,
-  },
-  button: {
-    borderColor: "#ff005de6",
-    borderRadius: 2,
-    borderWidth: 1,
-    margin: 20,
-    width: 150,
-    alignSelf: "center",
-    alignItems: "center",
-  },
-  image: {
-    width: 350,
-    height: 350,
-    alignSelf: "center",
-    margin: 50,
   },
   bold_text: {
     fontSize: 20,
