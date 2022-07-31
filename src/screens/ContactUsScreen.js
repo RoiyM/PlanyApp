@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Alert } from "react-native";
 import PlanYButton from "../components/PlanYButton";
-import CostumeTextInput from "../components/CostumeTextInput";
+import CustomeTextInput from "../components/CustomeTextInput";
 
 const ContactUsScreen = () => {
   const submitText = () => {
@@ -15,8 +15,8 @@ const ContactUsScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Contact Us</Text>
-      <CostumeTextInput placeholder={"Subject"} />
-      <CostumeTextInput placeholder={"Message"} height={400} />
+      <CustomeTextInput placeholder={"Subject"} />
+      <CustomeTextInput placeholder={"Message"} height={400} />
       <PlanYButton buttonText={"Submit"} onPress={submitText} />
     </View>
   );

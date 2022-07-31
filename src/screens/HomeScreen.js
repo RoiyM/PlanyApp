@@ -15,7 +15,11 @@ const HomeScreen = ({ navigation }) => {
       </Text>
       <PlanYButton
         buttonText={"GET STARTED"}
-        onPress={() => navigation.navigate("Sign In")}
+        onPress={() => {
+          true
+            ? navigation.navigate("How It Works")
+            : navigation.navigate("Sign In"); //need to check if user logged in
+        }}
       />
       <ImageSwapper />
       <Text style={styles.bold_text}>
