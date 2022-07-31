@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextInput, StyleSheet } from "react-native";
 
-const CostumeTextInput = ({ placeholder, height = 40 }) => {
+const CustomeTextInput = ({ placeholder, height = 40 }) => {
   const [text, onChangeText] = useState("");
 
   return (
@@ -28,4 +28,4 @@ const styles = (height) =>
     },
   });
 
-export default CostumeTextInput;
+export default CustomeTextInput;

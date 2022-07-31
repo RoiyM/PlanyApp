@@ -57,11 +57,6 @@ const SigninScreen = ({ navigation }) => {
             <Text style={styles.textButton}> Sign up here</Text>
           </TouchableOpacity>
         </Text>
-        <Button
-          title="Sign Out"
-          style={{ marginTop: 10 }}
-          onPress={() => signOut(auth)}
-        />
       </View>
     </View>
   );
