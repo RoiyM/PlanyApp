@@ -1,14 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
+  Image,
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import mime from "mime";
+
 import background from "../../assets/bck.jpg";
 
 const DemoScreen = () => {
+  const [photo, setPhoto] = useState(null);
+  const [imageUri, setImageUri] = useState(null);
+  const [message, setMessage] = useState(null);
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+      base64: true,
+    });
+
+    if (!result.cancelled) {
+      setPhoto(result);
+      setImageUri(result.uri);
+    }
+  };
+
+  async function analyze() {
+    if (imageUri) {
+      const XHR = new XMLHttpRequest();
+
+      // Set up our request
+      XHR.open("POST", "https://planydemo.azurewebsites.net/analyze", true);
+
+      // Define what happens on successful data submission
+      XHR.addEventListener("load", function loadTest() {
+        const response = JSON.parse(this.responseText);
+        const res = `data:image/png;base64, ${response["image_data"]}`;
+        setMessage(null);
+        setImageUri(res);
+      });
+
+      // Define what happens in case of error
+      XHR.addEventListener("error", (event) => {
+        console.log("==============================");
+        console.log("Oops! Something went wrong.");
+        console.log({ event });
+        console.log({ afaf: XHR.responseText });
+        console.log({ asdasd: XHR.response });
+
+        alert(XHR.responseText);
+      });
+
+      //set key value object to send
+      const formData = new FormData();
+      formData.append("file", {
+        uri: photo.uri,
+        type: mime.getType(photo.uri),
+        name: photo.fileName ? photo.fileName : "image123",
+      });
+
+      // Finally, send our data.
+      XHR.send(formData);
+      setMessage("Please Wait...");
+    } else {
+      console.log("no picture to analyze!");
+    }
+  }
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -16,11 +81,22 @@ const DemoScreen = () => {
         resizeMode="stretch"
         style={styles.image}
       >
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={pickImage} style={styles.button}>
           <Text style={styles.button_text}>Load Image</Text>
         </TouchableOpacity>
         <Text style={styles.text}>Demo Screen</Text>
-        <TouchableOpacity style={styles.button}>
+        {imageUri && (
+          <Image
+            source={{ uri: imageUri }}
+            style={{ width: 330, height: 330, alignSelf: "center" }}
+          />
+        )}
+        {message && (
+          <Text style={{ alignSelf: "center", fontSize: 25, color: "white" }}>
+            {message}
+          </Text>
+        )}
+        <TouchableOpacity onPress={analyze} style={styles.button}>
           <Text style={styles.button_text}>Analyze</Text>
         </TouchableOpacity>
       </ImageBackground>
