@@ -5,6 +5,7 @@ import { Input } from "react-native-elements";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import Logo from "../components/Logo";
 import PlanYButton from "../components/PlanYButton";
+import { useFonts } from "expo-font";
 
 const auth = getAuth();
 const planYpink = "#ff005de6";
@@ -15,6 +16,9 @@ const SignUpScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [validationMessage, setValidationMessage] = useState("");
 
+  let [fontsLoaded] = useFonts({
+    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+  });
   let validateAndSet = (value, setValue) => {
     setValue(value);
   };
@@ -68,7 +72,7 @@ const SignUpScreen = ({ navigation }) => {
         {<Text style={styles.error}>{validationMessage}</Text>}
         <PlanYButton buttonText={"Sign up"} onPress={createAccount} />
         <View>
-          <Text style={{ marginTop: 5, fontSize: 17 }}>
+          <Text style={styles.text}>
             Already have an account?
             <TouchableOpacity onPress={() => navigation.navigate("Sign In")}>
               <Text style={styles.textButton}> Login here</Text>
@@ -101,7 +105,13 @@ const styles = StyleSheet.create({
     color: "red",
     textAlign: "center",
   },
+  text: {
+    marginTop: 5,
+    fontSize: 17,
+    fontFamily: "ArielBD",
+  },
   textButton: {
+    fontFamily: "ArielBD",
     color: planYpink,
     marginTop: 30,
     textDecorationLine: "underline",

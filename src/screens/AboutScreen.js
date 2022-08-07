@@ -4,8 +4,12 @@ import { ScrollView } from "react-native-gesture-handler";
 import ImageDetail from "../components/ImagaDetail";
 import { employees } from "../constans/employees";
 import Logo from "../components/Logo";
+import { useFonts } from "expo-font";
 
 const AboutScreen = () => {
+  let [fontsLoaded] = useFonts({
+    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+  });
   const list = () => {
     return employees.map((employee) => {
       return (
@@ -48,13 +52,15 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 30,
-    fontWeight: "bold",
+    fontFamily: "ArielBD",
     paddingBottom: 30,
     paddingTop: 10,
     textAlign: "center",
   },
   text: {
+    fontFamily: "ArielBD",
     textAlign: "center",
+    fontSize: 17,
     paddingBottom: 20,
     paddingLeft: 20,
     paddingRight: 20,

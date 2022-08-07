@@ -15,7 +15,7 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
-
+const planYpink = "#ff0056";
 const auth = getAuth();
 
 const CustomDrawer = (props) => {
@@ -23,10 +23,10 @@ const CustomDrawer = (props) => {
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
         {...props}
-        contentContainerStyle={{ backgroundColor: "#8200d6" }}
+        contentContainerStyle={{ backgroundColor: planYpink }}
       >
         <ImageBackground
-          source={require("../../assets/menuHeader.jpeg")}
+          source={require("../../assets/userBackground.png")}
           style={{ padding: 10 }}
         >
           <Image
@@ -49,11 +49,12 @@ const CustomDrawer = (props) => {
       <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: "#ccc" }}>
         <TouchableOpacity onPress={() => {}} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Ionicons name="share-social-outline" size={22} />
+            <Ionicons name="share-social-outline" size={22} color="black" />
             <Text
               style={{
                 fontSize: 15,
                 marginLeft: 5,
+                color: "black",
               }}
             >
               Tell a Friend
@@ -65,11 +66,12 @@ const CustomDrawer = (props) => {
           style={{ paddingVertical: 15 }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Ionicons name="exit-outline" size={22} />
+            <Ionicons name="exit-outline" size={22} color="black" />
             <Text
               style={{
                 fontSize: 15,
                 marginLeft: 5,
+                color: "black",
               }}
             >
               Sign Out
