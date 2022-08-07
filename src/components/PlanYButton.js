@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
-import { useFonts } from "expo-font";
+import * as Font from "expo-font";
 const planYpink = "#ff005de6";
 
 const PlanYButton = ({ buttonText, onPress }) => {
-  let [fontsLoaded] = useFonts({
-    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-  });
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    Font.loadAsync({
+      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+    }).then(() => {
+      setFontLoaded(true);
+    });
+  }, []);
 
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>

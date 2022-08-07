@@ -1,14 +1,21 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Logo from "../components/Logo";
 import { icons } from "../constans/icons";
 import IconDetail from "../components/IconDetail";
-import { useFonts } from "expo-font";
+import * as Font from "expo-font";
 
 const HowItWorksScreen = () => {
-  let [fontsLoaded] = useFonts({
-    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-  });
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    Font.loadAsync({
+      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+    }).then(() => {
+      setFontLoaded(true);
+    });
+  }, []);
+
   const iconList = () => {
     return icons.map((icon) => {
       return (
@@ -24,11 +31,13 @@ const HowItWorksScreen = () => {
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
-        <Logo fontSize={25} /> will follow the work process of an architect.
-        Providing professional floor plans according to your needs
-      </Text>
-      {iconList()}
+      <ScrollView>
+        <Text style={styles.text}>
+          <Logo fontSize={25} /> will follow the work process of an architect.
+          Providing professional floor plans according to your needs
+        </Text>
+        {iconList()}
+      </ScrollView>
     </View>
   );
 };
@@ -41,7 +50,7 @@ const styles = StyleSheet.create({
     fontFamily: "ArielBD",
     textAlign: "center",
     fontSize: 20,
-    margin: 25,
+    margin: 20,
   },
 });
 

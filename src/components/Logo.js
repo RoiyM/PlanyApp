@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Text, StyleSheet } from "react-native";
-import { useFonts } from "expo-font";
+import * as Font from "expo-font";
 const planYpink = "#ff005de6";
 
 const Logo = ({ fontSize = 30 }) => {
-  let [fontsLoaded] = useFonts({
-    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-  });
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    Font.loadAsync({
+      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+    }).then(() => {
+      setFontLoaded(true);
+    });
+  }, []);
+
+  if (!fontLoaded) return null;
   return (
     <Text style={styles(fontSize).text}>
       Plan<Text style={styles(fontSize).pinkY}>Y</Text>
@@ -19,8 +27,8 @@ const styles = (fontSize) =>
     text: {
       fontFamily: "ArielBD",
       textAlign: "center",
-      margin: 10,
       fontSize,
+      padding: 10,
     },
     pinkY: {
       color: planYpink,

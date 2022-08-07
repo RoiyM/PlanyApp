@@ -1,21 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Logo from "../components/Logo";
 import ImageSwapper from "../components/ImageSwapper";
 import PlanYButton from "../components/PlanYButton";
-import { useFonts } from "expo-font";
 const planYpink = "#ff005de6";
+import * as Font from "expo-font";
 
 const HomeScreen = ({ navigation }) => {
-  let [fontsLoaded] = useFonts({
-    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-  });
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    Font.loadAsync({
+      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+    }).then(() => {
+      setFontLoaded(true);
+    });
+  }, []);
+
+  if (!fontLoaded) return null;
 
   return (
     <View style={styles.container}>
       <Logo />
       <Text style={styles.text}>
-        New <Text style={styles.pinkText}>floor plans options</Text>{" "}
+        New <Text style={{ color: planYpink }}>floor plans options</Text>{" "}
         <Text>in a few steps</Text>
       </Text>
       <PlanYButton
@@ -27,11 +35,11 @@ const HomeScreen = ({ navigation }) => {
         }}
       />
       <ImageSwapper />
-      <Text style={styles.bold_text}>
-        <Logo fontSize={20} />
+      <Text style={styles.text}>
+        <Logo fontSize={21} />
         ourself - architecture platform
       </Text>
-      <Text style={styles.text}>
+      <Text style={styles.smallText}>
         Get architectural services at a click of a button!
       </Text>
     </View>
@@ -43,22 +51,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
   },
   text: {
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 21,
     fontFamily: "ArielBD",
   },
-  pinkText: {
-    color: planYpink,
-    fontSize: 20,
-  },
-  bold_text: {
-    fontSize: 20,
+  smallText: {
+    fontSize: 18,
     fontFamily: "ArielBD",
     textAlign: "center",
-    margin: 10,
   },
 });
 

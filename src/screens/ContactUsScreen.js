@@ -1,27 +1,49 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, Alert, ScrollView } from "react-native";
 import PlanYButton from "../components/PlanYButton";
 import CustomTextInput from "../components/CustomTextInput";
-import { useFonts } from "expo-font";
+import * as Font from "expo-font";
 
 const ContactUsScreen = () => {
-  let [fontsLoaded] = useFonts({
-    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-  });
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    Font.loadAsync({
+      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+    }).then(() => {
+      setFontLoaded(true);
+    });
+  }, []);
+
   const submitText = () => {
     Alert.alert("Submit", "Submitted successfully", [
       {
         text: "Ok",
       },
     ]);
+    setMessage("");
+    setSubject("");
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Contact Us</Text>
-      <CustomTextInput placeholder={"Subject"} />
-      <CustomTextInput placeholder={"Message"} height={400} />
-      <PlanYButton buttonText={"Submit"} onPress={submitText} />
+      <ScrollView>
+        <Text style={styles.title}>Contact Us</Text>
+        <CustomTextInput
+          placeholder={"Subject"}
+          text={subject}
+          setText={setSubject}
+        />
+        <CustomTextInput
+          placeholder={"Message"}
+          text={message}
+          setText={setMessage}
+          height={400}
+        />
+        <PlanYButton buttonText={"Submit"} onPress={submitText} />
+      </ScrollView>
     </View>
   );
 };
@@ -35,6 +57,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "ArielBD",
     fontSize: 30,
+    textAlign: "center",
   },
   text: {
     fontFamily: "ArielBD",
