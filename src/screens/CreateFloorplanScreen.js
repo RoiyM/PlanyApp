@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Text, StyleSheet } from "react-native";
 import Logo from "../components/Logo";
 import ImageButton from "../components/ImageButton";
 import { floorplanOptions } from "../constans/floorplanOptions";
 import { ScrollView } from "react-native-gesture-handler";
-import { useFonts } from "expo-font";
+import * as Font from "expo-font";
 
 const CreateFloorplanScreen = ({ navigation }) => {
-  let [fontsLoaded] = useFonts({
-    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-  });
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    Font.loadAsync({
+      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+    }).then(() => {
+      setFontLoaded(true);
+    });
+  }, []);
 
   const imageButtons = () => {
     return floorplanOptions.map((option) => {

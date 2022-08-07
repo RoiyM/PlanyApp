@@ -1,11 +1,11 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Input } from "react-native-elements";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import Logo from "../components/Logo";
 import PlanYButton from "../components/PlanYButton";
-import { useFonts } from "expo-font";
+import * as Font from "expo-font";
 
 const auth = getAuth();
 const planYpink = "#ff005de6";
@@ -15,10 +15,16 @@ const SignUpScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [validationMessage, setValidationMessage] = useState("");
+  const [fontLoaded, setFontLoaded] = useState(false);
 
-  let [fontsLoaded] = useFonts({
-    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-  });
+  useEffect(() => {
+    Font.loadAsync({
+      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+    }).then(() => {
+      setFontLoaded(true);
+    });
+  }, []);
+
   let validateAndSet = (value, setValue) => {
     setValue(value);
   };

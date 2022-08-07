@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { TextInput, StyleSheet } from "react-native";
 
-const CustomeTextInput = ({ placeholder, height = 40 }) => {
-  const [text, onChangeText] = useState("");
-
+const CustomeTextInput = ({ placeholder, text, setText, height = 40 }) => {
   return (
     <TextInput
       style={styles(height).text}
-      onChangeText={onChangeText}
+      onChangeText={setText}
       value={text}
       placeholder={placeholder}
       multiline={true} // ios fix for centering it at the top-left corner

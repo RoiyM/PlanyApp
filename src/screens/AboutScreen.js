@@ -1,15 +1,21 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import ImageDetail from "../components/ImagaDetail";
 import { employees } from "../constans/employees";
 import Logo from "../components/Logo";
-import { useFonts } from "expo-font";
+import * as Font from "expo-font";
 
 const AboutScreen = () => {
-  let [fontsLoaded] = useFonts({
-    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-  });
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    Font.loadAsync({
+      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+    }).then(() => {
+      setFontLoaded(true);
+    });
+  }, []);
+
   const list = () => {
     return employees.map((employee) => {
       return (

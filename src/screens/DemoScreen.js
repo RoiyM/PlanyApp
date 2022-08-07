@@ -71,7 +71,7 @@ const DemoScreen = () => {
       XHR.send(formData);
       setMessage("Please Wait...");
     } else {
-      console.log("no picture to analyze!");
+      alert("no picture to analyze!");
     }
   }
   return (
@@ -84,7 +84,6 @@ const DemoScreen = () => {
         <TouchableOpacity onPress={pickImage} style={styles.button}>
           <Text style={styles.button_text}>Load Image</Text>
         </TouchableOpacity>
-        <Text style={styles.text}>Demo Screen</Text>
         {imageUri && (
           <Image
             source={{ uri: imageUri }}
@@ -111,14 +110,6 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     justifyContent: "center",
-  },
-  text: {
-    color: "white",
-    fontSize: 42,
-    lineHeight: 84,
-    fontWeight: "bold",
-    textAlign: "center",
-    backgroundColor: "#000000c0",
   },
   button: {
     alignItems: "center",

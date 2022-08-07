@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Input } from "react-native-elements";
 import Logo from "../components/Logo";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import PlanYButton from "../components/PlanYButton";
-import { useFonts } from "expo-font";
+import * as Font from "expo-font";
 
 const auth = getAuth();
 const planYpink = "#ff005de6";
@@ -14,10 +14,16 @@ const SigninScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validationMessage, setvalidationMessage] = useState("");
+  const [fontLoaded, setFontLoaded] = useState(false);
 
-  let [fontsLoaded] = useFonts({
-    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-  });
+  useEffect(() => {
+    Font.loadAsync({
+      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+    }).then(() => {
+      setFontLoaded(true);
+    });
+  }, []);
+
   async function login() {
     if (email === "" || password === "") {
       setvalidationMessage("required filled missing");
