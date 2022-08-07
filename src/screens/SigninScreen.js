@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Input, Button } from "react-native-elements";
+import { Input } from "react-native-elements";
 import Logo from "../components/Logo";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import PlanYButton from "../components/PlanYButton";
+import { useFonts } from "expo-font";
 
 const auth = getAuth();
 const planYpink = "#ff005de6";
@@ -14,6 +15,9 @@ const SigninScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [validationMessage, setvalidationMessage] = useState("");
 
+  let [fontsLoaded] = useFonts({
+    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+  });
   async function login() {
     if (email === "" || password === "") {
       setvalidationMessage("required filled missing");
@@ -50,8 +54,7 @@ const SigninScreen = ({ navigation }) => {
         />
         {<Text style={styles.error}>{validationMessage}</Text>}
         <PlanYButton buttonText={"Sign In"} onPress={login} />
-        <Text style={{ marginTop: 5, fontSize: 17 }}>
-          {" "}
+        <Text style={styles.text}>
           Don't have an account yet ?
           <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>
             <Text style={styles.textButton}> Sign up here</Text>
@@ -69,12 +72,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     bottom: 50,
   },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
   containerInput: {
     marginTop: 10,
     width: 300,
@@ -88,16 +85,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: "red",
   },
-  button: {
-    borderColor: planYpink,
-    borderRadius: 2,
-    borderWidth: 1,
-    marginTop: 10,
-    padding: 5,
-    alignSelf: "center",
-    alignItems: "center",
+  text: {
+    marginTop: 5,
+    fontSize: 17,
+    fontFamily: "ArielBD",
   },
   textButton: {
+    fontFamily: "ArielBD",
     color: planYpink,
     marginTop: 30,
     textDecorationLine: "underline",

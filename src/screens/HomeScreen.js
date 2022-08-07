@@ -3,9 +3,14 @@ import { View, Text, StyleSheet } from "react-native";
 import Logo from "../components/Logo";
 import ImageSwapper from "../components/ImageSwapper";
 import PlanYButton from "../components/PlanYButton";
+import { useFonts } from "expo-font";
 const planYpink = "#ff005de6";
 
 const HomeScreen = ({ navigation }) => {
+  let [fontsLoaded] = useFonts({
+    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+  });
+
   return (
     <View style={styles.container}>
       <Logo />
@@ -43,6 +48,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     fontSize: 20,
+    fontFamily: "ArielBD",
   },
   pinkText: {
     color: planYpink,
@@ -50,7 +56,7 @@ const styles = StyleSheet.create({
   },
   bold_text: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: "ArielBD",
     textAlign: "center",
     margin: 10,
   },

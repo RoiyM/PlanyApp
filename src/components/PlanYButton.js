@@ -1,8 +1,13 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { useFonts } from "expo-font";
 const planYpink = "#ff005de6";
 
 const PlanYButton = ({ buttonText, onPress }) => {
+  let [fontsLoaded] = useFonts({
+    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+  });
+
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.pinkText}>{buttonText}</Text>
@@ -12,6 +17,7 @@ const PlanYButton = ({ buttonText, onPress }) => {
 
 const styles = StyleSheet.create({
   pinkText: {
+    fontFamily: "ArielBD",
     color: planYpink,
     fontSize: 20,
   },

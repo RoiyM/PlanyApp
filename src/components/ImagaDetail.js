@@ -1,7 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import { useFonts } from "expo-font";
 
 const ImageDetail = ({ imageSource, fullName, position, experience }) => {
+  let [fontsLoaded] = useFonts({
+    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+  });
   return (
     <View style={styles.container}>
       <Image source={imageSource} style={styles.image} />
@@ -21,12 +25,14 @@ const styles = StyleSheet.create({
   },
   full_name: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: "ArielBD",
     textAlign: "center",
     paddingTop: 10,
   },
   text: {
     textAlign: "center",
+    fontFamily: "ArielBD",
+    fontSize: 16,
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 20,

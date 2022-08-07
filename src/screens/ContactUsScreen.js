@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Alert } from "react-native";
 import PlanYButton from "../components/PlanYButton";
-import CustomeTextInput from "../components/CustomeTextInput";
+import CustomTextInput from "../components/CustomTextInput";
+import { useFonts } from "expo-font";
 
 const ContactUsScreen = () => {
+  let [fontsLoaded] = useFonts({
+    ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+  });
   const submitText = () => {
     Alert.alert("Submit", "Submitted successfully", [
       {
@@ -15,8 +19,8 @@ const ContactUsScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Contact Us</Text>
-      <CustomeTextInput placeholder={"Subject"} />
-      <CustomeTextInput placeholder={"Message"} height={400} />
+      <CustomTextInput placeholder={"Subject"} />
+      <CustomTextInput placeholder={"Message"} height={400} />
       <PlanYButton buttonText={"Submit"} onPress={submitText} />
     </View>
   );
@@ -29,10 +33,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   title: {
-    fontWeight: "bold",
+    fontFamily: "ArielBD",
     fontSize: 30,
   },
   text: {
+    fontFamily: "ArielBD",
     height: 40,
     width: 350,
     margin: 12,
