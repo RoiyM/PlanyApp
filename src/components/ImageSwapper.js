@@ -1,35 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import img1 from "../../assets/home_slide_show_img1.jpg";
 import img2 from "../../assets/home_slide_show_img2.jpg";
 import img3 from "../../assets/home_slide_show_img3.jpg";
 
 const ImageSwapper = () => {
-  const images = [img1, img2, img3];
-  const [currentImage, setCurrentImage] = useState(images[0]);
-  var x = 0;
+  const IMAGES = [img1, img2, img3];
+  const [currentImage, setCurrentImage] = useState(IMAGES[0]);
+  var index = 0;
 
   function getIndexOfImage() {
-    x++;
-    if (x >= images.length) {
-      x = 0;
+    index++;
+    if (index >= IMAGES.length) {
+      index = 0;
     }
-    return x;
+    return index;
   }
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentImage(images[getIndexOfImage()]);
-    }, 2000);
+    const interval = setInterval(() => {
+      setCurrentImage(IMAGES[getIndexOfImage()]);
+    }, 1000);
 
-    return () => clearInterval(intervalId);
+    return () => clearInterval(interval);
   }, []);
 
-  return (
-    <View>
-      <Image source={currentImage} style={styles.image} />
-    </View>
-  );
+  return <Image source={currentImage} style={styles.image} />;
 };
 
 const styles = StyleSheet.create({

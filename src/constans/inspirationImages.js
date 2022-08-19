@@ -1,0 +1,43 @@
+import spaceA from "../../assets/space-A.jpg";
+import spaceB from "../../assets/space-B.jpg";
+import wallA from "../../assets/wall-A.jpg";
+import wallB from "../../assets/wall-B.jpg";
+import livingRoomA from "../../assets/living-room-A.jpg";
+import livingRoomB from "../../assets/living-room-B.jpg";
+import homeBookshelfA from "../../assets/home-bookshelf-A.jpg";
+import homeBookshelfB from "../../assets/home-bookshelf-B.jpg";
+import couchA from "../../assets/couch-A.jpg";
+import couchB from "../../assets/Couch-B.jpg";
+import chairsA from "../../assets/chairs-A.jpg";
+import chairsB from "../../assets/chairs-B.jpg";
+import kitchenA from "../../assets/kitchen-A.jpg";
+import kitchenB from "../../assets/kitchen-B.jpg";
+import bedroomA from "../../assets/bedroom-A.jpg";
+import bedroomB from "../../assets/bedroom-B.jpg";
+import bedroomC from "../../assets/bedroom-C.jpg";
+import bathroomA from "../../assets/bathroom-A.jpg";
+import bathroomB from "../../assets/bathroom-B.jpg";
+import bathroomC from "../../assets/bathroom-C.jpg";
+
+export const inspirationImages = [
+  { imageSource: spaceA },
+  { imageSource: spaceB },
+  { imageSource: wallA },
+  { imageSource: wallB },
+  { imageSource: livingRoomA },
+  { imageSource: livingRoomB },
+  { imageSource: homeBookshelfA },
+  { imageSource: homeBookshelfB },
+  { imageSource: couchA },
+  { imageSource: couchB },
+  { imageSource: chairsA },
+  { imageSource: chairsB },
+  { imageSource: kitchenA },
+  { imageSource: kitchenB },
+  { imageSource: bedroomA },
+  { imageSource: bedroomB },
+  { imageSource: bedroomC },
+  { imageSource: bathroomA },
+  { imageSource: bathroomB },
+  { imageSource: bathroomC },
+];
