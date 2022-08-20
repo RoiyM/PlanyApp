@@ -7,11 +7,10 @@ import HowItWorksScreen from "../src/screens/HowItWorksScreen";
 import ContactUsScreen from "../src/screens/ContactUsScreen";
 import CreateFloorplanScreen from "../src/screens/CreateFloorplanScreen";
 import DemoScreen from "../src/screens/DemoScreen";
-
 import ApartamentScreen from "../src/screens/ApartamentScreen";
 import OfficeScreen from "../src/screens/OfficeScreen";
 import HouseScreen from "../src/screens/HouseScreen";
-
+import BottomTabNavigator from "./ButtomTabNavigator";
 import CustomDrawer from "../src/components/CustomDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -39,6 +38,16 @@ export default function UserStack() {
           drawerActiveTintColor: planYpink,
           drawerIcon: ({ color }) => (
             <Ionicons name="home-outline" size={22} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Profile"
+        component={BottomTabNavigator}
+        options={{
+          drawerActiveTintColor: planYpink,
+          drawerIcon: ({ color }) => (
+            <Ionicons name="person-circle-outline" size={22} color={color} />
           ),
         }}
       />

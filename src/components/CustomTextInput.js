@@ -1,22 +1,52 @@
-import React from "react";
-import { TextInput, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TextInput, StyleSheet } from "react-native";
+import * as Font from "expo-font";
 
-const CustomeTextInput = ({ placeholder, text, setText, height = 40 }) => {
+const CustomeTextInput = ({
+  placeholder = "",
+  text,
+  setText,
+  height = 40,
+  titleAbove = "",
+}) => {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    Font.loadAsync({
+      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
+    }).then(() => {
+      setFontLoaded(true);
+    });
+  }, []);
+
   return (
-    <TextInput
-      style={styles(height).text}
-      onChangeText={setText}
-      value={text}
-      placeholder={placeholder}
-      multiline={true} // ios fix for centering it at the top-left corner
-      blurOnSubmit={true}
-    />
+    <View style={styles.container}>
+      <Text style={styles(height).title}>{titleAbove}</Text>
+      <TextInput
+        style={styles(height).text}
+        onChangeText={setText}
+        value={text}
+        placeholder={placeholder}
+        multiline={true} // ios fix for centering it at the top-left corner
+        blurOnSubmit={true}
+      />
+    </View>
   );
 };
 
 const styles = (height) =>
   StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingBottom: 10,
+    },
+    title: {
+      fontSize: 18,
+      fontFamily: "ArielBD",
+      textAlign: "center",
+    },
     text: {
+      fontFamily: "ArielBD",
       height,
       width: 350,
       margin: 12,
