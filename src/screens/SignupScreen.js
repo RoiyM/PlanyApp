@@ -2,18 +2,20 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Input } from "react-native-elements";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db, signupAndAddUserToDB } from "../../config/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import Logo from "../components/Logo";
 import PlanYButton from "../components/PlanYButton";
 import * as Font from "expo-font";
+// import { collection, addDoc } from "firebase/firestore";
 
-const auth = getAuth();
 const planYpink = "#ff005de6";
 
 const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [fullName, setFullName] = useState("");
   const [validationMessage, setValidationMessage] = useState("");
   const [fontLoaded, setFontLoaded] = useState(false);
 
@@ -38,8 +40,7 @@ const SignUpScreen = ({ navigation }) => {
       ? setValidationMessage("required filled missing")
       : "";
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigation.navigate("Sign In");
+      await signupAndAddUserToDB(email, password, fullName);
     } catch (error) {
       setValidationMessage(error.message);
     }
@@ -71,9 +72,17 @@ const SignUpScreen = ({ navigation }) => {
           style={styles.input}
           value={confirmPassword}
           onChangeText={(value) => validateAndSet(value, setConfirmPassword)}
-          secureTextEntry
           leftIcon={<Icon name="key" size={16} />}
+          secureTextEntry
           onBlur={() => checkPassword(password, confirmPassword)}
+        />
+        <Input
+          placeholder="full name"
+          containerStyle={styles.containerInput}
+          style={styles.input}
+          value={fullName}
+          onChangeText={(text) => setFullName(text)}
+          leftIcon={<Icon name="user" size={16} />}
         />
         {<Text style={styles.error}>{validationMessage}</Text>}
         <PlanYButton buttonText={"Sign up"} onPress={createAccount} />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,19 +6,21 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
-
-import { getAuth, signOut } from "firebase/auth";
-
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { getAuth, signOut } from "firebase/auth";
+import { auth } from "../../config/firebase";
 
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
 const planYpink = "#ff0056";
-const auth = getAuth();
 
 const CustomDrawer = (props) => {
+  const [name, setName] = useState("anonymous user");
+  useEffect(() => {
+    setName(auth.currentUser.displayName);
+  }, [auth.currentUser.displayName]);
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -39,7 +41,7 @@ const CustomDrawer = (props) => {
             }}
           />
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ color: "#fff", fontSize: 16 }}>User Name</Text>
+            <Text style={{ color: "#fff", fontSize: 16 }}>{name}</Text>
           </View>
         </ImageBackground>
         <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 10 }}>
