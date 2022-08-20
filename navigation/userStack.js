@@ -20,16 +20,6 @@ const Drawer = createDrawerNavigator();
 const planYpink = "#ff0056";
 
 export default function UserStack() {
-  // function CreateFloorplanStack() {
-  //   return (
-  //     <Stack.Navigator>
-  //       <Stack.Screen name="Apartament" component={ApartamentScreen} />
-  //       <Stack.Screen name="Office" component={OfficeScreen} />
-  //       <Stack.Screen name="House" component={HouseScreen} />
-  //     </Stack.Navigator>
-  //   );
-  // }
-
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawer {...props} />}

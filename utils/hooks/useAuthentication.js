@@ -6,13 +6,10 @@ export function useAuthentication() {
   const [user, setUser] = useState("");
 
   useEffect(() => {
-    const unsubscribeFromAuthStatusChanged = onAuthStateChanged(
-      auth,
-      (user) => {
-        user ? setUser(user) : setUser(undefined);
-        return unsubscribeFromAuthStatusChanged;
-      }
-    );
+    onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
   }, []);
+
   return { user };
 }

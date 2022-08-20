@@ -3,11 +3,11 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Input } from "react-native-elements";
 import Logo from "../components/Logo";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import PlanYButton from "../components/PlanYButton";
 import * as Font from "expo-font";
 
-const auth = getAuth();
 const planYpink = "#ff005de6";
 
 const SigninScreen = ({ navigation }) => {
