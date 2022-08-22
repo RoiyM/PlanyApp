@@ -5,17 +5,17 @@ import houseImage from "../../assets/house_fp.jpg";
 export const floorplanOptions = [
   {
     imageSource: apartamentImage,
-    title: "APARTAMENT",
-    screen: "Apartament",
+    title: "APARTMENT",
+    screen: "Details first screen",
   },
   {
     imageSource: officeImage,
     title: "OFFICE",
-    screen: "Office",
+    screen: "Upload floorplan screen",
   },
   {
     imageSource: houseImage,
     title: "HOUSE",
-    screen: "House",
+    screen: "Details first screen",
   },
 ];

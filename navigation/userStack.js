@@ -7,12 +7,15 @@ import HowItWorksScreen from "../src/screens/HowItWorksScreen";
 import ContactUsScreen from "../src/screens/ContactUsScreen";
 import CreateFloorplanScreen from "../src/screens/CreateFloorplanScreen";
 import DemoScreen from "../src/screens/DemoScreen";
-import ApartamentScreen from "../src/screens/ApartamentScreen";
-import OfficeScreen from "../src/screens/OfficeScreen";
-import HouseScreen from "../src/screens/HouseScreen";
+
 import BottomTabNavigator from "./ButtomTabNavigator";
+import DetailsFirstScreen from "../src/screens/createFloorplanScreens/DetailsFirstScreen";
+import DetailsSecondScreen from "../src/screens/createFloorplanScreens/DetailsSecondScreen";
+import UploadFloorplanScreen from "../src/screens/createFloorplanScreens/UploadFloorplanScreen";
 import CustomDrawer from "../src/components/CustomDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
+
+
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -82,26 +85,30 @@ export default function UserStack() {
         }}
       />
       <Stack.Screen
-        name="Apartament"
-        component={ApartamentScreen}
+        name="Details first screen"
+        component={DetailsFirstScreen}
         options={{
           drawerItemStyle: { display: "none" },
+          title: "Create Floor Plan",
         }}
       />
       <Stack.Screen
-        name="Office"
-        component={OfficeScreen}
+        name="Details second screen"
+        component={DetailsSecondScreen}
         options={{
           drawerItemStyle: { display: "none" },
+          title: "Create Floor Plan",
         }}
       />
       <Stack.Screen
-        name="House"
-        component={HouseScreen}
+        name="Upload floorplan screen"
+        component={UploadFloorplanScreen}
         options={{
           drawerItemStyle: { display: "none" },
+          title: "Create Floor Plan",
         }}
       />
+      
       <Drawer.Screen
         name="About"
         component={AboutScreen}
