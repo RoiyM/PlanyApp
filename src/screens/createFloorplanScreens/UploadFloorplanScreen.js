@@ -8,9 +8,21 @@ const UploadFloorplanScreen = ({route, navigation}) => {
   const [aditionalInfo, setAditionalInfo] = useState("");
   const [projectName, setProjectName] = useState("");
   
-  const {firstForm, secondForm} = route.params;
   var thirdForm = {aditionalInfo:aditionalInfo, projectName: projectName};
-  var form = {firstForm,secondForm, thirdForm};
+
+  const createForm = () => {
+
+    var form;
+    if (route.params!=null)
+    {
+      const {firstForm, secondForm} = route.params;
+      form = {firstForm,secondForm, thirdForm};
+    }else{
+      form = thirdForm;
+    }
+
+    return form;
+  }
 
   return (
     <View style={{backgroundColor:"white"}}>
