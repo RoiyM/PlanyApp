@@ -7,22 +7,24 @@ const planYpink = "#ff005de6";
 const UploadFloorplanScreen = ({route, navigation}) => {
   const [aditionalInfo, setAditionalInfo] = useState("");
   const [projectName, setProjectName] = useState("");
-  
-  var thirdForm = {aditionalInfo:aditionalInfo, projectName: projectName};
+
 
   const createForm = () => {
 
-    var form;
-    if (route.params!=null)
-    {
-      const {firstForm, secondForm} = route.params;
-      form = {firstForm,secondForm, thirdForm};
-    }else{
-      form = thirdForm;
+    let form = route.params;
+
+    if (form!=null){
+      form.aditionalInfo = aditionalInfo;
+      form.projectName = projectName;
+      
+    }
+    else {
+      form = {aditionalInfo:aditionalInfo, projectName: projectName};
     }
 
     return form;
   }
+
 
   return (
     <View style={{backgroundColor:"white"}}>
@@ -60,6 +62,10 @@ const UploadFloorplanScreen = ({route, navigation}) => {
 
       <PlanYButton
         buttonText={"SUBMIT"}
+        onPress = {() => {
+          let tryy= createForm();
+          console.log(tryy)
+        }}
       />
     </View>
   );
