@@ -12,9 +12,16 @@ const DetailsSecondScreen = ({route, navigation }) => {
   const [isGoingToRenovate, setIsGoingToRenovate] = useState('');
   const [renovationBudget, setRenovationBudget] = useState('');
  
-  var {firstForm} = route.params;
-  var secondForm = { numOfResidents: numOfResidents, isGoingToRenovate: isGoingToRenovate, renovationBudget:renovationBudget};
-  var finalForm = {firstForm, secondForm};
+
+  const extendForm = () =>
+  {
+    let formToExtend = route.params; 
+    formToExtend.numOfResidents = numOfResidents.label;
+    formToExtend.isGoingToRenovate = isGoingToRenovate.label;
+    formToExtend.renovationBudget = renovationBudget.label;
+
+    return formToExtend;
+  }
 
   return (
     <View style={{backgroundColor:"white"}}>
@@ -52,7 +59,9 @@ const DetailsSecondScreen = ({route, navigation }) => {
       </View>
       <PlanYButton
         buttonText={"NEXT"}
-        onPress={() => {navigation.navigate("Upload floorplan screen", finalForm)}}
+        onPress={() => {
+          form = extendForm();
+          navigation.navigate("Upload floorplan screen", form)}}
       />
     </View>
     

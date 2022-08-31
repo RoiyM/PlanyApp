@@ -105,7 +105,8 @@ const CreateJSON = () => {
       <PlanYButton
         buttonText={"NEXT"}
         onPress={() => {
-          navigation.navigate("Details second screen",{ firstForm: CreateJSON()})}}
+          form = CreateJSON();
+          navigation.navigate("Details second screen",form)}}
       />
     </View>
   );
