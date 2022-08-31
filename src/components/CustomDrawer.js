@@ -31,15 +31,19 @@ const CustomDrawer = (props) => {
           source={require("../../assets/userBackground.png")}
           style={{ padding: 10 }}
         >
-          <Image
-            source={require("../../assets/userProfile.jpg")}
-            style={{
-              height: 80,
-              width: 80,
-              borderRadius: 60,
-              marginBottom: 10,
-            }}
-          />
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("Profile")}
+          >
+            <Image
+              source={require("../../assets/userProfile.jpg")}
+              style={{
+                height: 80,
+                width: 80,
+                borderRadius: 60,
+                marginBottom: 10,
+              }}
+            />
+          </TouchableOpacity>
           <View style={{ flexDirection: "row" }}>
             <Text style={{ color: "#fff", fontSize: 16 }}>{name}</Text>
           </View>
