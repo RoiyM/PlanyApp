@@ -18,7 +18,12 @@ const ProfileScreen = () => {
     <View style={styles.container}>
       <ScrollView>
         <Text style={styles.titleText}>Profile</Text>
-        <CustomeTextInput titleAbove="Phone" />
+        <CustomeTextInput
+          titleAbove="Email"
+          editable={false}
+          placeholder="noycohen133@gmail.com"
+        />
+        <CustomeTextInput titleAbove="Phone" keyboardType="numeric" />
         <CustomeTextInput titleAbove="Firstname" />
         <CustomeTextInput titleAbove="Lastname" />
         <PlanYButton buttonText={"Update"} />
