@@ -15,8 +15,6 @@ import UploadFloorplanScreen from "../src/screens/createFloorplanScreens/UploadF
 import CustomDrawer from "../src/components/CustomDrawer";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-
-
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const planYpink = "#ff0056";
@@ -44,14 +42,11 @@ export default function UserStack() {
           ),
         }}
       />
-      <Drawer.Screen
+      <Stack.Screen
         name="Profile"
         component={BottomTabNavigator}
         options={{
-          drawerActiveTintColor: planYpink,
-          drawerIcon: ({ color }) => (
-            <Ionicons name="person-circle-outline" size={22} color={color} />
-          ),
+          drawerItemStyle: { display: "none" },
         }}
       />
       <Drawer.Screen
@@ -108,7 +103,7 @@ export default function UserStack() {
           title: "Create Floor Plan",
         }}
       />
-      
+
       <Drawer.Screen
         name="About"
         component={AboutScreen}

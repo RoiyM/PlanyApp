@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import * as Font from "expo-font";
 import CustomeTextInput from "../components/CustomTextInput";
 import PlanYButton from "../components/PlanYButton";
+import { auth } from "../../config/firebase";
 
 const ProfileScreen = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -21,11 +22,11 @@ const ProfileScreen = () => {
         <CustomeTextInput
           titleAbove="Email"
           editable={false}
-          placeholder="noycohen133@gmail.com"
+          placeholder={auth.currentUser.email}
         />
         <CustomeTextInput titleAbove="Phone" keyboardType="numeric" />
-        <CustomeTextInput titleAbove="Firstname" />
-        <CustomeTextInput titleAbove="Lastname" />
+        <CustomeTextInput titleAbove="First Name" />
+        <CustomeTextInput titleAbove="Last Name" />
         <PlanYButton buttonText={"Update"} />
       </ScrollView>
     </View>

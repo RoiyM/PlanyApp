@@ -53,7 +53,7 @@ function BottomTabNavigator() {
         tabBarActiveTintColor: planYpink,
       })}
     >
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile Screen" component={ProfileScreen} />
       <Tab.Screen name="My inspiration" component={MyInspirationScreen} />
       <Tab.Screen name="My floor plans" component={MyFloorPlansScreen} />
       <Tab.Screen name="Messages" component={MessagesScreen} />
