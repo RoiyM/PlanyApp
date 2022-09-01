@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Input } from "react-native-elements";
 import Logo from "../components/Logo";
@@ -38,36 +46,41 @@ const SigninScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <View>
-        <Logo />
-        <Input
-          placeholder="Email"
-          style={styles.input}
-          containerStyle={styles.containerInput}
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          leftIcon={<Icon name="envelope" size={16} />}
-        />
-        <Input
-          placeholder="Password"
-          style={styles.input}
-          containerStyle={styles.containerInput}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry={true}
-          leftIcon={<Icon name="key" size={16} />}
-        />
-        {<Text style={styles.error}>{validationMessage}</Text>}
-        <PlanYButton buttonText={"Sign In"} onPress={login} />
-        <Text style={styles.text}>
-          Don't have an account yet ?
-          <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>
-            <Text style={styles.textButton}> Sign up here</Text>
-          </TouchableOpacity>
-        </Text>
-      </View>
-    </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.inner}>
+          <Logo />
+          <Input
+            placeholder="Email"
+            style={styles.input}
+            containerStyle={styles.containerInput}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            leftIcon={<Icon name="envelope" size={16} />}
+          />
+          <Input
+            placeholder="Password"
+            style={styles.input}
+            containerStyle={styles.containerInput}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            secureTextEntry={true}
+            leftIcon={<Icon name="key" size={16} />}
+          />
+          {<Text style={styles.error}>{validationMessage}</Text>}
+          <PlanYButton buttonText={"Sign In"} onPress={login} />
+          <Text style={styles.text}>
+            Don't have an account yet ?
+            <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>
+              <Text style={styles.textButton}> Sign up here</Text>
+            </TouchableOpacity>
+          </Text>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -76,7 +89,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    bottom: 50,
+  },
+  inner: {
+    padding: 24,
+    flex: 1,
+    justifyContent: "space-around",
   },
   containerInput: {
     marginTop: 10,

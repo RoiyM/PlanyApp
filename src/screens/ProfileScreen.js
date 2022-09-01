@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import * as Font from "expo-font";
 import CustomeTextInput from "../components/CustomTextInput";
 import PlanYButton from "../components/PlanYButton";
+
 import { db, auth } from "../../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -30,7 +31,8 @@ const ProfileScreen = () => {
       <ScrollView>
         <Text style={styles.titleText}>Profile</Text>
         <CustomeTextInput titleAbove="Phone" />
-        <CustomeTextInput titleAbove="Full Name" />
+        <CustomeTextInput titleAbove="Firstname" />
+        <CustomeTextInput titleAbove="Lastname" />
         <PlanYButton buttonText={"Update"} />
       </ScrollView>
     </View>

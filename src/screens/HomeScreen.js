@@ -5,6 +5,7 @@ import ImageSwapper from "../components/ImageSwapper";
 import PlanYButton from "../components/PlanYButton";
 const planYpink = "#ff005de6";
 import * as Font from "expo-font";
+import { auth } from "../../config/firebase";
 
 const HomeScreen = ({ navigation }) => {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -29,7 +30,7 @@ const HomeScreen = ({ navigation }) => {
       <PlanYButton
         buttonText={"GET STARTED"}
         onPress={() => {
-          true
+          auth.currentUser
             ? navigation.navigate("How It Works")
             : navigation.navigate("Sign In"); //need to check if user logged in
         }}

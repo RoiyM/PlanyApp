@@ -6,6 +6,8 @@ const CustomeTextInput = ({
   placeholder = "",
   text,
   setText,
+  keyboardType = "default",
+  editable = true,
   height = 40,
   titleAbove = "",
 }) => {
@@ -27,8 +29,10 @@ const CustomeTextInput = ({
         onChangeText={setText}
         value={text}
         placeholder={placeholder}
+        keyboardType={keyboardType}
         multiline={true} // ios fix for centering it at the top-left corner
         blurOnSubmit={true}
+        editable={editable}
       />
     </View>
   );
