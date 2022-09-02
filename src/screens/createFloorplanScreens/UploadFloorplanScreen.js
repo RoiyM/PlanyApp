@@ -2,23 +2,40 @@ import React, { useState, } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import Logo from "../../components/Logo";
 import PlanYButton from "../../components/PlanYButton";
+import * as ImagePicker from "expo-image-picker";
 const planYpink = "#ff005de6";
 
 const UploadFloorplanScreen = ({route, navigation}) => {
   const [aditionalInfo, setAditionalInfo] = useState("");
   const [projectName, setProjectName] = useState("");
+  const [photo, setPhoto] = useState(null);
+  const [imageUri, setImageUri] = useState(null);
 
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+      base64: true,
+    });
+
+    if (!result.cancelled) {
+      setPhoto(result);
+      setImageUri(result.uri);
+    }
+  };
 
   const createForm = () => {
 
     let form = route.params;
 
-    if (form!=null){
+    if (form!=null) {
       form.aditionalInfo = aditionalInfo;
       form.projectName = projectName;
       
-    }
-    else {
+    } else {
       form = {aditionalInfo:aditionalInfo, projectName: projectName};
     }
 
@@ -45,7 +62,7 @@ const UploadFloorplanScreen = ({route, navigation}) => {
         placeholder="New plan"
       />
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity onPress={pickImage} style={styles.button}>
         <Text style={styles.pinkText}>UPLOAD FLOOR PLAN +</Text>
       </TouchableOpacity>
       <Text style={{
@@ -56,7 +73,7 @@ const UploadFloorplanScreen = ({route, navigation}) => {
 
 
       <Text style={{width:230, marginLeft: 5, marginTop:30 }}>NEED HELP WITH THE UPLOAD? DONT HAVE A PLAN?</Text>
-      <TouchableOpacity style={{marginBottom: 40}}>
+      <TouchableOpacity onPress={()=>{navigation.navigate("Contact Us")}} style={{marginBottom: 40}} >
          <Text style={{color:planYpink, marginLeft: 10, marginTop: 5}}>click here</Text>
       </TouchableOpacity>
 
