@@ -14,23 +14,13 @@ import Logo from "../components/Logo";
 import { auth } from "../../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import PlanYButton from "../components/PlanYButton";
-import * as Font from "expo-font";
-
+import CustomText from "../components/CustomText";
 const planYpink = "#ff005de6";
 
 const SigninScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validationMessage, setvalidationMessage] = useState("");
-  const [fontLoaded, setFontLoaded] = useState(false);
-
-  useEffect(() => {
-    Font.loadAsync({
-      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-    }).then(() => {
-      setFontLoaded(true);
-    });
-  }, []);
 
   async function login() {
     if (email === "" || password === "") {
@@ -70,14 +60,14 @@ const SigninScreen = ({ navigation }) => {
             secureTextEntry={true}
             leftIcon={<Icon name="key" size={16} />}
           />
-          {<Text style={styles.error}>{validationMessage}</Text>}
+          {<CustomText style={styles.error}>{validationMessage}</CustomText>}
           <PlanYButton buttonText={"Sign In"} onPress={login} />
-          <Text style={styles.text}>
+          <CustomText style={styles.text}>
             Don't have an account yet ?
             <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>
-              <Text style={styles.textButton}> Sign up here</Text>
+              <CustomText style={styles.textButton}> Sign up here</CustomText>
             </TouchableOpacity>
-          </Text>
+          </CustomText>
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
@@ -111,10 +101,8 @@ const styles = StyleSheet.create({
   text: {
     marginTop: 5,
     fontSize: 17,
-    fontFamily: "ArielBD",
   },
   textButton: {
-    fontFamily: "ArielBD",
     color: planYpink,
     marginTop: 30,
     textDecorationLine: "underline",

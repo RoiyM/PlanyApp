@@ -1,24 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import * as Font from "expo-font";
+import React from "react";
+import { View, StyleSheet, Image } from "react-native";
+import CustomText from "./CustomText";
 
 const ImageDetail = ({ imageSource, fullName, position, experience }) => {
-  const [fontLoaded, setFontLoaded] = useState(false);
-
-  useEffect(() => {
-    Font.loadAsync({
-      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-    }).then(() => {
-      setFontLoaded(true);
-    });
-  }, []);
-
   return (
     <View style={styles.container}>
       <Image source={imageSource} style={styles.image} />
-      <Text style={styles.full_name}>{fullName}</Text>
-      <Text style={styles.text}>{position}</Text>
-      <Text style={styles.text}>{experience}</Text>
+      <CustomText style={styles.full_name}>{fullName}</CustomText>
+      <CustomText style={styles.text}>{position}</CustomText>
+      <CustomText style={styles.text}>{experience}</CustomText>
     </View>
   );
 };
@@ -32,13 +22,9 @@ const styles = StyleSheet.create({
   },
   full_name: {
     fontSize: 20,
-    fontFamily: "ArielBD",
-    textAlign: "center",
     paddingTop: 10,
   },
   text: {
-    textAlign: "center",
-    fontFamily: "ArielBD",
     fontSize: 16,
     paddingLeft: 20,
     paddingRight: 20,

@@ -1,48 +1,39 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React from "react";
+import { View, StyleSheet } from "react-native";
 import Logo from "../components/Logo";
 import ImageSwapper from "../components/ImageSwapper";
 import PlanYButton from "../components/PlanYButton";
-const planYpink = "#ff005de6";
-import * as Font from "expo-font";
+import CustomText from "../components/CustomText";
 import { auth } from "../../config/firebase";
+const planYpink = "#ff005de6";
 
 const HomeScreen = ({ navigation }) => {
-  const [fontLoaded, setFontLoaded] = useState(false);
-
-  useEffect(() => {
-    Font.loadAsync({
-      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-    }).then(() => {
-      setFontLoaded(true);
-    });
-  }, []);
-
-  if (!fontLoaded) return null;
-
   return (
     <View style={styles.container}>
       <Logo />
-      <Text style={styles.text}>
-        New <Text style={{ color: planYpink }}>floor plans options</Text>{" "}
-        <Text>in a few steps</Text>
-      </Text>
+      <CustomText style={styles.text}>
+        New{" "}
+        <CustomText style={{ color: planYpink }}>
+          floor plans options
+        </CustomText>{" "}
+        <CustomText>in a few steps</CustomText>
+      </CustomText>
       <PlanYButton
         buttonText={"GET STARTED"}
         onPress={() => {
           auth.currentUser
-            ? navigation.navigate("How It Works")
-            : navigation.navigate("Sign In"); //need to check if user logged in
+            ? navigation.navigate("Create Floor Plan")
+            : navigation.navigate("Sign In");
         }}
       />
       <ImageSwapper />
-      <Text style={styles.text}>
+      <CustomText style={styles.text}>
         <Logo fontSize={21} />
         ourself - architecture platform
-      </Text>
-      <Text style={styles.smallText}>
+      </CustomText>
+      <CustomText style={styles.smallText}>
         Get architectural services at a click of a button!
-      </Text>
+      </CustomText>
     </View>
   );
 };
@@ -54,14 +45,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    textAlign: "center",
     fontSize: 21,
-    fontFamily: "ArielBD",
   },
   smallText: {
     fontSize: 18,
-    fontFamily: "ArielBD",
-    textAlign: "center",
   },
 });
 
