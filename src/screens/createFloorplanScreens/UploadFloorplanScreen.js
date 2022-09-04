@@ -1,9 +1,12 @@
 import React, { useState, } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native";
 import Logo from "../../components/Logo";
 import PlanYButton from "../../components/PlanYButton";
 import * as ImagePicker from "expo-image-picker";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import {db, auth} from "../../../config/firebase";
 const planYpink = "#ff005de6";
+
 
 const UploadFloorplanScreen = ({route, navigation}) => {
   const [aditionalInfo, setAditionalInfo] = useState("");
@@ -25,6 +28,26 @@ const UploadFloorplanScreen = ({route, navigation}) => {
       setPhoto(result);
       setImageUri(result.uri);
     }
+  };
+
+  const submitForm = async () => {
+    const docRef = doc(db, "users", auth.currentUser.uid);
+    const docData = {
+      requirements: createForm(),
+      floorplan: {photo: photo}}
+
+    await updateDoc(docRef, {
+      floorplanRequirements: arrayUnion(docData),
+    });
+    await updateDoc(docRef, {
+      floorplans: arrayUnion(photo),
+    });
+
+    Alert.alert("Submit", "Submitted successfully", [
+      {
+        text: "Ok",
+      },
+    ]);
   };
 
   const createForm = () => {
@@ -80,8 +103,7 @@ const UploadFloorplanScreen = ({route, navigation}) => {
       <PlanYButton
         buttonText={"SUBMIT"}
         onPress = {() => {
-          let tryy= createForm();
-          console.log(tryy)
+          submitForm();
         }}
       />
     </View>
