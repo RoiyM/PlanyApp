@@ -38,6 +38,7 @@ const signupAndAddUserToDB = async (email, password, fullName) => {
   const db = getFirestore();
   await setDoc(doc(db, "users", auth.currentUser.uid), {
     fullName: fullName,
+    floorplans: [],
   });
 
   return res;
