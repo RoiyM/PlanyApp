@@ -4,6 +4,8 @@ import Logo from "../../components/Logo";
 import PlanYButton from "../../components/PlanYButton";
 import RadioButtonRN from 'radio-buttons-react-native';
 import { apartmentOptions } from "../../constans/apartmentOptions";
+import { ScrollView } from "react-native-gesture-handler";
+import CustomText from "../../components/CustomText";
 const planYpink = "#ff005de6";
 
 const DetailsSecondScreen = ({route, navigation }) => {
@@ -24,12 +26,12 @@ const DetailsSecondScreen = ({route, navigation }) => {
   }
 
   return (
-    <View style={{backgroundColor:"white"}}>
-      <Text style={styles.titleText}>
+    <ScrollView style={styles.container}>
+      <CustomText style={styles.titleText}>
         floor <Logo fontSize={25}/> changes
-      </Text>
+      </CustomText >
       <View>
-        <Text style={styles.textHeader}>How many people will be living in the property ?</Text>
+        <CustomText style={styles.textHeader}>How many people will be living in the property ?</CustomText>
         <RadioButtonRN
             data={apartmentOptions[0]}
             selectedBtn={(e) => setNumOfResidents(e)}
@@ -38,7 +40,7 @@ const DetailsSecondScreen = ({route, navigation }) => {
             circleSize={10}
         />
 
-        <Text style={styles.textHeader}>Do you plan to renovate the property after buying it?</Text>
+        <CustomText style={styles.textHeader}>Do you plan to renovate the property after buying it?</CustomText>
         <RadioButtonRN
             data={apartmentOptions[1]}
             selectedBtn={(e) => setIsGoingToRenovate(e)}
@@ -47,7 +49,7 @@ const DetailsSecondScreen = ({route, navigation }) => {
             circleSize={10}
         />
 
-        <Text style={styles.textHeader}>What is your renovatin budget?</Text>
+        <CustomText style={styles.textHeader}>What is your renovatin budget?</CustomText>
         <RadioButtonRN
             data={apartmentOptions[2]}
             selectedBtn={(e) => setRenovationBudget(e)}
@@ -63,7 +65,7 @@ const DetailsSecondScreen = ({route, navigation }) => {
           form = extendForm();
           navigation.navigate("Upload floorplan screen", form)}}
       />
-    </View>
+    </ScrollView>
     
   );
 };
@@ -72,21 +74,18 @@ const DetailsSecondScreen = ({route, navigation }) => {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 25,
-    fontFamily: "ArielBD",
     paddingBottom: 30,
     paddingTop: 10,
-    textAlign: "center",
   },
   textHeader:{
-    fontFamily: "ArielBD",
+    textAlign:"left",
     marginTop: 15,
     marginBottom: 15,
-    fontWeight: "600",
     marginLeft:5
   },
-  radioButton:{
-
-  }
+  container: {
+    backgroundColor: "#fff",
+  },
 });
 
 export default DetailsSecondScreen;

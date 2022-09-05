@@ -5,6 +5,8 @@ import PlanYButton from "../../components/PlanYButton";
 import * as ImagePicker from "expo-image-picker";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import {db, auth} from "../../../config/firebase";
+import { ScrollView } from "react-native-gesture-handler";
+import CustomText from "../../components/CustomText";
 const planYpink = "#ff005de6";
 
 
@@ -67,10 +69,10 @@ const UploadFloorplanScreen = ({route, navigation}) => {
 
 
   return (
-    <View style={{backgroundColor:"white"}}>
-      <Text style={styles.titleText}>
+    <ScrollView style={styles.container}>
+      <CustomText style={styles.titleText}>
         floor <Logo fontSize={25}/> changes
-      </Text>
+      </CustomText>
       
       <TextInput 
         style={styles.textInput}
@@ -78,7 +80,7 @@ const UploadFloorplanScreen = ({route, navigation}) => {
         placeholder="Is there anything else you want us to know?"
       />
 
-      <Text style={styles.textHeader}>You can choose a name for your project here:</Text>
+      <CustomText style={styles.textHeader}>You can choose a name for your project here:</CustomText>
       <TextInput 
         style={styles.textInput}
         onChangeText={(text) => setProjectName(text)}
@@ -106,7 +108,7 @@ const UploadFloorplanScreen = ({route, navigation}) => {
           submitForm();
         }}
       />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -114,10 +116,8 @@ const UploadFloorplanScreen = ({route, navigation}) => {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 25,
-    fontFamily: "ArielBD",
     paddingBottom: 30,
     paddingTop: 10,
-    textAlign: "center",
   },
   textInput: {
     padding: 5,
@@ -128,10 +128,9 @@ const styles = StyleSheet.create({
     marginBottom:30,
   },
   textHeader:{
-    fontFamily: "ArielBD",
+    textAlign:"left",
     marginTop: 15,
     marginBottom: 10,
-    fontWeight: "600",
     marginLeft:5
   },
   pinkText: {
@@ -145,6 +144,9 @@ const styles = StyleSheet.create({
     width: 250,
     marginLeft: 30,
     alignItems: "center",
+  },
+  container: {
+    backgroundColor: "#fff",
   },
 });
 
