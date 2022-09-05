@@ -44,16 +44,20 @@ const UploadFloorplanScreen = ({route, navigation}) => {
     await updateDoc(docRef, {
       floorplans: arrayUnion(photo),
     });
+    setAditionalInfo("");
+    setProjectName("");
 
     Alert.alert("Submit", "Submitted successfully", [
       {
         text: "Ok",
+        onPress: ()=>{navigation.navigate("Home");}
       },
     ]);
+    
+
   };
 
   const createForm = () => {
-
     let form = route.params;
 
     if (form!=null) {
@@ -78,6 +82,7 @@ const UploadFloorplanScreen = ({route, navigation}) => {
         style={styles.textInput}
         onChangeText={(text) => setAditionalInfo(text)}
         placeholder="Is there anything else you want us to know?"
+        value={aditionalInfo}
       />
 
       <CustomText style={styles.textHeader}>You can choose a name for your project here:</CustomText>
@@ -85,6 +90,7 @@ const UploadFloorplanScreen = ({route, navigation}) => {
         style={styles.textInput}
         onChangeText={(text) => setProjectName(text)}
         placeholder="New plan"
+        value={projectName}
       />
 
       <TouchableOpacity onPress={pickImage} style={styles.button}>
