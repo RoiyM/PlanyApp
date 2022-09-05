@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, Image, ImageBackground, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { signOut } from "firebase/auth";
-import { auth } from "../../config/firebase";
+import { db, auth } from "../../config/firebase";
+import { doc, onSnapshot } from "firebase/firestore";
 import CustomText from "./CustomText";
 import {
   DrawerContentScrollView,
@@ -11,10 +12,24 @@ import {
 const planYpink = "#ff0056";
 
 const CustomDrawer = (props) => {
-  const [name, setName] = useState("anonymous user");
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const docRef = doc(db, "users", auth.currentUser.uid);
+
+  const getUserInfo = async () => {
+    try {
+      onSnapshot(docRef, (doc) => {
+        setFirstName(doc.data().firstName);
+        setLastName(doc.data().lastName);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    setName(auth.currentUser.displayName);
-  }, [auth.currentUser.displayName]);
+    getUserInfo();
+  }, []);
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -40,7 +55,7 @@ const CustomDrawer = (props) => {
           </TouchableOpacity>
           <View style={{ flexDirection: "row" }}>
             <CustomText style={{ color: "#fff", fontSize: 16 }}>
-              {name}
+              {firstName + " " + lastName}
             </CustomText>
           </View>
         </ImageBackground>

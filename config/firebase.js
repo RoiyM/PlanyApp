@@ -32,12 +32,12 @@ const auth = initializeAuth(app, {
 
 const db = getFirestore();
 
-const signupAndAddUserToDB = async (email, password, fullName) => {
+const signupAndAddUserToDB = async (email, password) => {
   const res = await createUserWithEmailAndPassword(auth, email, password);
-  await updateProfile(auth.currentUser, { displayName: fullName });
   const db = getFirestore();
   await setDoc(doc(db, "users", auth.currentUser.uid), {
-    fullName: fullName,
+    firstName: "",
+    lastName: "",
   });
 
   return res;

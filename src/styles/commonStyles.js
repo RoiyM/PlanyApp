@@ -1,45 +1,35 @@
-// import { useState, useEffect } from "react";
-// import { StyleSheet } from "react-native";
-// import * as Font from "expo-font";
+import { StyleSheet } from "react-native";
 
-// const [fontLoaded, setFontLoaded] = useState(false);
+export default StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    justifycontent: "center",
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 30,
+    paddingBottom: 30,
+    paddingTop: 10,
+  },
+  text: {
+    fontSize: 21,
+  },
+  smallText: {
+    fontSize: 18,
+  },
 
-// useEffect(() => {
-//   Font.loadAsync({
-//     ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-//   }).then(() => {
-//     setFontLoaded(true);
-//   });
-// }, []);
-
-// export default StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//   },
-//   title: {
-//     fontFamily: "ArialRoundedMTBold",
-//     fontSize: 30,
-//     paddingBottom: 30,
-//     paddingTop: 10,
-//     textAlign: "center",
-//   },
-//   header: {
-//     fontFamily: "ArielBD",
-//     textAlign: "center",
-//     fontSize: 20,
-//     borderBottomColor: "black",
-//     borderBottomWidth: 10,
-//   },
-//   text: {
-//     fontFamily: "ArielBD",
-//     fontSize: 21,
-//     textAlign: "center",
-//   },
-//   smallText: {
-//     fontFamily: "ArielBD",
-//     fontSize: 18,
-//     textAlign: "center",
-//   },
-// });
+  image: {
+    alignSelf: "center",
+  },
+  fullName: {
+    fontSize: 20,
+    paddingTop: 10,
+  },
+  text: {
+    fontSize: 16,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 20,
+  },
+});
