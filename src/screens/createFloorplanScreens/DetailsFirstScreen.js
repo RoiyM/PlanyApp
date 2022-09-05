@@ -12,7 +12,6 @@ var mainChangesArray=[];
 const DetailsFirstScreen = ({ navigation }) => {
   const [address, setAddress] = useState("");
   const [otherChanges, setOtherChanges] = useState("");
-  
   const [addBedroom, setAddBedroom] = useState(false);
   const [removeBedroom, setRemoveBedroom] = useState(false);
   const [optimizeSpace, setOptimizeSpace] = useState(false);
@@ -23,16 +22,13 @@ const DetailsFirstScreen = ({ navigation }) => {
 
 const HandleChecking = (changedValue, changedAsString ,stateFunc) => {
 
-  if(changedValue == false)
-  { 
+  if(changedValue == false) { 
     mainChangesArray.push(changedAsString);
   }
-  else
-  {
+  else {
     var deleteIndx = mainChangesArray.indexOf(changedAsString);
     mainChangesArray.splice(deleteIndx,1);
   }
-  
   stateFunc(!changedValue);
 }
 
@@ -42,8 +38,21 @@ const CreateJSON = () => {
       mainChanges: mainChangesArray,
       address: address,
       otherChanges: otherChanges
-    }
-  );
+    });
+}
+
+const HandleNextPress = () => {
+  const form = CreateJSON();
+  setAddBedroom(false);
+  setRemoveBedroom(false);
+  setOptimizeSpace(false);
+  setSplitToTwo(false);
+  setAddBathroom(false);
+  setAddHalfRoom(false);
+  setPlanyOptimal(false);
+  setAddress("");
+  setOtherChanges("");
+  navigation.navigate("Details second screen", form )
 }
  
   return (
@@ -92,23 +101,21 @@ const CreateJSON = () => {
       </View>
       <View>
         <CustomText style={styles.textHeader}>Other changes:</CustomText>
-        <TextInput 
+        <TextInput
+          value={otherChanges} 
           style={styles.textInput}
-          containerStyle={{}}
           onChangeText={(text) => setOtherChanges(text)}
         />
         <CustomText style={styles.textHeader}>Address:</CustomText>
         <TextInput 
+          value={address}
           style={styles.textInput}
-          containerStyle={{}}
           onChangeText={(text) => setAddress(text)}
         />
       </View>
       <PlanYButton
         buttonText={"NEXT"}
-        onPress={() => {
-          form = CreateJSON();
-          navigation.navigate("Details second screen", form )}}
+        onPress={() => {HandleNextPress();}}
       />
     </ScrollView>
   );
@@ -119,7 +126,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     paddingBottom: 30,
     paddingTop: 10,
-    textAlign: "center",
   },
   textInput: {
     textAlign:"left",
