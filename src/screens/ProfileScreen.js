@@ -18,7 +18,7 @@ const ProfileScreen = () => {
         setFirstName(docSnap.data().firstName);
         setLastName(docSnap.data().lastName);
         setPhoneNumber(docSnap.data().phoneNumber);
-        console.log(docSnap.data());
+        //console.log(docSnap.data());
       } else {
         console.log("Document does not exist");
       }
