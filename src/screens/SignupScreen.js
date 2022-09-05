@@ -19,7 +19,6 @@ const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [fullName, setFullName] = useState("");
   const [validationMessage, setValidationMessage] = useState("");
 
   let validateAndSet = (value, setValue) => {
@@ -35,7 +34,7 @@ const SignUpScreen = ({ navigation }) => {
       ? setValidationMessage("required filled missing")
       : "";
     try {
-      await signupAndAddUserToDB(email, password, fullName);
+      await signupAndAddUserToDB(email, password);
     } catch (error) {
       setValidationMessage(error.message);
     }
@@ -74,14 +73,6 @@ const SignUpScreen = ({ navigation }) => {
             leftIcon={<Icon name="key" size={16} />}
             secureTextEntry
             onBlur={() => checkPassword(password, confirmPassword)}
-          />
-          <Input
-            placeholder="full name"
-            containerStyle={styles.containerInput}
-            style={styles.input}
-            value={fullName}
-            onChangeText={(text) => setFullName(text)}
-            leftIcon={<Icon name="user" size={16} />}
           />
           {<CustomText style={styles.error}>{validationMessage}</CustomText>}
           <PlanYButton buttonText={"Sign up"} onPress={createAccount} />

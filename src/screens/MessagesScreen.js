@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, Image, StyleSheet, View } from "react-native";
 import { db, auth } from "../../config/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import Message from "../components/Message";
 import noMessages from "../../assets/noMessages.png";
 import CustomText from "../components/CustomText";
@@ -12,13 +12,9 @@ const MessagesScreen = () => {
 
   const getUserMessages = async () => {
     try {
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setMessages(docSnap.data().messages);
-        console.log(docSnap.data());
-      } else {
-        console.log("Document does not exist");
-      }
+      onSnapshot(docRef, (doc) => {
+        setMessages(doc.data().messages);
+      });
     } catch (error) {
       console.log(error);
     }
@@ -26,7 +22,7 @@ const MessagesScreen = () => {
 
   useEffect(() => {
     getUserMessages();
-  }, [messages]);
+  }, []);
 
   const getMessages = () => {
     if (messages) {
