@@ -1,15 +1,63 @@
-import React from "react";
-import { StyleSheet, ImageBackground } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  Image,
+  ScrollView,
+} from "react-native";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { db, auth } from "../../config/firebase";
 import Logo from "../components/Logo";
-import backgroundImage from "../../assets/myFloorplans_background.jpg";
 import CustomText from "../components/CustomText";
+import backgroundImage from "../../assets/myFloorplans_background.jpg";
 
 const MyFloorPlansScreen = () => {
+  const docRef = doc(db, "users", auth.currentUser.uid);
+
+  const [floorplans, setFloorplans] = useState([]);
+  const getMyFloorPlans = async () => {
+    try {
+      onSnapshot(docRef, (doc) => {
+        setFloorplans(doc.data().floorplanRequirements);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getMyFloorPlans();
+  }, []);
+
+  const list = () => {
+    if (floorplans) {
+      return floorplans.map((obj, index) => {
+        const floorplan = obj.floorplan;
+        const img = { uri: `data:image/png;base64, ${floorplan.photo.base64}` };
+        //const requirements = obj.requirements;
+        return (
+          <Image
+            key={index}
+            source={img}
+            style={{ width: 320, height: 320, alignSelf: "center" }}
+          />
+        );
+      });
+    } else {
+      return (
+        <View style={styles.imageContainer}>
+          <CustomText>No floorplans yet</CustomText>
+        </View>
+      );
+    }
+  };
+
   return (
     <ImageBackground source={backgroundImage} style={styles.container}>
       <CustomText style={styles.title}>
         My floor <Logo />s
       </CustomText>
+      <ScrollView>{list()}</ScrollView>
     </ImageBackground>
   );
 };
