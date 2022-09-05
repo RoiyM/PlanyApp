@@ -1,22 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Text, StyleSheet } from "react-native";
+import React from "react";
+import { StyleSheet } from "react-native";
 import Logo from "../components/Logo";
 import ImageButton from "../components/ImageButton";
 import { floorplanOptions } from "../constans/floorplanOptions";
 import { ScrollView } from "react-native-gesture-handler";
-import * as Font from "expo-font";
+import CustomText from "../components/CustomText";
 
 const CreateFloorplanScreen = ({ navigation }) => {
-  const [fontLoaded, setFontLoaded] = useState(false);
-
-  useEffect(() => {
-    Font.loadAsync({
-      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-    }).then(() => {
-      setFontLoaded(true);
-    });
-  }, []);
-
   const imageButtons = () => {
     return floorplanOptions.map((option) => {
       return (
@@ -31,10 +21,10 @@ const CreateFloorplanScreen = ({ navigation }) => {
   };
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.titleText}>
+      <CustomText style={styles.titleText}>
         What would you like to re-
         <Logo fontSize={20} /> ?
-      </Text>
+      </CustomText>
       {imageButtons()}
     </ScrollView>
   );
@@ -45,10 +35,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   titleText: {
-    fontFamily: "ArielBD",
     fontSize: 20,
     padding: 10,
-    textAlign: "center",
   },
 });
 

@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  ImageBackground,
-  TouchableOpacity,
-} from "react-native";
+import { View, Image, ImageBackground, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { getAuth, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { auth } from "../../config/firebase";
-
+import CustomText from "./CustomText";
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -45,7 +39,9 @@ const CustomDrawer = (props) => {
             />
           </TouchableOpacity>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ color: "#fff", fontSize: 16 }}>{name}</Text>
+            <CustomText style={{ color: "#fff", fontSize: 16 }}>
+              {name}
+            </CustomText>
           </View>
         </ImageBackground>
         <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 10 }}>
@@ -56,7 +52,7 @@ const CustomDrawer = (props) => {
         <TouchableOpacity onPress={() => {}} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Ionicons name="share-social-outline" size={22} color="black" />
-            <Text
+            <CustomText
               style={{
                 fontSize: 15,
                 marginLeft: 5,
@@ -64,7 +60,7 @@ const CustomDrawer = (props) => {
               }}
             >
               Tell a Friend
-            </Text>
+            </CustomText>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
@@ -73,7 +69,7 @@ const CustomDrawer = (props) => {
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Ionicons name="exit-outline" size={22} color="black" />
-            <Text
+            <CustomText
               style={{
                 fontSize: 15,
                 marginLeft: 5,
@@ -81,7 +77,7 @@ const CustomDrawer = (props) => {
               }}
             >
               Sign Out
-            </Text>
+            </CustomText>
           </View>
         </TouchableOpacity>
       </View>

@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Alert, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Alert, ScrollView } from "react-native";
 import PlanYButton from "../components/PlanYButton";
 import CustomTextInput from "../components/CustomTextInput";
-import * as Font from "expo-font";
+import { db, auth } from "../../config/firebase";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 const ContactUsScreen = () => {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [fontLoaded, setFontLoaded] = useState(false);
 
-  useEffect(() => {
-    Font.loadAsync({
-      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-    }).then(() => {
-      setFontLoaded(true);
+  const submitMessage = async () => {
+    const docRef = doc(db, "users", auth.currentUser.uid);
+    const docData = {
+      subject: subject,
+      message: message,
+    };
+    await updateDoc(docRef, {
+      messages: arrayUnion(docData),
     });
-  }, []);
-
-  const submitText = () => {
     Alert.alert("Submit", "Submitted successfully", [
       {
         text: "Ok",
@@ -30,19 +30,28 @@ const ContactUsScreen = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Text style={styles.title}>Contact Us</Text>
         <CustomTextInput
-          placeholder={"Subject"}
+          titleAbove="Name"
+          editable={false}
+          text={auth.currentUser.displayName}
+        />
+        <CustomTextInput
+          titleAbove="Email"
+          editable={false}
+          text={auth.currentUser.email}
+        />
+        <CustomTextInput
+          titleAbove="Subject"
           text={subject}
           setText={setSubject}
         />
         <CustomTextInput
-          placeholder={"Message"}
+          titleAbove="Message"
           text={message}
           setText={setMessage}
           height={400}
         />
-        <PlanYButton buttonText={"Submit"} onPress={submitText} />
+        <PlanYButton buttonText={"Submit"} onPress={submitMessage} />
       </ScrollView>
     </View>
   );
@@ -53,20 +62,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "space-around",
-  },
-  title: {
-    fontFamily: "ArielBD",
-    fontSize: 30,
-    textAlign: "center",
-  },
-  text: {
-    fontFamily: "ArielBD",
-    height: 40,
-    width: 350,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    textAlignVertical: "top", // android fix for centering it at the top-left corner
   },
 });
 

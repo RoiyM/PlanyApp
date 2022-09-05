@@ -15,7 +15,7 @@ function BottomTabNavigator() {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
-          if (route.name === "Profile") {
+          if (route.name === "Profile Screen") {
             return (
               <Ionicons
                 name={focused ? "person-circle" : "person-circle-outline"}

@@ -34,12 +34,12 @@ const db = getFirestore();
 
 const signupAndAddUserToDB = async (email, password, fullName) => {
   const res = await createUserWithEmailAndPassword(auth, email, password);
+  await updateProfile(auth.currentUser, { displayName: fullName });
   const db = getFirestore();
   await setDoc(doc(db, "users", auth.currentUser.uid), {
     fullName: fullName,
-    myInspiration: [],
+    floorplans: [],
   });
-  await updateProfile(auth.currentUser, { displayName: fullName });
 
   return res;
 };

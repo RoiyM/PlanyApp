@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   StyleSheet,
   Image,
   ImageBackground,
@@ -9,7 +8,7 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import mime from "mime";
-
+import CustomText from "../components/CustomText";
 import background from "../../assets/bck.jpg";
 
 const DemoScreen = () => {
@@ -82,7 +81,7 @@ const DemoScreen = () => {
         style={styles.image}
       >
         <TouchableOpacity onPress={pickImage} style={styles.button}>
-          <Text style={styles.button_text}>Load Image</Text>
+          <CustomText style={styles.button_text}>Load Image</CustomText>
         </TouchableOpacity>
         {imageUri && (
           <Image
@@ -91,12 +90,14 @@ const DemoScreen = () => {
           />
         )}
         {message && (
-          <Text style={{ alignSelf: "center", fontSize: 25, color: "white" }}>
+          <CustomText
+            style={{ alignSelf: "center", fontSize: 25, color: "white" }}
+          >
             {message}
-          </Text>
+          </CustomText>
         )}
         <TouchableOpacity onPress={analyze} style={styles.button}>
-          <Text style={styles.button_text}>Analyze</Text>
+          <CustomText style={styles.button_text}>Analyze</CustomText>
         </TouchableOpacity>
       </ImageBackground>
     </View>

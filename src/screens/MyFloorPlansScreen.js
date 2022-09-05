@@ -1,25 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Text, StyleSheet, ImageBackground } from "react-native";
+import React from "react";
+import { StyleSheet, ImageBackground } from "react-native";
 import Logo from "../components/Logo";
-import * as Font from "expo-font";
 import backgroundImage from "../../assets/myFloorplans_background.jpg";
+import CustomText from "../components/CustomText";
 
 const MyFloorPlansScreen = () => {
-  const [fontLoaded, setFontLoaded] = useState(false);
-
-  useEffect(() => {
-    Font.loadAsync({
-      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-    }).then(() => {
-      setFontLoaded(true);
-    });
-  }, []);
-
   return (
     <ImageBackground source={backgroundImage} style={styles.container}>
-      <Text style={styles.titleText}>
+      <CustomText style={styles.title}>
         My floor <Logo />s
-      </Text>
+      </CustomText>
     </ImageBackground>
   );
 };
@@ -31,12 +21,10 @@ const styles = StyleSheet.create({
     width: null,
     height: null,
   },
-  titleText: {
+  title: {
     fontSize: 30,
-    fontFamily: "ArielBD",
     paddingBottom: 30,
     paddingTop: 10,
-    textAlign: "center",
   },
 });
 

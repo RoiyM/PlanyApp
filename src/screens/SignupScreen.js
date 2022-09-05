@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
-  Text,
   View,
   TouchableOpacity,
   KeyboardAvoidingView,
@@ -10,13 +9,10 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Input } from "react-native-elements";
-import { auth, db, signupAndAddUserToDB } from "../../config/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signupAndAddUserToDB } from "../../config/firebase";
 import Logo from "../components/Logo";
 import PlanYButton from "../components/PlanYButton";
-import * as Font from "expo-font";
-// import { collection, addDoc } from "firebase/firestore";
-
+import CustomText from "../components/CustomText";
 const planYpink = "#ff005de6";
 
 const SignUpScreen = ({ navigation }) => {
@@ -25,15 +21,6 @@ const SignUpScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [validationMessage, setValidationMessage] = useState("");
-  const [fontLoaded, setFontLoaded] = useState(false);
-
-  useEffect(() => {
-    Font.loadAsync({
-      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-    }).then(() => {
-      setFontLoaded(true);
-    });
-  }, []);
 
   let validateAndSet = (value, setValue) => {
     setValue(value);
@@ -96,15 +83,15 @@ const SignUpScreen = ({ navigation }) => {
             onChangeText={(text) => setFullName(text)}
             leftIcon={<Icon name="user" size={16} />}
           />
-          {<Text style={styles.error}>{validationMessage}</Text>}
+          {<CustomText style={styles.error}>{validationMessage}</CustomText>}
           <PlanYButton buttonText={"Sign up"} onPress={createAccount} />
           <View>
-            <Text style={styles.text}>
+            <CustomText style={styles.text}>
               Already have an account?
               <TouchableOpacity onPress={() => navigation.navigate("Sign In")}>
-                <Text style={styles.textButton}> Login here</Text>
+                <CustomText style={styles.textButton}> Login here</CustomText>
               </TouchableOpacity>
-            </Text>
+            </CustomText>
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -135,15 +122,12 @@ const styles = StyleSheet.create({
   error: {
     marginTop: 10,
     color: "red",
-    textAlign: "center",
   },
   text: {
     marginTop: 5,
     fontSize: 17,
-    fontFamily: "ArielBD",
   },
   textButton: {
-    fontFamily: "ArielBD",
     color: planYpink,
     marginTop: 30,
     textDecorationLine: "underline",

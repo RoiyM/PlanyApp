@@ -45,7 +45,7 @@ const styles = (height) =>
       paddingBottom: 10,
     },
     title: {
-      fontSize: 18,
+      fontSize: 15,
       fontFamily: "ArielBD",
       textAlign: "center",
     },

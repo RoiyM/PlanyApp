@@ -1,21 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import React from "react";
+import { View, StyleSheet, ScrollView } from "react-native";
 import ImageDetail from "../components/ImagaDetail";
 import { employees } from "../constans/employees";
 import Logo from "../components/Logo";
-import * as Font from "expo-font";
+import CustomText from "../components/CustomText";
 
 const AboutScreen = () => {
-  const [fontLoaded, setFontLoaded] = useState(false);
-
-  useEffect(() => {
-    Font.loadAsync({
-      ArielBD: require("../../assets/fonts/Arielbd.ttf"),
-    }).then(() => {
-      setFontLoaded(true);
-    });
-  }, []);
-
   const list = () => {
     return employees.map((employee) => {
       return (
@@ -32,10 +22,10 @@ const AboutScreen = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Text style={styles.titleText}>
+        <CustomText style={styles.titleText}>
           About <Logo />
-        </Text>
-        <Text style={styles.text}>
+        </CustomText>
+        <CustomText style={styles.text}>
           PlanY provides architecture products and services. The founding team
           include experienced architect and 2 entrepreneurs with a vision to
           provide a property potential based on existing floor plans in a click
@@ -44,8 +34,8 @@ const AboutScreen = () => {
           decisions you will face during your life. PlanY is here to help you
           make better decisions when you sell, buy or start a remodeling
           project.
-        </Text>
-        <Text style={styles.titleText}>Meet The Team</Text>
+        </CustomText>
+        <CustomText style={styles.titleText}>Meet The Team</CustomText>
         {list()}
       </ScrollView>
     </View>
@@ -58,14 +48,10 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 30,
-    fontFamily: "ArielBD",
     paddingBottom: 30,
     paddingTop: 10,
-    textAlign: "center",
   },
   text: {
-    fontFamily: "ArielBD",
-    textAlign: "center",
     fontSize: 17,
     paddingBottom: 20,
     paddingLeft: 20,
