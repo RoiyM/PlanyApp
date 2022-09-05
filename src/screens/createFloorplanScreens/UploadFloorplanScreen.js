@@ -14,7 +14,6 @@ const UploadFloorplanScreen = ({route, navigation}) => {
   const [aditionalInfo, setAditionalInfo] = useState("");
   const [projectName, setProjectName] = useState("");
   const [photo, setPhoto] = useState(null);
-  const [imageUri, setImageUri] = useState(null);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -28,7 +27,6 @@ const UploadFloorplanScreen = ({route, navigation}) => {
 
     if (!result.cancelled) {
       setPhoto(result);
-      setImageUri(result.uri);
     }
   };
 
@@ -46,6 +44,7 @@ const UploadFloorplanScreen = ({route, navigation}) => {
     });
     setAditionalInfo("");
     setProjectName("");
+    setPhoto(null);
 
     Alert.alert("Submit", "Submitted successfully", [
       {
@@ -53,8 +52,6 @@ const UploadFloorplanScreen = ({route, navigation}) => {
         onPress: ()=>{navigation.navigate("Home");}
       },
     ]);
-    
-
   };
 
   const createForm = () => {
