@@ -3,13 +3,15 @@ import {TextInput, View, Text, StyleSheet,  } from "react-native";
 import Logo from "../../components/Logo";
 import CheckBox from "../../components/CheckBox";
 import PlanYButton from "../../components/PlanYButton";
+import { ScrollView } from "react-native-gesture-handler";
+import CustomText from "../../components/CustomText";
+
 
 var mainChangesArray=[];
 
 const DetailsFirstScreen = ({ navigation }) => {
   const [address, setAddress] = useState("");
   const [otherChanges, setOtherChanges] = useState("");
-  
   const [addBedroom, setAddBedroom] = useState(false);
   const [removeBedroom, setRemoveBedroom] = useState(false);
   const [optimizeSpace, setOptimizeSpace] = useState(false);
@@ -20,37 +22,46 @@ const DetailsFirstScreen = ({ navigation }) => {
 
 const HandleChecking = (changedValue, changedAsString ,stateFunc) => {
 
-  if(changedValue == false)
-  { 
+  if(changedValue == false) { 
     mainChangesArray.push(changedAsString);
   }
-  else
-  {
+  else {
     var deleteIndx = mainChangesArray.indexOf(changedAsString);
     mainChangesArray.splice(deleteIndx,1);
   }
-  
   stateFunc(!changedValue);
 }
 
 const CreateJSON = () => {
-
   return (
     {
       mainChanges: mainChangesArray,
       address: address,
       otherChanges: otherChanges
-    }
-  );
+    });
+}
+
+const HandleNextPress = () => {
+  const form = CreateJSON();
+  setAddBedroom(false);
+  setRemoveBedroom(false);
+  setOptimizeSpace(false);
+  setSplitToTwo(false);
+  setAddBathroom(false);
+  setAddHalfRoom(false);
+  setPlanyOptimal(false);
+  setAddress("");
+  setOtherChanges("");
+  navigation.navigate("Details second screen", form )
 }
  
   return (
-    <View style={{backgroundColor:"white"}}>
-      <Text style={styles.titleText}>
+    <ScrollView style={styles.container}>
+      <CustomText style={styles.titleText}>
         floor <Logo fontSize={25}/> changes
-      </Text>
+      </CustomText>
       <View>
-        <Text style={styles.textHeader}>What will be the main change you plan to do?</Text>
+        <CustomText style={styles.textHeader}>What will be the main change you plan to do?</CustomText>
         <CheckBox 
           title="add a bedroom"
           checked={addBedroom}
@@ -89,49 +100,49 @@ const CreateJSON = () => {
 
       </View>
       <View>
-        <Text style={styles.textHeader}>Other changes:</Text>
-        <TextInput 
+        <CustomText style={styles.textHeader}>Other changes:</CustomText>
+        <TextInput
+          value={otherChanges} 
           style={styles.textInput}
-          containerStyle={{}}
           onChangeText={(text) => setOtherChanges(text)}
         />
-        <Text style={styles.textHeader}>Address:</Text>
+        <CustomText style={styles.textHeader}>Address:</CustomText>
         <TextInput 
+          value={address}
           style={styles.textInput}
-          containerStyle={{}}
           onChangeText={(text) => setAddress(text)}
         />
       </View>
       <PlanYButton
         buttonText={"NEXT"}
-        onPress={() => {
-          form = CreateJSON();
-          navigation.navigate("Details second screen",form)}}
+        onPress={() => {HandleNextPress();}}
       />
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 25,
-    fontFamily: "ArielBD",
     paddingBottom: 30,
     paddingTop: 10,
-    textAlign: "center",
   },
   textInput: {
+    textAlign:"left",
     padding: 5,
     borderWidth: 0.5,
     marginLeft: 5,
     marginRight: 5,
   },
   textHeader:{
-    fontFamily: "ArielBD",
+    textAlign:"left",
     marginTop: 15,
     marginBottom: 15,
     fontWeight: "600",
     marginLeft:5,
+  },
+  container: {
+    backgroundColor: "#fff",
   },
 });
 
