@@ -30,8 +30,8 @@ const MyFloorPlansScreen = () => {
   }, []);
 
   const list = () => {
-    if (floorplans) {
-      return floorplans.map((obj, index) => {
+    return floorplans ? (
+      floorplans.map((obj, index) => {
         const floorplan = obj.floorplan;
         const img = { uri: `data:image/png;base64, ${floorplan.photo.base64}` };
         //const requirements = obj.requirements;
@@ -42,14 +42,12 @@ const MyFloorPlansScreen = () => {
             style={{ width: 320, height: 320, alignSelf: "center" }}
           />
         );
-      });
-    } else {
-      return (
-        <View style={styles.imageContainer}>
-          <CustomText>No floorplans yet</CustomText>
-        </View>
-      );
-    }
+      })
+    ) : (
+      <View style={styles.imageContainer}>
+        <CustomText>No floorplans yet</CustomText>
+      </View>
+    );
   };
 
   return (
