@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, Image, StyleSheet, View } from "react-native";
-import { db, auth } from "../../config/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
+import { db, auth, onSnapshotPro } from "../../config/firebase";
+import { doc } from "firebase/firestore";
 import Message from "../components/Message";
 import noMessages from "../../assets/noMessages.png";
 import CustomText from "../components/CustomText";
@@ -12,7 +12,7 @@ const MessagesScreen = () => {
 
   const getUserMessages = async () => {
     try {
-      onSnapshot(docRef, (doc) => {
+      onSnapshotPro(docRef, (doc) => {
         setMessages(doc.data().messages);
       });
     } catch (error) {
