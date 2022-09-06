@@ -3,11 +3,11 @@ import { initializeApp, getApps, getApp } from "firebase/app";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   getReactNativePersistence,
-  updateProfile,
   initializeAuth,
   createUserWithEmailAndPassword,
+  signOut,
 } from "firebase/auth/react-native";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, onSnapshot } from "firebase/firestore";
 
 import Constants from "expo-constants";
 
@@ -41,6 +41,20 @@ const signupAndAddUserToDB = async (email, password) => {
   });
 
   return res;
+};
+
+const unsubscribeListeners = [];
+
+export const onSnapshotPro = (docRef, callBackFunc) => {
+  const ubsub = onSnapshot(docRef, callBackFunc);
+  unsubscribeListeners.push(ubsub);
+};
+
+export const signOutProxy = (auth) => {
+  unsubscribeListeners.forEach((unsub) => {
+    unsub();
+  });
+  signOut(auth);
 };
 
 export { auth, db, signupAndAddUserToDB };

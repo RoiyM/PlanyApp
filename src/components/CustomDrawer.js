@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, ImageBackground, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { signOut } from "firebase/auth";
-import { db, auth } from "../../config/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
+import { db, auth, onSnapshotPro, signOutProxy } from "../../config/firebase";
+import { doc } from "firebase/firestore";
 import CustomText from "./CustomText";
 import {
   DrawerContentScrollView,
@@ -18,7 +17,7 @@ const CustomDrawer = (props) => {
 
   const getUserInfo = async () => {
     try {
-      onSnapshot(docRef, (doc) => {
+      onSnapshotPro(docRef, (doc) => {
         setFirstName(doc.data().firstName);
         setLastName(doc.data().lastName);
       });
@@ -79,7 +78,7 @@ const CustomDrawer = (props) => {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => signOut(auth)}
+          onPress={() => signOutProxy(auth)}
           style={{ paddingVertical: 15 }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>

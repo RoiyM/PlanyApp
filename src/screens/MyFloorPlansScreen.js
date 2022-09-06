@@ -6,8 +6,8 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
-import { db, auth } from "../../config/firebase";
+import { doc } from "firebase/firestore";
+import { db, auth, onSnapshotPro } from "../../config/firebase";
 import Logo from "../components/Logo";
 import CustomText from "../components/CustomText";
 import backgroundImage from "../../assets/myFloorplans_background.jpg";
@@ -18,7 +18,7 @@ const MyFloorPlansScreen = () => {
   const [floorplans, setFloorplans] = useState([]);
   const getMyFloorPlans = async () => {
     try {
-      onSnapshot(docRef, (doc) => {
+      onSnapshotPro(docRef, (doc) => {
         setFloorplans(doc.data().floorplanRequirements);
       });
     } catch (error) {
