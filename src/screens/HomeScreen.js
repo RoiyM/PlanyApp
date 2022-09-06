@@ -5,11 +5,12 @@ import ImageSwapper from "../components/ImageSwapper";
 import PlanYButton from "../components/PlanYButton";
 import CustomText from "../components/CustomText";
 import { auth } from "../../config/firebase";
+import commonStyles from "../styles/commonStyles";
 const planYpink = "#ff005de6";
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.container}>
       <Logo />
       <CustomText style={styles.text}>
         New{" "}
@@ -39,11 +40,6 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-  },
   text: {
     fontSize: 21,
   },
