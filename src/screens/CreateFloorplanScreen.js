@@ -1,10 +1,10 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import Logo from "../components/Logo";
 import ImageButton from "../components/ImageButton";
 import { floorplanOptions } from "../constans/floorplanOptions";
-import { ScrollView } from "react-native-gesture-handler";
 import CustomText from "../components/CustomText";
+import commonStyles from "../styles/commonStyles";
 
 const CreateFloorplanScreen = ({ navigation }) => {
   const imageButtons = () => {
@@ -20,7 +20,7 @@ const CreateFloorplanScreen = ({ navigation }) => {
     });
   };
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView>
       <CustomText style={styles.titleText}>
         What would you like to re-
         <Logo fontSize={20} /> ?
@@ -31,9 +31,6 @@ const CreateFloorplanScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#fff",
-  },
   titleText: {
     fontSize: 20,
     padding: 10,

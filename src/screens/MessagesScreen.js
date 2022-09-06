@@ -5,6 +5,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import Message from "../components/Message";
 import noMessages from "../../assets/noMessages.png";
 import CustomText from "../components/CustomText";
+import commonStyles from "../styles/commonStyles";
 
 const MessagesScreen = () => {
   const [messages, setMessages] = useState([]);
@@ -45,17 +46,14 @@ const MessagesScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={commonStyles.container}>
       <CustomText style={styles.title}>My messages</CustomText>
-      {getMessages()}
-    </ScrollView>
+      <ScrollView>{getMessages()}</ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "white",
-  },
   imageContainer: {
     flex: 1,
     justifyContent: "center",

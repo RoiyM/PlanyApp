@@ -4,6 +4,7 @@ import Logo from "../components/Logo";
 import { icons } from "../constans/icons";
 import IconDetail from "../components/IconDetail";
 import CustomText from "../components/CustomText";
+import commonStyles from "../styles/commonStyles";
 
 const HowItWorksScreen = () => {
   const iconList = () => {
@@ -20,7 +21,7 @@ const HowItWorksScreen = () => {
     });
   };
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={commonStyles.container}>
       <CustomText style={styles.text}>
         <Logo fontSize={25} /> will follow the work process of an architect.
         Providing professional floor plans according to your needs
@@ -31,9 +32,6 @@ const HowItWorksScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#fff",
-  },
   text: {
     fontSize: 20,
     margin: 20,

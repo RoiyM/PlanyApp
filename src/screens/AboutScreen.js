@@ -4,6 +4,7 @@ import ImageDetail from "../components/ImagaDetail";
 import { employees } from "../constans/employees";
 import Logo from "../components/Logo";
 import CustomText from "../components/CustomText";
+import commonStyles from "../styles/commonStyles";
 
 const AboutScreen = () => {
   const list = () => {

@@ -4,6 +4,7 @@ import PlanYButton from "../components/PlanYButton";
 import SelectImage from "../components/SelectImage";
 import { inspirationImages } from "../constans/inspirationImages";
 import CustomText from "../components/CustomText";
+import commonStyles from "../styles/commonStyles";
 
 const MyInspirationScreen = () => {
   const list = () => {
@@ -15,7 +16,7 @@ const MyInspirationScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.container}>
       <ScrollView>
         <CustomText style={styles.title}>My inspiration</CustomText>
         <CustomText style={styles.text}>
@@ -29,9 +30,6 @@ const MyInspirationScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   title: {
     fontSize: 30,
     paddingBottom: 30,

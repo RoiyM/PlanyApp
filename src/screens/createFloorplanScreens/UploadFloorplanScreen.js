@@ -1,16 +1,22 @@
-import React, { useState, } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import Logo from "../../components/Logo";
 import PlanYButton from "../../components/PlanYButton";
 import * as ImagePicker from "expo-image-picker";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
-import {db, auth} from "../../../config/firebase";
+import { db, auth } from "../../../config/firebase";
 import { ScrollView } from "react-native-gesture-handler";
 import CustomText from "../../components/CustomText";
 const planYpink = "#ff005de6";
 
-
-const UploadFloorplanScreen = ({route, navigation}) => {
+const UploadFloorplanScreen = ({ route, navigation }) => {
   const [aditionalInfo, setAditionalInfo] = useState("");
   const [projectName, setProjectName] = useState("");
   const [photo, setPhoto] = useState(null);
@@ -34,7 +40,8 @@ const UploadFloorplanScreen = ({route, navigation}) => {
     const docRef = doc(db, "users", auth.currentUser.uid);
     const docData = {
       requirements: createForm(),
-      floorplan: {photo: photo}}
+      floorplan: { photo: photo },
+    };
 
     await updateDoc(docRef, {
       floorplanRequirements: arrayUnion(docData),
@@ -49,7 +56,9 @@ const UploadFloorplanScreen = ({route, navigation}) => {
     Alert.alert("Submit", "Submitted successfully", [
       {
         text: "Ok",
-        onPress: ()=>{navigation.navigate("Home");}
+        onPress: () => {
+          navigation.navigate("Home");
+        },
       },
     ]);
   };
@@ -57,33 +66,33 @@ const UploadFloorplanScreen = ({route, navigation}) => {
   const createForm = () => {
     let form = route.params;
 
-    if (form!=null) {
+    if (form != null) {
       form.aditionalInfo = aditionalInfo;
       form.projectName = projectName;
-      
     } else {
-      form = {aditionalInfo:aditionalInfo, projectName: projectName};
+      form = { aditionalInfo: aditionalInfo, projectName: projectName };
     }
 
     return form;
-  }
-
+  };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView>
       <CustomText style={styles.titleText}>
-        floor <Logo fontSize={25}/> changes
+        floor <Logo fontSize={25} /> changes
       </CustomText>
-      
-      <TextInput 
+
+      <TextInput
         style={styles.textInput}
         onChangeText={(text) => setAditionalInfo(text)}
         placeholder="Is there anything else you want us to know?"
         value={aditionalInfo}
       />
 
-      <CustomText style={styles.textHeader}>You can choose a name for your project here:</CustomText>
-      <TextInput 
+      <CustomText style={styles.textHeader}>
+        You can choose a name for your project here:
+      </CustomText>
+      <TextInput
         style={styles.textInput}
         onChangeText={(text) => setProjectName(text)}
         placeholder="New plan"
@@ -93,28 +102,41 @@ const UploadFloorplanScreen = ({route, navigation}) => {
       <TouchableOpacity onPress={pickImage} style={styles.button}>
         <Text style={styles.pinkText}>UPLOAD FLOOR PLAN +</Text>
       </TouchableOpacity>
-      <Text style={{
-        fontSize: 10,
-        marginLeft: 30, 
-        marginTop: 4,
-        fontStyle:"italic"}}> Max File Size 5MB</Text>
+      <Text
+        style={{
+          fontSize: 10,
+          marginLeft: 30,
+          marginTop: 4,
+          fontStyle: "italic",
+        }}
+      >
+        {" "}
+        Max File Size 5MB
+      </Text>
 
-
-      <Text style={{width:230, marginLeft: 5, marginTop:30 }}>NEED HELP WITH THE UPLOAD? DONT HAVE A PLAN?</Text>
-      <TouchableOpacity onPress={()=>{navigation.navigate("Contact Us")}} style={{marginBottom: 40}} >
-         <Text style={{color:planYpink, marginLeft: 10, marginTop: 5}}>click here</Text>
+      <Text style={{ width: 230, marginLeft: 5, marginTop: 30 }}>
+        NEED HELP WITH THE UPLOAD? DONT HAVE A PLAN?
+      </Text>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Contact Us");
+        }}
+        style={{ marginBottom: 40 }}
+      >
+        <Text style={{ color: planYpink, marginLeft: 10, marginTop: 5 }}>
+          click here
+        </Text>
       </TouchableOpacity>
 
       <PlanYButton
         buttonText={"SUBMIT"}
-        onPress = {() => {
+        onPress={() => {
           submitForm();
         }}
       />
     </ScrollView>
   );
 };
-
 
 const styles = StyleSheet.create({
   titleText: {
@@ -128,13 +150,13 @@ const styles = StyleSheet.create({
     margin: 20,
     height: 40,
     marginTop: 10,
-    marginBottom:30,
+    marginBottom: 30,
   },
-  textHeader:{
-    textAlign:"left",
+  textHeader: {
+    textAlign: "left",
     marginTop: 15,
     marginBottom: 10,
-    marginLeft:5
+    marginLeft: 5,
   },
   pinkText: {
     color: planYpink,
@@ -147,9 +169,6 @@ const styles = StyleSheet.create({
     width: 250,
     marginLeft: 30,
     alignItems: "center",
-  },
-  container: {
-    backgroundColor: "#fff",
   },
 });
 

@@ -4,6 +4,7 @@ import PlanYButton from "../components/PlanYButton";
 import CustomTextInput from "../components/CustomTextInput";
 import { db, auth } from "../../config/firebase";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import commonStyles from "../styles/commonStyles";
 
 const ContactUsScreen = () => {
   const [subject, setSubject] = useState("");

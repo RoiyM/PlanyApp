@@ -9,11 +9,13 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
+import commonStyles from "../styles/commonStyles";
 const planYpink = "#ff0056";
 
 const CustomDrawer = (props) => {
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState(null);
   const docRef = doc(db, "users", auth.currentUser.uid);
 
   const getUserInfo = async () => {
@@ -21,6 +23,7 @@ const CustomDrawer = (props) => {
       onSnapshot(docRef, (doc) => {
         setFirstName(doc.data().firstName);
         setLastName(doc.data().lastName);
+        setProfilePhoto(doc.data().profilePhoto);
       });
     } catch (error) {
       console.log(error);
@@ -44,13 +47,12 @@ const CustomDrawer = (props) => {
             onPress={() => props.navigation.navigate("Profile")}
           >
             <Image
-              source={require("../../assets/userProfile.jpg")}
-              style={{
-                height: 80,
-                width: 80,
-                borderRadius: 60,
-                marginBottom: 10,
-              }}
+              source={
+                profilePhoto
+                  ? { uri: `data:image/png;base64, ${profilePhoto.base64}` }
+                  : require("../../assets/userProfile.jpg")
+              }
+              style={commonStyles.avatar}
             />
           </TouchableOpacity>
           <View style={{ flexDirection: "row" }}>
