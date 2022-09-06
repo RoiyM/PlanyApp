@@ -26,8 +26,8 @@ const MessagesScreen = () => {
   }, []);
 
   const getMessages = () => {
-    if (messages) {
-      return messages.map((message, index) => {
+    return messages ? (
+      messages.map((message, index) => {
         return (
           <Message
             key={index}
@@ -35,14 +35,12 @@ const MessagesScreen = () => {
             message={message.message}
           />
         );
-      });
-    } else {
-      return (
-        <View style={styles.imageContainer}>
-          <Image source={noMessages} style={styles.image} />
-        </View>
-      );
-    }
+      })
+    ) : (
+      <View style={styles.imageContainer}>
+        <Image source={noMessages} style={styles.image} />
+      </View>
+    );
   };
 
   return (
