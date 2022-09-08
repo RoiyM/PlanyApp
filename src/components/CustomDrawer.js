@@ -48,7 +48,7 @@ const CustomDrawer = (props) => {
             <Image
               source={
                 profilePhoto
-                  ? { uri: `data:image/png;base64, ${profilePhoto.base64}` }
+                  ? { uri: `data:image/png;base64, ${profilePhoto}` }
                   : require("../../assets/userProfile.jpg")
               }
               style={commonStyles.avatar}

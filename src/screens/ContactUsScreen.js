@@ -3,7 +3,13 @@ import { View, StyleSheet, Alert, ScrollView } from "react-native";
 import PlanYButton from "../components/PlanYButton";
 import CustomTextInput from "../components/CustomTextInput";
 import { db, auth } from "../../config/firebase";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  arrayUnion,
+  collection,
+  addDoc,
+} from "firebase/firestore";
 import commonStyles from "../styles/commonStyles";
 
 const ContactUsScreen = () => {
@@ -11,14 +17,16 @@ const ContactUsScreen = () => {
   const [message, setMessage] = useState("");
 
   const submitMessage = async () => {
-    const docRef = doc(db, "users", auth.currentUser.uid);
+    //const docRef = doc(db, "users", auth.currentUser.uid);
     const docData = {
       subject: subject,
       message: message,
     };
-    await updateDoc(docRef, {
-      messages: arrayUnion(docData),
-    });
+    await addDoc(
+      collection(db, "users/" + auth.currentUser.uid + "/messages"),
+      docData
+    );
+
     Alert.alert("Submit", "Submitted successfully", [
       {
         text: "Ok",
@@ -31,11 +39,6 @@ const ContactUsScreen = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <CustomTextInput
-          titleAbove="Name"
-          editable={false}
-          text={auth.currentUser.displayName}
-        />
         <CustomTextInput
           titleAbove="Email"
           editable={false}

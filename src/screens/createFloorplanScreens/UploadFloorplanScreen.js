@@ -10,7 +10,7 @@ import {
 import Logo from "../../components/Logo";
 import PlanYButton from "../../components/PlanYButton";
 import * as ImagePicker from "expo-image-picker";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../../../config/firebase";
 import { ScrollView } from "react-native-gesture-handler";
 import CustomText from "../../components/CustomText";
@@ -32,23 +32,24 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
     });
 
     if (!result.cancelled) {
-      setPhoto(result);
+      setPhoto(result.base64);
     }
   };
 
   const submitForm = async () => {
-    const docRef = doc(db, "users", auth.currentUser.uid);
     const docData = {
       requirements: createForm(),
       floorplan: { photo: photo },
     };
 
-    await updateDoc(docRef, {
-      floorplanRequirements: arrayUnion(docData),
-    });
-    await updateDoc(docRef, {
-      floorplans: arrayUnion(photo),
-    });
+    addDoc(
+      collection(
+        db,
+        "users/" + auth.currentUser.uid + "/floorplanRequirements"
+      ),
+      docData
+    );
+
     setAditionalInfo("");
     setProjectName("");
     setPhoto(null);
