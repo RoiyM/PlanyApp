@@ -55,7 +55,7 @@ const MessagesScreen = () => {
   };
 
   return (
-    <View style={commonStyles.container}>
+    <View>
       <CustomText style={styles.title}>My messages</CustomText>
       <ScrollView>{getMessages()}</ScrollView>
     </View>

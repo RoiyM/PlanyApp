@@ -17,6 +17,9 @@ export default StyleSheet.create({
     paddingBottom: 30,
     paddingTop: 10,
   },
+  error: {
+    color: "red",
+  },
   text: {
     fontSize: 21,
   },

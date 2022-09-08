@@ -3,24 +3,25 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   Alert,
+  ScrollView,
 } from "react-native";
 import Logo from "../../components/Logo";
 import PlanYButton from "../../components/PlanYButton";
 import * as ImagePicker from "expo-image-picker";
 import { doc, addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../../../config/firebase";
-import { ScrollView } from "react-native-gesture-handler";
+import commonStyles from "../../styles/commonStyles";
 import CustomText from "../../components/CustomText";
+import CustomeTextInput from "../../components/CustomTextInput";
 const planYpink = "#ff005de6";
 
 const UploadFloorplanScreen = ({ route, navigation }) => {
   const [aditionalInfo, setAditionalInfo] = useState("");
   const [projectName, setProjectName] = useState("");
   const [photo, setPhoto] = useState(null);
-
+  const [message, setMessage] = useState("Max File Size 5MB");
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -32,6 +33,7 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
     });
 
     if (!result.cancelled) {
+      setMessage("image.png");
       setPhoto(result.base64);
     }
   };
@@ -60,8 +62,14 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
         onPress: () => {
           navigation.navigate("Home");
         },
-      },
-    ]);
+      ]);
+    } else {
+      Alert.alert("Error", "Please upload a floor plan", [
+        {
+          text: "Ok",
+        },
+      ]);
+    }
   };
 
   const createForm = () => {
@@ -78,56 +86,55 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView
+      contentContainerStyle={{ flex: 1, justifyContent: "space-around" }}
+    >
       <CustomText style={styles.titleText}>
         floor <Logo fontSize={25} /> changes
       </CustomText>
-
-      <TextInput
+      <CustomeTextInput
         style={styles.textInput}
         onChangeText={(text) => setAditionalInfo(text)}
         placeholder="Is there anything else you want us to know?"
         value={aditionalInfo}
       />
-
-      <CustomText style={styles.textHeader}>
-        You can choose a name for your project here:
-      </CustomText>
-      <TextInput
+      <CustomeTextInput
         style={styles.textInput}
         onChangeText={(text) => setProjectName(text)}
         placeholder="New plan"
         value={projectName}
+        titleAbove="You can choose a name for your project here:"
       />
-
-      <TouchableOpacity onPress={pickImage} style={styles.button}>
-        <Text style={styles.pinkText}>UPLOAD FLOOR PLAN +</Text>
-      </TouchableOpacity>
-      <Text
-        style={{
-          fontSize: 10,
-          marginLeft: 30,
-          marginTop: 4,
-          fontStyle: "italic",
-        }}
-      >
-        {" "}
-        Max File Size 5MB
-      </Text>
-
-      <Text style={{ width: 230, marginLeft: 5, marginTop: 30 }}>
-        NEED HELP WITH THE UPLOAD? DONT HAVE A PLAN?
-      </Text>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("Contact Us");
-        }}
-        style={{ marginBottom: 40 }}
-      >
-        <Text style={{ color: planYpink, marginLeft: 10, marginTop: 5 }}>
-          click here
+      <View>
+        <TouchableOpacity onPress={pickImage} style={styles.button}>
+          <Text style={styles.pinkText}>UPLOAD FLOOR PLAN +</Text>
+        </TouchableOpacity>
+        <Text
+          style={{
+            fontSize: 10,
+            marginLeft: 30,
+            marginTop: 4,
+            fontStyle: "italic",
+          }}
+        >
+          {message}
         </Text>
-      </TouchableOpacity>
+      </View>
+      <View>
+        <Text style={{ width: 230, marginLeft: 20, marginTop: 30 }}>
+          NEED HELP WITH THE UPLOAD? DONT HAVE A PLAN?
+        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Contact Us");
+          }}
+          style={{ marginBottom: 40 }}
+        >
+          <Text style={{ color: planYpink, marginLeft: 20, marginTop: 5 }}>
+            click here
+          </Text>
+        </TouchableOpacity>
+      </View>
 
       <PlanYButton
         buttonText={"SUBMIT"}
@@ -142,22 +149,15 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 25,
-    paddingBottom: 30,
-    paddingTop: 10,
   },
   textInput: {
     padding: 5,
     borderWidth: 0.5,
     margin: 20,
-    height: 40,
-    marginTop: 10,
-    marginBottom: 30,
   },
   textHeader: {
     textAlign: "left",
-    marginTop: 15,
-    marginBottom: 10,
-    marginLeft: 5,
+    marginLeft: 20,
   },
   pinkText: {
     color: planYpink,
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     borderWidth: 0.8,
     width: 250,
-    marginLeft: 30,
+    marginLeft: 20,
     alignItems: "center",
   },
 });

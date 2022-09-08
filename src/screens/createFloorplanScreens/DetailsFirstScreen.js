@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { TextInput, View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Logo from "../../components/Logo";
 import CheckBox from "../../components/CheckBox";
 import PlanYButton from "../../components/PlanYButton";
 import { ScrollView } from "react-native-gesture-handler";
 import CustomText from "../../components/CustomText";
-
+import CustomTextInput from "../../components/CustomTextInput";
 var mainChangesArray = [];
 
 const DetailsFirstScreen = ({ navigation }) => {
@@ -52,7 +52,9 @@ const DetailsFirstScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      contentContainerStyle={{ flex: 1, justifyContent: "space-around" }}
+    >
       <CustomText style={styles.titleText}>
         floor <Logo fontSize={25} /> changes
       </CustomText>
@@ -139,14 +141,14 @@ const DetailsFirstScreen = ({ navigation }) => {
         />
       </View>
       <View>
-        <CustomText style={styles.textHeader}>Other changes:</CustomText>
-        <TextInput
+        <CustomTextInput
+          titleAbove="Other changes:"
           value={otherChanges}
           style={styles.textInput}
           onChangeText={(text) => setOtherChanges(text)}
         />
-        <CustomText style={styles.textHeader}>Address:</CustomText>
-        <TextInput
+        <CustomTextInput
+          titleAbove="Address:"
           value={address}
           style={styles.textInput}
           onChangeText={(text) => setAddress(text)}
@@ -165,12 +167,9 @@ const DetailsFirstScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 25,
-    paddingBottom: 30,
-    paddingTop: 10,
   },
   textInput: {
     textAlign: "left",
-    padding: 5,
     borderWidth: 0.5,
     marginLeft: 5,
     marginRight: 5,
@@ -182,7 +181,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginLeft: 5,
   },
-  container: {},
 });
 
 export default DetailsFirstScreen;

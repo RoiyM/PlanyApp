@@ -4,12 +4,13 @@ import * as Font from "expo-font";
 
 const CustomeTextInput = ({
   placeholder = "",
-  text,
-  setText,
+  value,
+  onChangeText,
   keyboardType = "default",
   editable = true,
   height = 40,
   titleAbove = "",
+  onBlur = () => {},
 }) => {
   const [fontLoaded, setFontLoaded] = useState(false);
 
@@ -26,13 +27,14 @@ const CustomeTextInput = ({
       <Text style={styles(height).title}>{titleAbove}</Text>
       <TextInput
         style={styles(height).text}
-        onChangeText={setText}
-        value={text}
+        onChangeText={onChangeText}
+        value={value}
         placeholder={placeholder}
         keyboardType={keyboardType}
         multiline={true} // ios fix for centering it at the top-left corner
         blurOnSubmit={true}
         editable={editable}
+        onBlur={onBlur}
       />
     </View>
   );
@@ -52,7 +54,6 @@ const styles = (height) =>
     text: {
       fontFamily: "ArielBD",
       height,
-      width: 350,
       margin: 12,
       borderWidth: 1,
       padding: 10,

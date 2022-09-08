@@ -20,6 +20,7 @@ const ProfileScreen = () => {
   const [firstName, setFirstName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [profilePhoto, setProfilePhoto] = useState(null);
+  const [validationMessage, setValidationMessage] = useState("");
   const docRef = doc(db, "users", auth.currentUser.uid);
 
   const pickImage = async () => {
@@ -54,6 +55,7 @@ const ProfileScreen = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getUserInfo();
   }, []);
@@ -73,8 +75,16 @@ const ProfileScreen = () => {
     ]);
   };
 
+  const checkValidPhoneNumber = () => {
+    if (phoneNumber.length == 10) {
+      setValidationMessage("");
+    } else {
+      setValidationMessage("Please enter a valid 10-digit phone number");
+    }
+  };
+
   return (
-    <View style={commonStyles.container}>
+    <View>
       <ScrollView>
         <CustomText style={styles.title}>Profile</CustomText>
         <TouchableOpacity onPress={pickImage}>
@@ -95,19 +105,25 @@ const ProfileScreen = () => {
         <CustomTextInput
           titleAbove="Phone"
           keyboardType="numeric"
-          text={phoneNumber}
-          setText={setPhoneNumber}
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
+          onBlur={checkValidPhoneNumber}
         />
         <CustomTextInput
           titleAbove="First Name"
-          text={firstName}
-          setText={setFirstName}
+          value={firstName}
+          onChangeText={setFirstName}
         />
         <CustomTextInput
           titleAbove="Last Name"
-          text={lastName}
-          setText={setLastName}
+          value={lastName}
+          onChangeText={setLastName}
         />
+        {
+          <CustomText style={commonStyles.error}>
+            {validationMessage}
+          </CustomText>
+        }
         <PlanYButton buttonText={"Update"} onPress={updateUserInfo} />
       </ScrollView>
     </View>
