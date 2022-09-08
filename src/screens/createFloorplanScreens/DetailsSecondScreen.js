@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Logo from "../../components/Logo";
 import PlanYButton from "../../components/PlanYButton";
 import RadioButtonRN from "radio-buttons-react-native";
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     marginTop: 15,
     marginBottom: 15,
-    marginLeft: 5,
+    marginLeft: 20,
   },
   container: {},
 });

@@ -6,18 +6,18 @@ const planYpink = "#ff005de6";
 const imageHeight = Math.round((Dimensions.get("window").width * 9) / 16);
 const imageWidth = Dimensions.get("window").width;
 
-const SelectImage = ({ imageSource, imageName ,handleChecking }) => {
+const SelectImage = ({ imageSource, imageName, handleChecking }) => {
   const [isSelected, setSelection] = useState(false);
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
-        <Image source={imageSource} style={styles.image} />
-      </TouchableOpacity>
+      <Image source={imageSource} style={styles.image} />
       <CheckBox
         checked={isSelected}
         checkedColor={planYpink}
-        onPress={() => {handleChecking(isSelected, imageName ,setSelection);}}
+        onPress={() => {
+          handleChecking(isSelected, imageName, setSelection);
+        }}
         style={styles.checkbox}
       />
     </View>

@@ -34,22 +34,22 @@ const ContactUsScreen = () => {
         <CustomTextInput
           titleAbove="Name"
           editable={false}
-          text={auth.currentUser.displayName}
+          value={auth.currentUser.displayName}
         />
         <CustomTextInput
           titleAbove="Email"
           editable={false}
-          text={auth.currentUser.email}
+          value={auth.currentUser.email}
         />
         <CustomTextInput
           titleAbove="Subject"
-          text={subject}
-          setText={setSubject}
+          value={subject}
+          onChangeText={setSubject}
         />
         <CustomTextInput
           titleAbove="Message"
-          text={message}
-          setText={setMessage}
+          value={message}
+          onChangeText={setMessage}
           height={400}
         />
         <PlanYButton buttonText={"Submit"} onPress={submitMessage} />

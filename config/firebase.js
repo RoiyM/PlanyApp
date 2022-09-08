@@ -38,6 +38,8 @@ const signupAndAddUserToDB = async (email, password) => {
   await setDoc(doc(db, "users", auth.currentUser.uid), {
     firstName: "",
     lastName: "",
+    phoneNumber: "",
+    //messages: [],
     floorplans: [],
     myInspiration: [],
   });
