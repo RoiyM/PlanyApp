@@ -62,14 +62,8 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
         onPress: () => {
           navigation.navigate("Home");
         },
-      ]);
-    } else {
-      Alert.alert("Error", "Please upload a floor plan", [
-        {
-          text: "Ok",
-        },
-      ]);
-    }
+      },
+    ]);
   };
 
   const createForm = () => {
