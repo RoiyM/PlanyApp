@@ -4,8 +4,8 @@ import * as Font from "expo-font";
 
 const CustomeTextInput = ({
   placeholder = "",
-  value,
-  onChangeText,
+  value = "",
+  onChangeText = () => {},
   keyboardType = "default",
   editable = true,
   height = 40,
