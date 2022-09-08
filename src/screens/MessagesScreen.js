@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, Image, StyleSheet, View } from "react-native";
 import { db, auth, onSnapshotPro } from "../../config/firebase";
-import { doc } from "firebase/firestore";
+import { doc, collection, getDocs, query } from "firebase/firestore";
 import Message from "../components/Message";
 import noMessages from "../../assets/noMessages.png";
 import CustomText from "../components/CustomText";
 import commonStyles from "../styles/commonStyles";
 
 const MessagesScreen = () => {
-  const [messages, setMessages] = useState([]);
-  const docRef = doc(db, "users", auth.currentUser.uid);
+  const [messages, setMessages] = useState(null);
+  //const path = `users/${auth.currentUser.uid}/messages`;
 
   const getUserMessages = async () => {
     try {
-      onSnapshotPro(docRef, (doc) => {
-        setMessages(doc.data().messages);
-      });
+      onSnapshotPro(
+        query(collection(db, "users/" + auth.currentUser.uid + "/messages")),
+        () => {
+          getDocs(
+            collection(db, "users/" + auth.currentUser.uid + "/messages")
+          ).then((mssg) => {
+            let arr = [];
+            mssg.forEach((data) => {
+              arr.push(data.data());
+            });
+            setMessages(arr);
+          });
+        }
+      );
     } catch (error) {
       console.log(error);
     }

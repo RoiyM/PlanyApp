@@ -23,7 +23,6 @@ const MyInspirationScreen = () => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         setUserInspirationList(docSnap.data().myInspiration);
-        console.log(docSnap.data());
       } else {
         console.log("Document does not exist");
       }

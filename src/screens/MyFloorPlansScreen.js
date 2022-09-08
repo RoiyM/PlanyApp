@@ -6,7 +6,7 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import { doc } from "firebase/firestore";
+import { doc, query, collection, getDocs } from "firebase/firestore";
 import { db, auth, onSnapshotPro } from "../../config/firebase";
 import Logo from "../components/Logo";
 import CustomText from "../components/CustomText";
@@ -18,9 +18,28 @@ const MyFloorPlansScreen = () => {
   const [floorplans, setFloorplans] = useState([]);
   const getMyFloorPlans = async () => {
     try {
-      onSnapshotPro(docRef, (doc) => {
-        setFloorplans(doc.data().floorplanRequirements);
-      });
+      onSnapshotPro(
+        query(
+          collection(
+            db,
+            "users/" + auth.currentUser.uid + "/floorplanRequirements"
+          )
+        ),
+        () => {
+          getDocs(
+            collection(
+              db,
+              "users/" + auth.currentUser.uid + "/floorplanRequirements"
+            )
+          ).then((fllp) => {
+            let arr = [];
+            fllp.forEach((data) => {
+              arr.push(data.data());
+            });
+            setFloorplans(arr);
+          });
+        }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -33,7 +52,7 @@ const MyFloorPlansScreen = () => {
     return floorplans ? (
       floorplans.map((obj, index) => {
         const floorplan = obj.floorplan;
-        const img = { uri: `data:image/png;base64, ${floorplan.photo.base64}` };
+        const img = { uri: `data:image/png;base64, ${floorplan.photo}` };
         //const requirements = obj.requirements;
         return (
           <Image

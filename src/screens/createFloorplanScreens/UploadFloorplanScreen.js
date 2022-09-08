@@ -10,7 +10,7 @@ import {
 import Logo from "../../components/Logo";
 import PlanYButton from "../../components/PlanYButton";
 import * as ImagePicker from "expo-image-picker";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../../../config/firebase";
 import commonStyles from "../../styles/commonStyles";
 import CustomText from "../../components/CustomText";
@@ -33,35 +33,34 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
     });
 
     if (!result.cancelled) {
-      setPhoto(result);
       setMessage("image.png");
+      setPhoto(result.base64);
     }
   };
 
   const submitForm = async () => {
-    if (photo) {
-      const docRef = doc(db, "users", auth.currentUser.uid);
-      const docData = {
-        requirements: createForm(),
-        floorplan: { photo: photo },
-      };
+    const docData = {
+      requirements: createForm(),
+      floorplan: { photo: photo },
+    };
 
-      await updateDoc(docRef, {
-        floorplanRequirements: arrayUnion(docData),
-      });
-      await updateDoc(docRef, {
-        floorplans: arrayUnion(photo),
-      });
-      setAditionalInfo("");
-      setProjectName("");
-      setPhoto(null);
+    addDoc(
+      collection(
+        db,
+        "users/" + auth.currentUser.uid + "/floorplanRequirements"
+      ),
+      docData
+    );
 
-      Alert.alert("Submit", "Submitted successfully", [
-        {
-          text: "Ok",
-          onPress: () => {
-            navigation.navigate("Home");
-          },
+    setAditionalInfo("");
+    setProjectName("");
+    setPhoto(null);
+
+    Alert.alert("Submit", "Submitted successfully", [
+      {
+        text: "Ok",
+        onPress: () => {
+          navigation.navigate("Home");
         },
       ]);
     } else {
