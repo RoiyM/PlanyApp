@@ -23,7 +23,9 @@ const DetailsSecondScreen = ({ route, navigation }) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      contentContainerStyle={{ flex: 1, justifyContent: "space-around" }}
+    >
       <CustomText style={styles.titleText}>
         floor <Logo fontSize={25} /> changes
       </CustomText>
@@ -38,7 +40,8 @@ const DetailsSecondScreen = ({ route, navigation }) => {
           activeColor={planYpink}
           circleSize={10}
         />
-
+      </View>
+      <View>
         <CustomText style={styles.textHeader}>
           Do you plan to renovate the property after buying it?
         </CustomText>
@@ -49,7 +52,8 @@ const DetailsSecondScreen = ({ route, navigation }) => {
           activeColor={planYpink}
           circleSize={10}
         />
-
+      </View>
+      <View>
         <CustomText style={styles.textHeader}>
           What is your renovatin budget?
         </CustomText>
@@ -75,13 +79,9 @@ const DetailsSecondScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   titleText: {
     fontSize: 25,
-    paddingBottom: 30,
-    paddingTop: 10,
   },
   textHeader: {
     textAlign: "left",
-    marginTop: 15,
-    marginBottom: 15,
     marginLeft: 20,
   },
   container: {},

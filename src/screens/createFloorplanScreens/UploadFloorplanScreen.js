@@ -22,6 +22,7 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
   const [projectName, setProjectName] = useState("");
   const [photo, setPhoto] = useState(null);
   const [message, setMessage] = useState("Max File Size 5MB");
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -39,31 +40,40 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
   };
 
   const submitForm = async () => {
-    const docData = {
-      requirements: createForm(),
-      floorplan: { photo: photo },
-    };
+    if (photo) {
+      const docData = {
+        requirements: createForm(),
+        floorplan: { photo: photo },
+      };
 
-    addDoc(
-      collection(
-        db,
-        "users/" + auth.currentUser.uid + "/floorplanRequirements"
-      ),
-      docData
-    );
+      addDoc(
+        collection(
+          db,
+          "users/" + auth.currentUser.uid + "/floorplanRequirements"
+        ),
+        docData
+      );
 
-    setAditionalInfo("");
-    setProjectName("");
-    setPhoto(null);
+      setMessage("Max File Size 5MB");
+      setAditionalInfo("");
+      setProjectName("");
+      setPhoto(null);
 
-    Alert.alert("Submit", "Submitted successfully", [
-      {
-        text: "Ok",
-        onPress: () => {
-          navigation.navigate("Home");
+      Alert.alert("Submit", "Submitted successfully", [
+        {
+          text: "Ok",
+          onPress: () => {
+            navigation.navigate("Home");
+          },
         },
-      },
-    ]);
+      ]);
+    } else {
+      Alert.alert("Error", "Please upload a floor plan", [
+        {
+          text: "Ok",
+        },
+      ]);
+    }
   };
 
   const createForm = () => {

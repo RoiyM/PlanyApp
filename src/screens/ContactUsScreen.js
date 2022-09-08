@@ -37,34 +37,31 @@ const ContactUsScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView>
-        <CustomTextInput
-          titleAbove="Email"
-          editable={false}
-          value={auth.currentUser.email}
-        />
-        <CustomTextInput
-          titleAbove="Subject"
-          value={subject}
-          onChangeText={setSubject}
-        />
-        <CustomTextInput
-          titleAbove="Message"
-          value={message}
-          onChangeText={setMessage}
-          height={400}
-        />
-        <PlanYButton buttonText={"Submit"} onPress={submitMessage} />
-      </ScrollView>
-    </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      <CustomTextInput
+        titleAbove="Email"
+        editable={false}
+        placeholder={auth.currentUser.email}
+      />
+      <CustomTextInput
+        titleAbove="Subject"
+        value={subject}
+        onChangeText={setSubject}
+      />
+      <CustomTextInput
+        titleAbove="Message"
+        value={message}
+        onChangeText={setMessage}
+        height={400}
+      />
+      <PlanYButton buttonText={"Submit"} onPress={submitMessage} />
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "space-around",
   },
 });
