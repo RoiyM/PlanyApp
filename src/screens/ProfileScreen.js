@@ -33,7 +33,7 @@ const ProfileScreen = () => {
     });
 
     if (!result.cancelled) {
-      setProfilePhoto(result);
+      setProfilePhoto(result.base64);
     }
   };
 
@@ -41,7 +41,9 @@ const ProfileScreen = () => {
     try {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        setProfilePhoto(docSnap.data().profilePhoto);
+        if (docSnap.data().profilePhoto != "") {
+          setProfilePhoto(docSnap.data().profilePhoto);
+        }
         setFirstName(docSnap.data().firstName);
         setLastName(docSnap.data().lastName);
         setPhoneNumber(docSnap.data().phoneNumber);
@@ -79,7 +81,7 @@ const ProfileScreen = () => {
           <Image
             source={
               profilePhoto
-                ? { uri: `data:image/png;base64, ${profilePhoto.base64}` }
+                ? { uri: `data:image/png;base64, ${profilePhoto}` }
                 : require("../../assets/userProfile.jpg")
             }
             style={[commonStyles.avatar, { alignSelf: "center" }]}
