@@ -6,6 +6,7 @@ import PlanYButton from "../../components/PlanYButton";
 import { ScrollView } from "react-native-gesture-handler";
 import CustomText from "../../components/CustomText";
 import CustomTextInput from "../../components/CustomTextInput";
+import KeyboardAvoidingWrapper from "../../components/KeyboardAvoidingWrapper";
 var mainChangesArray = [];
 
 const DetailsFirstScreen = ({ navigation }) => {
@@ -52,115 +53,115 @@ const DetailsFirstScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={{ flex: 1, justifyContent: "space-around" }}
-    >
-      <CustomText style={styles.titleText}>
-        floor <Logo fontSize={25} /> changes
-      </CustomText>
-      <View>
-        <CustomText style={styles.textHeader}>
-          What will be the main change you plan to do?
+    <KeyboardAvoidingWrapper ContainerStyle={{ flex: 1, justifyContent: "space-around" }}>
+      <>
+        <CustomText style={styles.titleText}>
+          floor <Logo fontSize={25} /> changes
         </CustomText>
-        <CheckBox
-          title="add a bedroom"
-          checked={addBedroom}
-          onPress={() =>
-            HandleChecking(
-              addBedroom,
-              Object.keys({ addBedroom })[0],
-              setAddBedroom
-            )
-          }
+        <View>
+          <CustomText style={styles.textHeader}>
+            What will be the main change you plan to do?
+          </CustomText>
+          <CheckBox
+            title="add a bedroom"
+            checked={addBedroom}
+            onPress={() =>
+              HandleChecking(
+                addBedroom,
+                Object.keys({ addBedroom })[0],
+                setAddBedroom
+              )
+            }
+          />
+          <CheckBox
+            title="remove a bedroom"
+            checked={removeBedroom}
+            onPress={() =>
+              HandleChecking(
+                removeBedroom,
+                Object.keys({ removeBedroom })[0],
+                setRemoveBedroom
+              )
+            }
+          />
+          <CheckBox
+            title="optimize the shared space (no rooms changes)"
+            checked={optimizeSpace}
+            onPress={() =>
+              HandleChecking(
+                optimizeSpace,
+                Object.keys({ optimizeSpace })[0],
+                setOptimizeSpace
+              )
+            }
+          />
+          <CheckBox
+            title="split the apartment to 2"
+            checked={splitToTwo}
+            onPress={() =>
+              HandleChecking(
+                splitToTwo,
+                Object.keys({ splitToTwo })[0],
+                setSplitToTwo
+              )
+            }
+          />
+          <CheckBox
+            title="add a bathroom"
+            checked={addBathroom}
+            onPress={() =>
+              HandleChecking(
+                addBathroom,
+                Object.keys({ addBathroom })[0],
+                setAddBathroom
+              )
+            }
+          />
+          <CheckBox
+            title="add 1/2 a room"
+            checked={addHalfRoom}
+            onPress={() =>
+              HandleChecking(
+                addHalfRoom,
+                Object.keys({ addHalfRoom })[0],
+                setAddHalfRoom
+              )
+            }
+          />
+          <CheckBox
+            title="plany optimal floor plan for free"
+            checked={planyOptimal}
+            onPress={() =>
+              HandleChecking(
+                planyOptimal,
+                Object.keys({ planyOptimal })[0],
+                setPlanyOptimal
+              )
+            }
+          />
+        </View>
+        <View>
+          <CustomTextInput
+            titleAbove="Other changes:"
+            value={otherChanges}
+            style={styles.textInput}
+            onChangeText={(text) => setOtherChanges(text)}
+          />
+          <CustomTextInput
+            titleAbove="Address:"
+            value={address}
+            style={styles.textInput}
+            onChangeText={(text) => setAddress(text)}
+          />
+        </View>
+        <PlanYButton
+          buttonText={"NEXT"}
+          onPress={() => {
+            HandleNextPress();
+          }}
         />
-        <CheckBox
-          title="remove a bedroom"
-          checked={removeBedroom}
-          onPress={() =>
-            HandleChecking(
-              removeBedroom,
-              Object.keys({ removeBedroom })[0],
-              setRemoveBedroom
-            )
-          }
-        />
-        <CheckBox
-          title="optimize the shared space (no rooms changes)"
-          checked={optimizeSpace}
-          onPress={() =>
-            HandleChecking(
-              optimizeSpace,
-              Object.keys({ optimizeSpace })[0],
-              setOptimizeSpace
-            )
-          }
-        />
-        <CheckBox
-          title="split the apartment to 2"
-          checked={splitToTwo}
-          onPress={() =>
-            HandleChecking(
-              splitToTwo,
-              Object.keys({ splitToTwo })[0],
-              setSplitToTwo
-            )
-          }
-        />
-        <CheckBox
-          title="add a bathroom"
-          checked={addBathroom}
-          onPress={() =>
-            HandleChecking(
-              addBathroom,
-              Object.keys({ addBathroom })[0],
-              setAddBathroom
-            )
-          }
-        />
-        <CheckBox
-          title="add 1/2 a room"
-          checked={addHalfRoom}
-          onPress={() =>
-            HandleChecking(
-              addHalfRoom,
-              Object.keys({ addHalfRoom })[0],
-              setAddHalfRoom
-            )
-          }
-        />
-        <CheckBox
-          title="plany optimal floor plan for free"
-          checked={planyOptimal}
-          onPress={() =>
-            HandleChecking(
-              planyOptimal,
-              Object.keys({ planyOptimal })[0],
-              setPlanyOptimal
-            )
-          }
-        />
-      </View>
-      <View>
-        <CustomTextInput
-          titleAbove="Other changes:"
-          value={otherChanges}
-          style={styles.textInput}
-          onChangeText={(text) => setOtherChanges(text)}
-        />
-        <CustomTextInput
-          titleAbove="Address:"
-          value={address}
-          style={styles.textInput}
-          onChangeText={(text) => setAddress(text)}
-        />
-      </View>
-      <PlanYButton
-        buttonText={"NEXT"}
-        onPress={() => {
-          HandleNextPress();
-        }}
-      />
-    </ScrollView>
+      </>
+    </KeyboardAvoidingWrapper>
   );
 };
 
