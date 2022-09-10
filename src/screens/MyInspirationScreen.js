@@ -5,8 +5,8 @@ import SelectImage from "../components/SelectImage";
 import { inspirationImages } from "../constans/inspirationImages";
 import CustomText from "../components/CustomText";
 import commonStyles from "../styles/commonStyles";
-import { db, auth } from "../../config/firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db, auth, onSnapshotPro } from "../../config/firebase";
+import { doc, collection, getDoc, query, updateDoc } from "firebase/firestore";
 import CustomImage from "../components/CustomImage";
 let userSelection = [];
 
@@ -20,12 +20,9 @@ const MyInspirationScreen = () => {
 
   const getUserInspirationArray = async () => {
     try {
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setUserInspirationList(docSnap.data().myInspiration);
-      } else {
-        console.log("Document does not exist");
-      }
+      onSnapshotPro(docRef, (doc) => {
+        setUserInspirationList(doc.data().myInspiration);
+      });
     } catch (error) {
       console.log(error);
     }
@@ -68,17 +65,14 @@ const MyInspirationScreen = () => {
 
   useEffect(() => {
     getUserInspirationArray();
-
     if (userInspirationList.length === 0) {
       setButtonValue("Submit");
       setTitle(
         "You can share with us what you like from the following pictures"
       );
-      setInspirationListToShow(listOfInspirationChoices());
     } else {
       setButtonValue("Edit");
       setTitle("Your choices:");
-      setInspirationListToShow(listOfUserInspiration());
     }
   }, []);
 
@@ -88,20 +82,26 @@ const MyInspirationScreen = () => {
     });
   };
 
+  const getListToShow = () => {
+    if(buttonValue === "Submit"){
+      return (listOfInspirationChoices());
+    }
+    else{
+      return (listOfUserInspiration());
+    }
+  }
+
   const HandleButtonPress = () => {
     if (buttonValue === "Submit") {
       submitChoices();
-      getUserInspirationArray();
       userSelection = [];
       setButtonValue("Edit");
       setTitle("Your choices:");
-      setInspirationListToShow(listOfUserInspiration());
     } else {
       setButtonValue("Submit");
       setTitle(
         "You can share with us what you like from the following pictures"
       );
-      setInspirationListToShow(listOfInspirationChoices());
     }
   };
 
@@ -110,7 +110,7 @@ const MyInspirationScreen = () => {
       <ScrollView>
         <CustomText style={styles.title}>My inspiration</CustomText>
         <CustomText style={styles.text}> {title} </CustomText>
-        {inspirationListToShow}
+        {getListToShow()}
         <PlanYButton
           buttonText={buttonValue}
           onPress={() => {
