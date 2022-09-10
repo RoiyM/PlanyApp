@@ -14,6 +14,7 @@ import CustomText from "../components/CustomText";
 import { db, auth } from "../../config/firebase";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import commonStyles from "../styles/commonStyles";
+import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 
 const ProfileScreen = () => {
   const [lastName, setLastName] = useState("");
@@ -92,49 +93,51 @@ const ProfileScreen = () => {
   };
 
   return (
-    <View>
-      <ScrollView>
-        <CustomText style={styles.title}>Profile</CustomText>
-        <TouchableOpacity onPress={pickImage}>
-          <Image
-            source={
-              profilePhoto
-                ? { uri: `data:image/png;base64, ${profilePhoto}` }
-                : require("../../assets/userProfile.jpg")
-            }
-            style={[commonStyles.avatar, { alignSelf: "center" }]}
+    <KeyboardAvoidingWrapper ContainerStyle={{}}>
+      <View>
+        <ScrollView>
+          <CustomText style={styles.title}>Profile</CustomText>
+          <TouchableOpacity onPress={pickImage}>
+            <Image
+              source={
+                profilePhoto
+                  ? { uri: `data:image/png;base64, ${profilePhoto}` }
+                  : require("../../assets/userProfile.jpg")
+              }
+              style={[commonStyles.avatar, { alignSelf: "center" }]}
+            />
+          </TouchableOpacity>
+          <CustomTextInput
+            titleAbove="Email"
+            editable={false}
+            placeholder={auth.currentUser.email}
           />
-        </TouchableOpacity>
-        <CustomTextInput
-          titleAbove="Email"
-          editable={false}
-          placeholder={auth.currentUser.email}
-        />
-        <CustomTextInput
-          titleAbove="Phone"
-          keyboardType="numeric"
-          value={phoneNumber}
-          onChangeText={setPhoneNumber}
-          onBlur={checkValidPhoneNumber}
-        />
-        <CustomTextInput
-          titleAbove="First Name"
-          value={firstName}
-          onChangeText={setFirstName}
-        />
-        <CustomTextInput
-          titleAbove="Last Name"
-          value={lastName}
-          onChangeText={setLastName}
-        />
-        {
-          <CustomText style={commonStyles.error}>
-            {validationMessage}
-          </CustomText>
-        }
-        <PlanYButton buttonText={"Update"} onPress={updateUserInfo} />
-      </ScrollView>
-    </View>
+          <CustomTextInput
+            titleAbove="Phone"
+            keyboardType="numeric"
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+            onBlur={checkValidPhoneNumber}
+          />
+          <CustomTextInput
+            titleAbove="First Name"
+            value={firstName}
+            onChangeText={setFirstName}
+          />
+          <CustomTextInput
+            titleAbove="Last Name"
+            value={lastName}
+            onChangeText={setLastName}
+          />
+          {
+            <CustomText style={commonStyles.error}>
+              {validationMessage}
+            </CustomText>
+          }
+          <PlanYButton buttonText={"Update"} onPress={updateUserInfo} />
+        </ScrollView>
+      </View>
+    </KeyboardAvoidingWrapper>
   );
 };
 
