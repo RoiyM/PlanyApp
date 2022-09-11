@@ -3,7 +3,7 @@ const planYpink = "#ff005de6";
 
 export default StyleSheet.create({
   scrollViewContainer: {
-    flex: 1,
+    flexGrow: 1,
   },
   viewContainer: {
     flex: 1,
@@ -15,8 +15,8 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   inner: {
-    padding: 24,
-    //margin: 5,
+    // padding: 24,
+    margin: 24,
     flex: 1,
     justifyContent: "space-around",
   },
@@ -28,8 +28,6 @@ export default StyleSheet.create({
   },
   mainTitle: {
     fontSize: 30,
-    paddingBottom: 30,
-    paddingTop: 10,
   },
   subTitle: {
     fontSize: 25,
@@ -42,6 +40,12 @@ export default StyleSheet.create({
   },
   text: {
     fontSize: 21,
+  },
+  howItWorksText: {
+    fontSize: 21,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 15,
   },
   smallText: {
     fontSize: 18,

@@ -23,7 +23,7 @@ const HowItWorksScreen = () => {
   return (
     <ScrollView contentContainerStyle={commonStyles.scrollViewContainer}>
       <SafeAreaView style={commonStyles.inner}>
-        <CustomText style={commonStyles.text}>
+        <CustomText style={commonStyles.howItWorksText}>
           <Logo fontSize={25} /> will follow the work process of an architect.
           {"\n"}
           Providing professional floor plans according to your needs

@@ -58,7 +58,7 @@ const DetailsFirstScreen = ({ navigation }) => {
     >
       <SafeAreaView style={commonStyles.inner}>
         <CustomText style={commonStyles.mainTitle}>
-          floor <Logo fontSize={25} /> changes
+          floor <Logo /> changes
         </CustomText>
         <View>
           <CustomText style={commonStyles.textHeader}>

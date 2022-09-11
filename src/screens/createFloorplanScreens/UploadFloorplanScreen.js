@@ -112,7 +112,7 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
       <SafeAreaView style={commonStyles.inner}>
         <Spinner visible={loading} textStyle={commonStyles.spinnerTextStyle} />
         <CustomText style={commonStyles.mainTitle}>
-          floor <Logo fontSize={30} /> changes
+          floor <Logo /> changes
         </CustomText>
         <CustomeTextInput
           onChangeText={(text) => setAditionalInfo(text)}
