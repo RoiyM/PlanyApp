@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as ImagePicker from "expo-image-picker";
 import CustomTextInput from "../components/CustomTextInput";
 import PlanYButton from "../components/PlanYButton";
@@ -93,51 +94,49 @@ const ProfileScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingWrapper ContainerStyle={{}}>
-      <View>
-        <ScrollView>
-          <CustomText style={styles.title}>Profile</CustomText>
-          <TouchableOpacity onPress={pickImage}>
-            <Image
-              source={
-                profilePhoto
-                  ? { uri: `data:image/png;base64, ${profilePhoto}` }
-                  : require("../../assets/userProfile.jpg")
-              }
-              style={[commonStyles.avatar, { alignSelf: "center" }]}
-            />
-          </TouchableOpacity>
-          <CustomTextInput
-            titleAbove="Email"
-            editable={false}
-            placeholder={auth.currentUser.email}
+    <KeyboardAwareScrollView>
+      <View style={commonStyles.inner}>
+        <CustomText style={styles.title}>Profile</CustomText>
+        <TouchableOpacity onPress={pickImage}>
+          <Image
+            source={
+              profilePhoto
+                ? { uri: `data:image/png;base64, ${profilePhoto}` }
+                : require("../../assets/userProfile.jpg")
+            }
+            style={[commonStyles.avatar, { alignSelf: "center" }]}
           />
-          <CustomTextInput
-            titleAbove="Phone"
-            keyboardType="numeric"
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
-            onBlur={checkValidPhoneNumber}
-          />
-          <CustomTextInput
-            titleAbove="First Name"
-            value={firstName}
-            onChangeText={setFirstName}
-          />
-          <CustomTextInput
-            titleAbove="Last Name"
-            value={lastName}
-            onChangeText={setLastName}
-          />
-          {
-            <CustomText style={commonStyles.error}>
-              {validationMessage}
-            </CustomText>
-          }
-          <PlanYButton buttonText={"Update"} onPress={updateUserInfo} />
-        </ScrollView>
+        </TouchableOpacity>
+        <CustomTextInput
+          titleAbove="Email"
+          editable={false}
+          placeholder={auth.currentUser.email}
+        />
+        <CustomTextInput
+          titleAbove="Phone"
+          keyboardType="numeric"
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
+          onBlur={checkValidPhoneNumber}
+        />
+        <CustomTextInput
+          titleAbove="First Name"
+          value={firstName}
+          onChangeText={setFirstName}
+        />
+        <CustomTextInput
+          titleAbove="Last Name"
+          value={lastName}
+          onChangeText={setLastName}
+        />
+        {
+          <CustomText style={commonStyles.error}>
+            {validationMessage}
+          </CustomText>
+        }
+        <PlanYButton buttonText={"Update"} onPress={updateUserInfo} />
       </View>
-    </KeyboardAvoidingWrapper>
+    </KeyboardAwareScrollView>
   );
 };
 

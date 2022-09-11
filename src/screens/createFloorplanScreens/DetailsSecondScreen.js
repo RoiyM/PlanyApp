@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import {Alert, View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView,Alert } from "react-native";
 import Logo from "../../components/Logo";
 import PlanYButton from "../../components/PlanYButton";
 import RadioButtonRN from "radio-buttons-react-native";
 import { apartmentOptions } from "../../constans/apartmentOptions";
-import { ScrollView } from "react-native-gesture-handler";
 import CustomText from "../../components/CustomText";
 const planYpink = "#ff005de6";
 
@@ -94,7 +93,6 @@ const styles = StyleSheet.create({
     textAlign: "left",
     marginLeft: 20,
   },
-  container: {},
 });
 
 export default DetailsSecondScreen;

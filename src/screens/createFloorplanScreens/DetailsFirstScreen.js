@@ -3,10 +3,10 @@ import { View, StyleSheet } from "react-native";
 import Logo from "../../components/Logo";
 import CheckBox from "../../components/CheckBox";
 import PlanYButton from "../../components/PlanYButton";
-import { ScrollView } from "react-native-gesture-handler";
 import CustomText from "../../components/CustomText";
 import CustomTextInput from "../../components/CustomTextInput";
-import KeyboardAvoidingWrapper from "../../components/KeyboardAvoidingWrapper";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import commonStyles from "../../styles/commonStyles";
 var mainChangesArray = [];
 
 const DetailsFirstScreen = ({ navigation }) => {
@@ -53,8 +53,8 @@ const DetailsFirstScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingWrapper ContainerStyle={{ flex: 1, justifyContent: "space-around" }}>
-      <>
+    <KeyboardAwareScrollView>
+      <View style={commonStyles.inner}>
         <CustomText style={styles.titleText}>
           floor <Logo fontSize={25} /> changes
         </CustomText>
@@ -160,8 +160,8 @@ const DetailsFirstScreen = ({ navigation }) => {
             HandleNextPress();
           }}
         />
-      </>
-    </KeyboardAvoidingWrapper>
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -172,8 +172,6 @@ const styles = StyleSheet.create({
   textInput: {
     textAlign: "left",
     borderWidth: 0.5,
-    marginLeft: 5,
-    marginRight: 5,
   },
   textHeader: {
     textAlign: "left",
