@@ -15,6 +15,8 @@ import { db, auth } from "../../../config/firebase";
 import commonStyles from "../../styles/commonStyles";
 import CustomText from "../../components/CustomText";
 import CustomeTextInput from "../../components/CustomTextInput";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 const planYpink = "#ff005de6";
 
 const UploadFloorplanScreen = ({ route, navigation }) => {
@@ -90,63 +92,63 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={{ flex: 1, justifyContent: "space-around" }}
-    >
-      <CustomText style={styles.titleText}>
-        floor <Logo fontSize={25} /> changes
-      </CustomText>
-      <CustomeTextInput
-        style={styles.textInput}
-        onChangeText={(text) => setAditionalInfo(text)}
-        placeholder="Is there anything else you want us to know?"
-        value={aditionalInfo}
-      />
-      <CustomeTextInput
-        style={styles.textInput}
-        onChangeText={(text) => setProjectName(text)}
-        placeholder="New plan"
-        value={projectName}
-        titleAbove="You can choose a name for your project here:"
-      />
-      <View>
-        <TouchableOpacity onPress={pickImage} style={styles.button}>
-          <Text style={styles.pinkText}>UPLOAD FLOOR PLAN +</Text>
-        </TouchableOpacity>
-        <Text
-          style={{
-            fontSize: 10,
-            marginLeft: 30,
-            marginTop: 4,
-            fontStyle: "italic",
-          }}
-        >
-          {message}
-        </Text>
-      </View>
-      <View>
-        <Text style={{ width: 230, marginLeft: 20, marginTop: 30 }}>
-          NEED HELP WITH THE UPLOAD? DONT HAVE A PLAN?
-        </Text>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Contact Us");
-          }}
-          style={{ marginBottom: 40 }}
-        >
-          <Text style={{ color: planYpink, marginLeft: 20, marginTop: 5 }}>
-            click here
+    <KeyboardAwareScrollView>
+      <View style={commonStyles.inner}>
+        <CustomText style={styles.titleText}>
+          floor <Logo fontSize={25} /> changes
+        </CustomText>
+        <CustomeTextInput
+          style={styles.textInput}
+          onChangeText={(text) => setAditionalInfo(text)}
+          placeholder="Is there anything else you want us to know?"
+          value={aditionalInfo}
+        />
+        <CustomeTextInput
+          style={styles.textInput}
+          onChangeText={(text) => setProjectName(text)}
+          placeholder="New plan"
+          value={projectName}
+          titleAbove="You can choose a name for your project here:"
+        />
+        <View>
+          <TouchableOpacity onPress={pickImage} style={styles.button}>
+            <Text style={styles.pinkText}>UPLOAD FLOOR PLAN +</Text>
+          </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 10,
+              marginLeft: 30,
+              marginTop: 4,
+              fontStyle: "italic",
+            }}
+          >
+            {message}
           </Text>
-        </TouchableOpacity>
-      </View>
+        </View>
+        <View>
+          <Text style={{ width: 230, marginLeft: 20, marginTop: 30 }}>
+            NEED HELP WITH THE UPLOAD? DONT HAVE A PLAN?
+          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Contact Us");
+            }}
+            style={{ marginBottom: 40 }}
+          >
+            <Text style={{ color: planYpink, marginLeft: 20, marginTop: 5 }}>
+              click here
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-      <PlanYButton
-        buttonText={"SUBMIT"}
-        onPress={() => {
-          submitForm();
-        }}
-      />
-    </ScrollView>
+        <PlanYButton
+          buttonText={"SUBMIT"}
+          onPress={() => {
+            submitForm();
+          }}
+        />
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 

@@ -1,15 +1,10 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Alert, ScrollView } from "react-native";
+import { View, Alert } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import PlanYButton from "../components/PlanYButton";
 import CustomTextInput from "../components/CustomTextInput";
 import { db, auth } from "../../config/firebase";
-import {
-  doc,
-  updateDoc,
-  arrayUnion,
-  collection,
-  addDoc,
-} from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import commonStyles from "../styles/commonStyles";
 
 const ContactUsScreen = () => {
@@ -17,7 +12,6 @@ const ContactUsScreen = () => {
   const [message, setMessage] = useState("");
 
   const submitMessage = async () => {
-    //const docRef = doc(db, "users", auth.currentUser.uid);
     const docData = {
       subject: subject,
       message: message,
@@ -37,33 +31,28 @@ const ContactUsScreen = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <CustomTextInput
-        titleAbove="Email"
-        editable={false}
-        placeholder={auth.currentUser.email}
-      />
-      <CustomTextInput
-        titleAbove="Subject"
-        value={subject}
-        onChangeText={setSubject}
-      />
-      <CustomTextInput
-        titleAbove="Message"
-        value={message}
-        onChangeText={setMessage}
-        height={400}
-      />
-      <PlanYButton buttonText={"Submit"} onPress={submitMessage} />
-    </ScrollView>
+    <KeyboardAwareScrollView>
+      <View style={commonStyles.inner}>
+        <CustomTextInput
+          titleAbove="Email"
+          editable={false}
+          placeholder={auth.currentUser.email}
+        />
+        <CustomTextInput
+          titleAbove="Subject"
+          value={subject}
+          onChangeText={setSubject}
+        />
+        <CustomTextInput
+          titleAbove="Message"
+          value={message}
+          onChangeText={setMessage}
+          height={400}
+        />
+        <PlanYButton buttonText={"Submit"} onPress={submitMessage} />
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "space-around",
-  },
-});
 
 export default ContactUsScreen;

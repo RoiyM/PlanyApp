@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as ImagePicker from "expo-image-picker";
 import CustomTextInput from "../components/CustomTextInput";
 import PlanYButton from "../components/PlanYButton";
@@ -84,8 +85,8 @@ const ProfileScreen = () => {
   };
 
   return (
-    <View>
-      <ScrollView>
+    <KeyboardAwareScrollView>
+      <View style={commonStyles.inner}>
         <CustomText style={styles.title}>Profile</CustomText>
         <TouchableOpacity onPress={pickImage}>
           <Image
@@ -125,8 +126,8 @@ const ProfileScreen = () => {
           </CustomText>
         }
         <PlanYButton buttonText={"Update"} onPress={updateUserInfo} />
-      </ScrollView>
-    </View>
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 
