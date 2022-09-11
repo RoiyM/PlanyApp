@@ -6,14 +6,13 @@ import { inspirationImages } from "../constans/inspirationImages";
 import CustomText from "../components/CustomText";
 import commonStyles from "../styles/commonStyles";
 import { db, auth, onSnapshotPro } from "../../config/firebase";
-import { doc, collection, getDoc, query, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import CustomImage from "../components/CustomImage";
 let userSelection = [];
 
 const MyInspirationScreen = () => {
   const [title, setTitle] = useState("");
   const [userInspirationList, setUserInspirationList] = useState([]);
-  const [inspirationListToShow, setInspirationListToShow] = useState([]);
   const [buttonValue, setButtonValue] = useState("");
 
   const docRef = doc(db, "users", auth.currentUser.uid);
@@ -21,7 +20,12 @@ const MyInspirationScreen = () => {
   const getUserInspirationArray = async () => {
     try {
       onSnapshotPro(docRef, (doc) => {
-        setUserInspirationList(doc.data().myInspiration);
+        const arr = doc.data().myInspiration;
+        setUserInspirationList(arr);
+        if(arr.length !== 0){
+          setButtonValue("Edit");
+          setTitle("Your choices:");
+        }
       });
     } catch (error) {
       console.log(error);
@@ -92,7 +96,13 @@ const MyInspirationScreen = () => {
   }
 
   const HandleButtonPress = () => {
-    if (buttonValue === "Submit") {
+    if(buttonValue === "Submit" && userSelection.length == 0){
+      Alert.alert("Error", "Please choose Images.", [
+        {
+          text: "Ok",
+        },
+      ]);
+    } else if(buttonValue === "Submit") {
       submitChoices();
       userSelection = [];
       setButtonValue("Edit");
