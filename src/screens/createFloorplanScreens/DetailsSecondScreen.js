@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView,Alert } from "react-native";
 import Logo from "../../components/Logo";
 import PlanYButton from "../../components/PlanYButton";
 import RadioButtonRN from "radio-buttons-react-native";
@@ -8,9 +8,9 @@ import CustomText from "../../components/CustomText";
 const planYpink = "#ff005de6";
 
 const DetailsSecondScreen = ({ route, navigation }) => {
-  const [numOfResidents, setNumOfResidents] = useState("");
-  const [isGoingToRenovate, setIsGoingToRenovate] = useState("");
-  const [renovationBudget, setRenovationBudget] = useState("");
+  const [numOfResidents, setNumOfResidents] = useState({label: ''});
+  const [isGoingToRenovate, setIsGoingToRenovate] = useState({label: ''});
+  const [renovationBudget, setRenovationBudget] = useState({label: ''});
 
   const extendForm = () => {
     let formToExtend = route.params;
@@ -67,8 +67,18 @@ const DetailsSecondScreen = ({ route, navigation }) => {
       <PlanYButton
         buttonText={"NEXT"}
         onPress={() => {
-          form = extendForm();
-          navigation.navigate("Upload floorplan screen", form);
+          if( isGoingToRenovate.label == 'no' && renovationBudget.label != '')
+          {
+            Alert.alert("Eror", "You Chose your renovation budget but marked that you not going to renovate.", [
+              {
+                text: "Ok",
+              },
+            ]);
+          }
+          else {
+            form = extendForm();
+            navigation.navigate("Upload floorplan screen", form);
+          }
         }}
       />
     </ScrollView>

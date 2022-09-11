@@ -15,6 +15,7 @@ import CustomText from "../components/CustomText";
 import { db, auth } from "../../config/firebase";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import commonStyles from "../styles/commonStyles";
+import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 
 const ProfileScreen = () => {
   const [lastName, setLastName] = useState("");
@@ -62,22 +63,30 @@ const ProfileScreen = () => {
   }, []);
 
   const updateUserInfo = async () => {
-    const docData = {
-      profilePhoto: profilePhoto,
-      phoneNumber: phoneNumber,
-      firstName: firstName,
-      lastName: lastName,
-    };
-    await updateDoc(docRef, docData);
-    Alert.alert("Update", "successfully updated", [
-      {
-        text: "Ok",
-      },
-    ]);
+    if(phoneNumber.length == 10 || phoneNumber.length == 0){
+      const docData = {
+        profilePhoto: profilePhoto,
+        phoneNumber: phoneNumber,
+        firstName: firstName,
+        lastName: lastName,
+      };
+      await updateDoc(docRef, docData);
+      Alert.alert("Update", "successfully updated", [
+        {
+          text: "Ok",
+        },
+      ]);
+    } else {
+      Alert.alert("Invalid field", "Please enter a valid 10-digit phone number or not at all", [
+        {
+          text: "Ok",
+        },
+      ]);
+    }
   };
 
   const checkValidPhoneNumber = () => {
-    if (phoneNumber.length == 10) {
+    if (phoneNumber.length == 10 || phoneNumber.length == 0) {
       setValidationMessage("");
     } else {
       setValidationMessage("Please enter a valid 10-digit phone number");
