@@ -116,4 +116,7 @@ export default StyleSheet.create({
     marginTop: 30,
     textDecorationLine: "underline",
   },
+  spinnerTextStyle: {
+    color: "#FFF",
+  },
 });

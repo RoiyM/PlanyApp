@@ -9,8 +9,7 @@ import { db, auth } from "../../config/firebase";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import commonStyles from "../styles/commonStyles";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
-import Spinner from 'react-native-loading-spinner-overlay';
-
+import Spinner from "react-native-loading-spinner-overlay";
 
 const ProfileScreen = () => {
   const [lastName, setLastName] = useState("");
@@ -59,9 +58,8 @@ const ProfileScreen = () => {
   }, []);
 
   const updateUserInfo = async () => {
-
-    if(phoneNumber.length == 10 || phoneNumber.length == 0){
-      try{
+    if (phoneNumber.length == 10 || phoneNumber.length == 0) {
+      try {
         const docData = {
           profilePhoto: profilePhoto,
           phoneNumber: phoneNumber,
@@ -76,13 +74,17 @@ const ProfileScreen = () => {
             text: "Ok",
           },
         ]);
-      }catch(e){
+      } catch (e) {
         setLoading(false);
-        Alert.alert("Error", "Couldn't save changes- your profile image is too big.", [
-          {
-            text: "Ok",
-          },
-        ]);
+        Alert.alert(
+          "Error",
+          "Couldn't save changes- your profile image is too big.",
+          [
+            {
+              text: "Ok",
+            },
+          ]
+        );
       }
     } else {
       Alert.alert(
@@ -111,10 +113,7 @@ const ProfileScreen = () => {
     >
       <View style={commonStyles.inner}>
         <CustomText style={commonStyles.mainTitle}>Profile</CustomText>
-      <Spinner
-        visible={loading}
-        textStyle={styles.spinnerTextStyle}
-      />
+        <Spinner visible={loading} textStyle={commonStyles.spinnerTextStyle} />
         <TouchableOpacity onPress={pickImage}>
           <Image
             source={
@@ -157,16 +156,5 @@ const ProfileScreen = () => {
     </KeyboardAwareScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 30,
-    paddingBottom: 30,
-    paddingTop: 10,
-  },
-  spinnerTextStyle: {
-    color: '#FFF',
-  },
-});
 
 export default ProfileScreen;

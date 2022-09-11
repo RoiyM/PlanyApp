@@ -16,7 +16,7 @@ import commonStyles from "../../styles/commonStyles";
 import CustomText from "../../components/CustomText";
 import CustomeTextInput from "../../components/CustomTextInput";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import Spinner from 'react-native-loading-spinner-overlay';
+import Spinner from "react-native-loading-spinner-overlay";
 
 const UploadFloorplanScreen = ({ route, navigation }) => {
   const [aditionalInfo, setAditionalInfo] = useState("");
@@ -43,7 +43,7 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
 
   const submitForm = async () => {
     if (photo) {
-      try{
+      try {
         const docData = {
           requirements: createForm(),
           floorplan: { photo: photo },
@@ -62,7 +62,7 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
         setAditionalInfo("");
         setProjectName("");
         setPhoto(null);
-  
+
         Alert.alert("Submit", "Submitted successfully", [
           {
             text: "Ok",
@@ -71,13 +71,17 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
             },
           },
         ]);
-      }catch(e){
+      } catch (e) {
         setLoading(false);
-        Alert.alert("Error", "Couldn't save changes- your floorplan image is too big.", [
-          {
-            text: "Ok",
-          },
-        ]);
+        Alert.alert(
+          "Error",
+          "Couldn't save changes- your floorplan image is too big.",
+          [
+            {
+              text: "Ok",
+            },
+          ]
+        );
       }
     } else {
       Alert.alert("Error", "Please upload a floor plan", [
@@ -106,10 +110,7 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
       contentContainerStyle={commonStyles.scrollViewContainer}
     >
       <SafeAreaView style={commonStyles.inner}>
-      <Spinner
-        visible={loading}
-        textStyle={styles.spinnerTextStyle}
-      />
+        <Spinner visible={loading} textStyle={commonStyles.spinnerTextStyle} />
         <CustomText style={commonStyles.mainTitle}>
           floor <Logo fontSize={30} /> changes
         </CustomText>
@@ -165,35 +166,5 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
     </KeyboardAwareScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  titleText: {
-    fontSize: 25,
-  },
-  textInput: {
-    padding: 5,
-    borderWidth: 0.5,
-    margin: 20,
-  },
-  textHeader: {
-    textAlign: "left",
-    marginLeft: 20,
-  },
-  pinkText: {
-    color: planYpink,
-    fontSize: 16,
-  },
-  button: {
-    borderColor: "black",
-    borderRadius: 2,
-    borderWidth: 0.8,
-    width: 250,
-    marginLeft: 20,
-    alignItems: "center",
-  },
-  spinnerTextStyle: {
-    color: '#FFF',
-  },
-});
 
 export default UploadFloorplanScreen;
