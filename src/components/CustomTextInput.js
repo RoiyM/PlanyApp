@@ -53,6 +53,7 @@ const styles = (height) =>
     },
     text: {
       fontFamily: "ArielBD",
+      textAlign: "left",
       height,
       margin: 12,
       borderWidth: 1,

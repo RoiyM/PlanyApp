@@ -1,10 +1,11 @@
 import React from "react";
-import { StyleSheet, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import Logo from "../components/Logo";
 import ImageButton from "../components/ImageButton";
-import { floorplanOptions } from "../constans/floorplanOptions";
 import CustomText from "../components/CustomText";
 import commonStyles from "../styles/commonStyles";
+import { floorplanOptions } from "../constans/floorplanOptions";
+import { SafeAreaView } from "react-native";
 
 const CreateFloorplanScreen = ({ navigation }) => {
   const imageButtons = () => {
@@ -20,21 +21,16 @@ const CreateFloorplanScreen = ({ navigation }) => {
     });
   };
   return (
-    <ScrollView>
-      <CustomText style={styles.titleText}>
-        What would you like to re-
-        <Logo fontSize={20} /> ?
-      </CustomText>
-      {imageButtons()}
+    <ScrollView contentContainerStyle={commonStyles.scrollViewContainer}>
+      <SafeAreaView style={commonStyles.inner}>
+        <CustomText style={commonStyles.text}>
+          What would you like to re-
+          <Logo fontSize={21} /> ?
+        </CustomText>
+        {imageButtons()}
+      </SafeAreaView>
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  titleText: {
-    fontSize: 20,
-    padding: 10,
-  },
-});
 
 export default CreateFloorplanScreen;

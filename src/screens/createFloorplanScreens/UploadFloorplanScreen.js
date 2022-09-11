@@ -1,24 +1,22 @@
 import React, { useState } from "react";
 import {
   View,
+  SafeAreaView,
   Text,
   StyleSheet,
   TouchableOpacity,
   Alert,
-  ScrollView,
 } from "react-native";
 import Logo from "../../components/Logo";
 import PlanYButton from "../../components/PlanYButton";
 import * as ImagePicker from "expo-image-picker";
-import { doc, addDoc, collection } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../../../config/firebase";
 import commonStyles from "../../styles/commonStyles";
 import CustomText from "../../components/CustomText";
 import CustomeTextInput from "../../components/CustomTextInput";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Spinner from 'react-native-loading-spinner-overlay';
-
-const planYpink = "#ff005de6";
 
 const UploadFloorplanScreen = ({ route, navigation }) => {
   const [aditionalInfo, setAditionalInfo] = useState("");
@@ -104,31 +102,34 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
   };
 
   return (
-    <KeyboardAwareScrollView>
-      <View style={commonStyles.inner}>
+    <KeyboardAwareScrollView
+      contentContainerStyle={commonStyles.scrollViewContainer}
+    >
+      <SafeAreaView style={commonStyles.inner}>
       <Spinner
         visible={loading}
         textStyle={styles.spinnerTextStyle}
       />
-        <CustomText style={styles.titleText}>
-          floor <Logo fontSize={25} /> changes
+        <CustomText style={commonStyles.mainTitle}>
+          floor <Logo fontSize={30} /> changes
         </CustomText>
         <CustomeTextInput
-          style={styles.textInput}
           onChangeText={(text) => setAditionalInfo(text)}
           placeholder="Is there anything else you want us to know?"
           value={aditionalInfo}
         />
         <CustomeTextInput
-          style={styles.textInput}
           onChangeText={(text) => setProjectName(text)}
           placeholder="New plan"
           value={projectName}
           titleAbove="You can choose a name for your project here:"
         />
         <View>
-          <TouchableOpacity onPress={pickImage} style={styles.button}>
-            <Text style={styles.pinkText}>UPLOAD FLOOR PLAN +</Text>
+          <TouchableOpacity
+            onPress={pickImage}
+            style={commonStyles.uploadButton}
+          >
+            <Text style={commonStyles.pinkText}>UPLOAD FLOOR PLAN +</Text>
           </TouchableOpacity>
           <Text
             style={{
@@ -142,18 +143,15 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
           </Text>
         </View>
         <View>
-          <Text style={{ width: 230, marginLeft: 20, marginTop: 30 }}>
-            NEED HELP WITH THE UPLOAD? DONT HAVE A PLAN?
+          <Text style={commonStyles.needHelpText}>
+            NEED HELP WITH THE UPLOAD?{"\n"}DONT HAVE A PLAN?
           </Text>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Contact Us");
             }}
-            style={{ marginBottom: 40 }}
           >
-            <Text style={{ color: planYpink, marginLeft: 20, marginTop: 5 }}>
-              click here
-            </Text>
+            <Text style={commonStyles.clickHereButton}>click here</Text>
           </TouchableOpacity>
         </View>
 
@@ -163,7 +161,7 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
             submitForm();
           }}
         />
-      </View>
+      </SafeAreaView>
     </KeyboardAwareScrollView>
   );
 };

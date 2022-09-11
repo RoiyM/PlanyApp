@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Alert } from "react-native";
+import { SafeAreaView, Alert } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import PlanYButton from "../components/PlanYButton";
 import CustomTextInput from "../components/CustomTextInput";
@@ -31,8 +31,10 @@ const ContactUsScreen = () => {
   };
 
   return (
-    <KeyboardAwareScrollView>
-      <View style={commonStyles.inner}>
+    <KeyboardAwareScrollView
+      contentContainerStyle={commonStyles.scrollViewContainer}
+    >
+      <SafeAreaView style={commonStyles.inner}>
         <CustomTextInput
           titleAbove="Email"
           editable={false}
@@ -50,7 +52,7 @@ const ContactUsScreen = () => {
           height={400}
         />
         <PlanYButton buttonText={"Submit"} onPress={submitMessage} />
-      </View>
+      </SafeAreaView>
     </KeyboardAwareScrollView>
   );
 };

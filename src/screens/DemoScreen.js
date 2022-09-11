@@ -74,40 +74,35 @@ const DemoScreen = () => {
     }
   }
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={background}
-        resizeMode="stretch"
-        style={styles.image}
-      >
-        <TouchableOpacity onPress={pickImage} style={styles.button}>
-          <CustomText style={styles.button_text}>Load Image</CustomText>
-        </TouchableOpacity>
-        {imageUri && (
-          <Image
-            source={{ uri: imageUri }}
-            style={{ width: 330, height: 330, alignSelf: "center" }}
-          />
-        )}
-        {message && (
-          <CustomText
-            style={{ alignSelf: "center", fontSize: 25, color: "white" }}
-          >
-            {message}
-          </CustomText>
-        )}
-        <TouchableOpacity onPress={analyze} style={styles.button}>
-          <CustomText style={styles.button_text}>Analyze</CustomText>
-        </TouchableOpacity>
-      </ImageBackground>
-    </View>
+    <ImageBackground
+      source={background}
+      resizeMode="stretch"
+      style={styles.image}
+    >
+      <TouchableOpacity onPress={pickImage} style={styles.button}>
+        <CustomText style={styles.button_text}>Load Image</CustomText>
+      </TouchableOpacity>
+      {imageUri && (
+        <Image
+          source={{ uri: imageUri }}
+          style={{ width: 330, height: 330, alignSelf: "center" }}
+        />
+      )}
+      {message && (
+        <CustomText
+          style={{ alignSelf: "center", fontSize: 25, color: "white" }}
+        >
+          {message}
+        </CustomText>
+      )}
+      <TouchableOpacity onPress={analyze} style={styles.button}>
+        <CustomText style={styles.button_text}>Analyze</CustomText>
+      </TouchableOpacity>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   image: {
     flex: 1,
     justifyContent: "center",

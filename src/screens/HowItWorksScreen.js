@@ -1,10 +1,10 @@
 import React from "react";
-import { StyleSheet, ScrollView } from "react-native";
+import { ScrollView, SafeAreaView } from "react-native";
 import Logo from "../components/Logo";
-import { icons } from "../constans/icons";
-import IconDetail from "../components/IconDetail";
 import CustomText from "../components/CustomText";
 import commonStyles from "../styles/commonStyles";
+import IconDetail from "../components/IconDetail";
+import { icons } from "../constans/icons";
 
 const HowItWorksScreen = () => {
   const iconList = () => {
@@ -21,21 +21,17 @@ const HowItWorksScreen = () => {
     });
   };
   return (
-    <ScrollView contentContainerStyle={commonStyles.container}>
-      <CustomText style={styles.text}>
-        <Logo fontSize={25} /> will follow the work process of an architect.
-        Providing professional floor plans according to your needs
-      </CustomText>
-      {iconList()}
+    <ScrollView contentContainerStyle={commonStyles.scrollViewContainer}>
+      <SafeAreaView style={commonStyles.inner}>
+        <CustomText style={commonStyles.text}>
+          <Logo fontSize={25} /> will follow the work process of an architect.
+          {"\n"}
+          Providing professional floor plans according to your needs
+        </CustomText>
+        {iconList()}
+      </SafeAreaView>
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-    margin: 20,
-  },
-});
 
 export default HowItWorksScreen;

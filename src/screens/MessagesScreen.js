@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, Image, StyleSheet, View } from "react-native";
+import { ScrollView, Image, View } from "react-native";
 import { db, auth, onSnapshotPro } from "../../config/firebase";
-import { doc, collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import Message from "../components/Message";
 import noMessages from "../../assets/noMessages.png";
 import CustomText from "../components/CustomText";
@@ -9,7 +9,6 @@ import commonStyles from "../styles/commonStyles";
 
 const MessagesScreen = () => {
   const [messages, setMessages] = useState([]);
-  //const path = `users/${auth.currentUser.uid}/messages`;
 
   const getUserMessages = async () => {
     try {
@@ -37,7 +36,7 @@ const MessagesScreen = () => {
   }, []);
 
   const getMessages = () => {
-    return messages.length !=0 ? (
+    return messages.length != 0 ? (
       messages.map((message, index) => {
         return (
           <Message
@@ -48,38 +47,18 @@ const MessagesScreen = () => {
         );
       })
     ) : (
-      <View style={styles.imageContainer}>
-        <Image source={noMessages} style={styles.image} />
+      <View style={commonStyles.imageContainer}>
+        <Image source={noMessages} style={commonStyles.image} />
       </View>
     );
   };
 
   return (
     <View>
-      <CustomText style={styles.title}>My messages</CustomText>
+      <CustomText style={commonStyles.mainTitle}>My messages</CustomText>
       <ScrollView>{getMessages()}</ScrollView>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  imageContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  image: {
-    width: 300,
-    height: 300,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 30,
-    paddingBottom: 30,
-    paddingTop: 10,
-  },
-});
 
 export default MessagesScreen;

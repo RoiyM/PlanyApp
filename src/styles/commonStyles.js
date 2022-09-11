@@ -1,11 +1,22 @@
 import { StyleSheet } from "react-native";
+const planYpink = "#ff005de6";
 
 export default StyleSheet.create({
+  scrollViewContainer: {
+    flex: 1,
+  },
+  viewContainer: {
+    flex: 1,
+    justifyContent: "space-around",
+  },
   container: {
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
   inner: {
     padding: 24,
+    //margin: 5,
     flex: 1,
     justifyContent: "space-around",
   },
@@ -15,12 +26,18 @@ export default StyleSheet.create({
     borderRadius: 60,
     marginBottom: 10,
   },
-  title: {
+  mainTitle: {
     fontSize: 30,
     paddingBottom: 30,
     paddingTop: 10,
   },
+  subTitle: {
+    fontSize: 25,
+    paddingBottom: 20,
+    paddingTop: 10,
+  },
   error: {
+    marginTop: 10,
     color: "red",
   },
   text: {
@@ -29,18 +46,74 @@ export default StyleSheet.create({
   smallText: {
     fontSize: 18,
   },
-
-  image: {
-    alignSelf: "center",
-  },
   fullName: {
     fontSize: 20,
     paddingTop: 10,
   },
-  text: {
-    fontSize: 16,
+  paragraph: {
+    fontSize: 17,
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 20,
+  },
+  textHeader: {
+    textAlign: "left",
+    marginBottom: 15,
+    fontWeight: "600",
+    marginLeft: 20,
+  },
+  textInput: {
+    padding: 5,
+    borderWidth: 0.5,
+    margin: 20,
+  },
+  pinkText: {
+    color: planYpink,
+    fontSize: 16,
+  },
+  uploadButton: {
+    borderColor: "black",
+    borderRadius: 2,
+    borderWidth: 0.8,
+    width: 250,
+    marginLeft: 20,
+    alignItems: "center",
+  },
+  clickHereButton: {
+    color: planYpink,
+    marginLeft: 20,
+    marginTop: 5,
+  },
+  needHelpText: {
+    marginLeft: 20,
+  },
+  image: {
+    width: 320,
+    height: 320,
+    alignSelf: "center",
+  },
+  imageContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  input: {
+    // width: 9000,
+    height: 40,
+    margin: 12,
+    padding: 10,
+  },
+  containerInput: {
+    marginTop: 10,
+    width: 300,
+  },
+  textSign: {
+    marginTop: 5,
+    fontSize: 17,
+  },
+  textButton: {
+    color: planYpink,
+    marginTop: 30,
+    textDecorationLine: "underline",
   },
 });
