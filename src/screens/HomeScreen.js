@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native";
 import Logo from "../components/Logo";
 import ImageSwapper from "../components/ImageSwapper";
 import PlanYButton from "../components/PlanYButton";
@@ -10,9 +10,9 @@ const planYpink = "#ff005de6";
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <View style={commonStyles.container}>
+    <SafeAreaView style={commonStyles.viewContainer}>
       <Logo />
-      <CustomText style={styles.text}>
+      <CustomText style={commonStyles.text}>
         New{" "}
         <CustomText style={{ color: planYpink }}>
           floor plans options
@@ -28,24 +28,15 @@ const HomeScreen = ({ navigation }) => {
         }}
       />
       <ImageSwapper />
-      <CustomText style={styles.text}>
+      <CustomText style={commonStyles.text}>
         <Logo fontSize={21} />
         ourself - architecture platform
       </CustomText>
-      <CustomText style={styles.smallText}>
+      <CustomText style={commonStyles.smallText}>
         Get architectural services at a click of a button!
       </CustomText>
-    </View>
+    </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 21,
-  },
-  smallText: {
-    fontSize: 18,
-  },
-});
 
 export default HomeScreen;

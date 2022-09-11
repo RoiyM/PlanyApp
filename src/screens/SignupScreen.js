@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   StyleSheet,
   View,
+  SafeAreaView,
   TouchableOpacity,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -13,7 +14,7 @@ import { signupAndAddUserToDB } from "../../config/firebase";
 import Logo from "../components/Logo";
 import PlanYButton from "../components/PlanYButton";
 import CustomText from "../components/CustomText";
-const planYpink = "#ff005de6";
+import commonStyles from "../styles/commonStyles";
 
 const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -42,23 +43,23 @@ const SignUpScreen = ({ navigation }) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
+      style={commonStyles.container}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.inner}>
+        <SafeAreaView style={commonStyles.inner}>
           <Logo />
           <Input
             placeholder="Email"
-            containerStyle={styles.containerInput}
-            style={styles.input}
+            containerStyle={commonStyles.containerInput}
+            style={commonStyles.input}
             value={email}
             onChangeText={(text) => setEmail(text)}
             leftIcon={<Icon name="envelope" size={16} />}
           />
           <Input
             placeholder="Password"
-            containerStyle={styles.containerInput}
-            style={styles.input}
+            containerStyle={commonStyles.containerInput}
+            style={commonStyles.input}
             value={password}
             onChangeText={(value) => validateAndSet(value, setPassword)}
             secureTextEntry
@@ -66,63 +67,35 @@ const SignUpScreen = ({ navigation }) => {
           />
           <Input
             placeholder="confirm password"
-            containerStyle={styles.containerInput}
-            style={styles.input}
+            containerStyle={commonStyles.containerInput}
+            style={commonStyles.input}
             value={confirmPassword}
             onChangeText={(value) => validateAndSet(value, setConfirmPassword)}
             leftIcon={<Icon name="key" size={16} />}
             secureTextEntry
             onBlur={() => checkPassword(password, confirmPassword)}
           />
-          {<CustomText style={styles.error}>{validationMessage}</CustomText>}
+          {
+            <CustomText style={commonStyles.error}>
+              {validationMessage}
+            </CustomText>
+          }
           <PlanYButton buttonText={"Sign up"} onPress={createAccount} />
           <View>
-            <CustomText style={styles.text}>
+            <CustomText style={commonStyles.textSign}>
               Already have an account?
               <TouchableOpacity onPress={() => navigation.navigate("Sign In")}>
-                <CustomText style={styles.textButton}> Login here</CustomText>
+                <CustomText style={commonStyles.textButton}>
+                  {" "}
+                  Login here
+                </CustomText>
               </TouchableOpacity>
             </CustomText>
           </View>
-        </View>
+        </SafeAreaView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  inner: {
-    padding: 24,
-    flex: 1,
-    justifyContent: "space-around",
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    padding: 10,
-  },
-  containerInput: {
-    marginTop: 10,
-    width: 300,
-  },
-  error: {
-    marginTop: 10,
-    color: "red",
-  },
-  text: {
-    marginTop: 5,
-    fontSize: 17,
-  },
-  textButton: {
-    color: planYpink,
-    marginTop: 30,
-    textDecorationLine: "underline",
-  },
-});
 
 export default SignUpScreen;

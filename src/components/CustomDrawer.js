@@ -65,20 +65,6 @@ const CustomDrawer = (props) => {
         </View>
       </DrawerContentScrollView>
       <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: "#ccc" }}>
-        <TouchableOpacity onPress={() => {}} style={{ paddingVertical: 15 }}>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Ionicons name="share-social-outline" size={22} color="black" />
-            <CustomText
-              style={{
-                fontSize: 15,
-                marginLeft: 5,
-                color: "black",
-              }}
-            >
-              Tell a Friend
-            </CustomText>
-          </View>
-        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => signOutProxy(auth)}
           style={{ paddingVertical: 15 }}

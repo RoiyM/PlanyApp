@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Alert,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, ScrollView, Alert, TouchableOpacity, Image } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as ImagePicker from "expo-image-picker";
 import CustomTextInput from "../components/CustomTextInput";
@@ -63,7 +56,7 @@ const ProfileScreen = () => {
   }, []);
 
   const updateUserInfo = async () => {
-    if(phoneNumber.length == 10 || phoneNumber.length == 0){
+    if (phoneNumber.length == 10 || phoneNumber.length == 0) {
       const docData = {
         profilePhoto: profilePhoto,
         phoneNumber: phoneNumber,
@@ -77,11 +70,15 @@ const ProfileScreen = () => {
         },
       ]);
     } else {
-      Alert.alert("Invalid field", "Please enter a valid 10-digit phone number or not at all", [
-        {
-          text: "Ok",
-        },
-      ]);
+      Alert.alert(
+        "Invalid field",
+        "Please enter a valid 10-digit phone number or not at all",
+        [
+          {
+            text: "Ok",
+          },
+        ]
+      );
     }
   };
 
@@ -94,9 +91,11 @@ const ProfileScreen = () => {
   };
 
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView
+      contentContainerStyle={commonStyles.scrollViewContainer}
+    >
       <View style={commonStyles.inner}>
-        <CustomText style={styles.title}>Profile</CustomText>
+        <CustomText style={commonStyles.mainTitle}>Profile</CustomText>
         <TouchableOpacity onPress={pickImage}>
           <Image
             source={
@@ -139,13 +138,5 @@ const ProfileScreen = () => {
     </KeyboardAwareScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 30,
-    paddingBottom: 30,
-    paddingTop: 10,
-  },
-});
 
 export default ProfileScreen;

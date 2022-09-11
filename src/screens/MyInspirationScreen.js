@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, StyleSheet, Alert } from "react-native";
+import { ScrollView } from "react-native";
 import PlanYButton from "../components/PlanYButton";
 import SelectImage from "../components/SelectImage";
 import { inspirationImages } from "../constans/inspirationImages";
 import CustomText from "../components/CustomText";
 import commonStyles from "../styles/commonStyles";
 import { db, auth, onSnapshotPro } from "../../config/firebase";
-import { doc, collection, getDoc, query, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import CustomImage from "../components/CustomImage";
 let userSelection = [];
 
@@ -47,7 +47,7 @@ const MyInspirationScreen = () => {
         <CustomImage
           key={imageName}
           imageName={imageName}
-          style={styles.image}
+          style={commonStyles.image}
         />
       );
     });
@@ -83,13 +83,12 @@ const MyInspirationScreen = () => {
   };
 
   const getListToShow = () => {
-    if(buttonValue === "Submit"){
-      return (listOfInspirationChoices());
+    if (buttonValue === "Submit") {
+      return listOfInspirationChoices();
+    } else {
+      return listOfUserInspiration();
     }
-    else{
-      return (listOfUserInspiration());
-    }
-  }
+  };
 
   const HandleButtonPress = () => {
     if (buttonValue === "Submit") {
@@ -106,34 +105,18 @@ const MyInspirationScreen = () => {
   };
 
   return (
-    <View style={commonStyles.container}>
-      <ScrollView>
-        <CustomText style={styles.title}>My inspiration</CustomText>
-        <CustomText style={styles.text}> {title} </CustomText>
-        {getListToShow()}
-        <PlanYButton
-          buttonText={buttonValue}
-          onPress={() => {
-            HandleButtonPress();
-          }}
-        />
-      </ScrollView>
-    </View>
+    <ScrollView>
+      <CustomText style={commonStyles.mainTitle}>My inspiration</CustomText>
+      <CustomText style={commonStyles.paragraph}> {title} </CustomText>
+      {getListToShow()}
+      <PlanYButton
+        buttonText={buttonValue}
+        onPress={() => {
+          HandleButtonPress();
+        }}
+      />
+    </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 30,
-    paddingBottom: 30,
-    paddingTop: 10,
-  },
-  text: {
-    fontSize: 17,
-    paddingBottom: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
-});
 
 export default MyInspirationScreen;

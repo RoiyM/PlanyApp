@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, SafeAreaView } from "react-native";
 import Logo from "../../components/Logo";
 import CheckBox from "../../components/CheckBox";
 import PlanYButton from "../../components/PlanYButton";
@@ -53,13 +53,15 @@ const DetailsFirstScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAwareScrollView>
-      <View style={commonStyles.inner}>
-        <CustomText style={styles.titleText}>
+    <KeyboardAwareScrollView
+      contentContainerStyle={commonStyles.scrollViewContainer}
+    >
+      <SafeAreaView style={commonStyles.inner}>
+        <CustomText style={commonStyles.mainTitle}>
           floor <Logo fontSize={25} /> changes
         </CustomText>
         <View>
-          <CustomText style={styles.textHeader}>
+          <CustomText style={commonStyles.textHeader}>
             What will be the main change you plan to do?
           </CustomText>
           <CheckBox
@@ -144,13 +146,11 @@ const DetailsFirstScreen = ({ navigation }) => {
           <CustomTextInput
             titleAbove="Other changes:"
             value={otherChanges}
-            style={styles.textInput}
             onChangeText={(text) => setOtherChanges(text)}
           />
           <CustomTextInput
             titleAbove="Address:"
             value={address}
-            style={styles.textInput}
             onChangeText={(text) => setAddress(text)}
           />
         </View>
@@ -160,26 +160,9 @@ const DetailsFirstScreen = ({ navigation }) => {
             HandleNextPress();
           }}
         />
-      </View>
+      </SafeAreaView>
     </KeyboardAwareScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  titleText: {
-    fontSize: 25,
-  },
-  textInput: {
-    textAlign: "left",
-    borderWidth: 0.5,
-  },
-  textHeader: {
-    textAlign: "left",
-    marginTop: 15,
-    marginBottom: 15,
-    fontWeight: "600",
-    marginLeft: 5,
-  },
-});
 
 export default DetailsFirstScreen;
