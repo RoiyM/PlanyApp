@@ -49,7 +49,7 @@ const MyFloorPlansScreen = () => {
   }, []);
 
   const list = () => {
-    return floorplans ? (
+    return floorplans.length != 0 ? (
       floorplans.map((obj, index) => {
         const floorplan = obj.floorplan;
         const img = { uri: `data:image/png;base64, ${floorplan.photo}` };
