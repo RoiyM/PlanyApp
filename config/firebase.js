@@ -40,7 +40,7 @@ const signupAndAddUserToDB = async (email, password) => {
     lastName: "",
     profilePhoto: "",
     phoneNumber: "",
-    MyInspiration: [],
+    myInspiration: [],
   });
 
   return res;

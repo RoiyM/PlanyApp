@@ -9,6 +9,8 @@ import { db, auth } from "../../config/firebase";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import commonStyles from "../styles/commonStyles";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
+import Spinner from 'react-native-loading-spinner-overlay';
+
 
 const ProfileScreen = () => {
   const [lastName, setLastName] = useState("");
@@ -16,6 +18,7 @@ const ProfileScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [validationMessage, setValidationMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const docRef = doc(db, "users", auth.currentUser.uid);
 
   const pickImage = async () => {
@@ -56,19 +59,31 @@ const ProfileScreen = () => {
   }, []);
 
   const updateUserInfo = async () => {
-    if (phoneNumber.length == 10 || phoneNumber.length == 0) {
-      const docData = {
-        profilePhoto: profilePhoto,
-        phoneNumber: phoneNumber,
-        firstName: firstName,
-        lastName: lastName,
-      };
-      await updateDoc(docRef, docData);
-      Alert.alert("Update", "successfully updated", [
-        {
-          text: "Ok",
-        },
-      ]);
+
+    if(phoneNumber.length == 10 || phoneNumber.length == 0){
+      try{
+        const docData = {
+          profilePhoto: profilePhoto,
+          phoneNumber: phoneNumber,
+          firstName: firstName,
+          lastName: lastName,
+        };
+        setLoading(true);
+        await updateDoc(docRef, docData);
+        setLoading(false);
+        Alert.alert("Update", "successfully updated", [
+          {
+            text: "Ok",
+          },
+        ]);
+      }catch(e){
+        setLoading(false);
+        Alert.alert("Error", "Couldn't save changes- your profile image is too big.", [
+          {
+            text: "Ok",
+          },
+        ]);
+      }
     } else {
       Alert.alert(
         "Invalid field",
@@ -96,6 +111,10 @@ const ProfileScreen = () => {
     >
       <View style={commonStyles.inner}>
         <CustomText style={commonStyles.mainTitle}>Profile</CustomText>
+      <Spinner
+        visible={loading}
+        textStyle={styles.spinnerTextStyle}
+      />
         <TouchableOpacity onPress={pickImage}>
           <Image
             source={
@@ -138,5 +157,16 @@ const ProfileScreen = () => {
     </KeyboardAwareScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 30,
+    paddingBottom: 30,
+    paddingTop: 10,
+  },
+  spinnerTextStyle: {
+    color: '#FFF',
+  },
+});
 
 export default ProfileScreen;

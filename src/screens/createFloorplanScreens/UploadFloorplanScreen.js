@@ -16,12 +16,14 @@ import commonStyles from "../../styles/commonStyles";
 import CustomText from "../../components/CustomText";
 import CustomeTextInput from "../../components/CustomTextInput";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const UploadFloorplanScreen = ({ route, navigation }) => {
   const [aditionalInfo, setAditionalInfo] = useState("");
   const [projectName, setProjectName] = useState("");
   const [photo, setPhoto] = useState(null);
   const [message, setMessage] = useState("Max File Size 5MB");
+  const [loading, setLoading] = useState(false);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -41,32 +43,42 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
 
   const submitForm = async () => {
     if (photo) {
-      const docData = {
-        requirements: createForm(),
-        floorplan: { photo: photo },
-      };
+      try{
+        const docData = {
+          requirements: createForm(),
+          floorplan: { photo: photo },
+        };
+        setLoading(true);
+        await addDoc(
+          collection(
+            db,
+            "users/" + auth.currentUser.uid + "/floorplanRequirements"
+          ),
+          docData
+        );
+        setLoading(false);
 
-      addDoc(
-        collection(
-          db,
-          "users/" + auth.currentUser.uid + "/floorplanRequirements"
-        ),
-        docData
-      );
-
-      setMessage("Max File Size 5MB");
-      setAditionalInfo("");
-      setProjectName("");
-      setPhoto(null);
-
-      Alert.alert("Submit", "Submitted successfully", [
-        {
-          text: "Ok",
-          onPress: () => {
-            navigation.navigate("Home");
+        setMessage("Max File Size 5MB");
+        setAditionalInfo("");
+        setProjectName("");
+        setPhoto(null);
+  
+        Alert.alert("Submit", "Submitted successfully", [
+          {
+            text: "Ok",
+            onPress: () => {
+              navigation.navigate("Home");
+            },
           },
-        },
-      ]);
+        ]);
+      }catch(e){
+        setLoading(false);
+        Alert.alert("Error", "Couldn't save changes- your floorplan image is too big.", [
+          {
+            text: "Ok",
+          },
+        ]);
+      }
     } else {
       Alert.alert("Error", "Please upload a floor plan", [
         {
@@ -94,6 +106,10 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
       contentContainerStyle={commonStyles.scrollViewContainer}
     >
       <SafeAreaView style={commonStyles.inner}>
+      <Spinner
+        visible={loading}
+        textStyle={styles.spinnerTextStyle}
+      />
         <CustomText style={commonStyles.mainTitle}>
           floor <Logo fontSize={30} /> changes
         </CustomText>
@@ -150,6 +166,34 @@ const UploadFloorplanScreen = ({ route, navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  titleText: {
+    fontSize: 25,
+  },
+  textInput: {
+    padding: 5,
+    borderWidth: 0.5,
+    margin: 20,
+  },
+  textHeader: {
+    textAlign: "left",
+    marginLeft: 20,
+  },
+  pinkText: {
+    color: planYpink,
+    fontSize: 16,
+  },
+  button: {
+    borderColor: "black",
+    borderRadius: 2,
+    borderWidth: 0.8,
+    width: 250,
+    marginLeft: 20,
+    alignItems: "center",
+  },
+  spinnerTextStyle: {
+    color: '#FFF',
+  },
+});
 
 export default UploadFloorplanScreen;
