@@ -8,7 +8,7 @@ import CustomText from "../components/CustomText";
 import commonStyles from "../styles/commonStyles";
 
 const MessagesScreen = () => {
-  const [messages, setMessages] = useState(null);
+  const [messages, setMessages] = useState([]);
   //const path = `users/${auth.currentUser.uid}/messages`;
 
   const getUserMessages = async () => {
@@ -37,7 +37,7 @@ const MessagesScreen = () => {
   }, []);
 
   const getMessages = () => {
-    return messages ? (
+    return messages.length !=0 ? (
       messages.map((message, index) => {
         return (
           <Message
